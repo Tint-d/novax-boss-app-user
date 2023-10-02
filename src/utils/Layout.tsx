@@ -1,4 +1,4 @@
-import { ChildrenType } from "../typing/type";
+import { ChildrenType } from "../typings/type";
 import Navbar from "./Navbar";
 
 const Layout = ({ children }: ChildrenType) => {
