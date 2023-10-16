@@ -6,6 +6,7 @@ const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
+const ForgetPassword = lazy(() => import("../pages/ForgetPassword"));
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -38,6 +39,14 @@ const Routes = () => {
       element: (
         <Suspense fallback={<Fallback />}>
           <Register />
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.forget_password,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <ForgetPassword />
         </Suspense>
       ),
     },
