@@ -3,5 +3,8 @@ export const paths = {
   business: "/business",
   login: "/login",
   register: "/register",
+  businessForm: "/businessForm",
+  detail: "/detail",
+  search: "/search",
   forget_password: "/forget_password",
 };

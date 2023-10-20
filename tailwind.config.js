@@ -18,7 +18,7 @@ export default {
         title: "25px",
       },
       fontFamily: {
-        engFont: ["Josefin Sans", "sans-serif"],
+        engFont: ["Roboto", "sans-serif"],
         myanmarFont: ["Padauk", "sans-serif"],
       },
     },

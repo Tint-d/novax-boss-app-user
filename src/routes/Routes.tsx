@@ -2,10 +2,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { paths } from "./path";
 import { lazy, Suspense } from "react";
 import Fallback from "../utils/Fallback";
+import Layout from "../utils/Layout";
+import Search from "../pages/Search";
 const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
+const BusinessForm = lazy(() => import("../pages/BusinessForm"));
+const Detail = lazy(() => import("../pages/Detail"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"));
 
 const Routes = () => {
@@ -14,7 +18,9 @@ const Routes = () => {
       path: paths.home,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Home />
+          <Layout>
+            <Home />
+          </Layout>
         </Suspense>
       ),
     },
@@ -22,7 +28,9 @@ const Routes = () => {
       path: paths.business,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Business />
+          <Layout>
+            <Business />
+          </Layout>
         </Suspense>
       ),
     },
@@ -43,13 +51,37 @@ const Routes = () => {
       ),
     },
     {
-      path: paths.forget_password,
+      path: paths.businessForm,
       element: (
         <Suspense fallback={<Fallback />}>
-          <ForgetPassword />
+          <BusinessForm />
         </Suspense>
       ),
     },
+    {
+      path: paths.detail,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Detail />
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.search,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Layout>
+            <Search />
+          </Layout>
+      },
+      {
+        path: paths.forget_password,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <ForgetPassword />
+          </Suspense>
+        ),
+      },
   ]);
 
   return <RouterProvider router={router} />;
