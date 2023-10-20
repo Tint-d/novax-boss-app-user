@@ -1,5 +1,11 @@
+import HomeBusiness from "../Component/Home/HomeBusiness";
+
 const Business = () => {
-  return <div>Business</div>;
+  return (
+    <div className=" bg-[#0e1217] flex justify-center items-center min-h-screen">
+      <HomeBusiness />
+    </div>
+  );
 };
 
 export default Business;
