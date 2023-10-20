@@ -10,6 +10,8 @@ const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const BusinessForm = lazy(() => import("../pages/BusinessForm"));
 const Detail = lazy(() => import("../pages/Detail"));
+const ForgetPassword = lazy(() => import("../pages/ForgetPassword"));
+
 const Routes = () => {
   const router = createBrowserRouter([
     {
@@ -71,9 +73,15 @@ const Routes = () => {
           <Layout>
             <Search />
           </Layout>
-        </Suspense>
-      ),
-    },
+      },
+      {
+        path: paths.forget_password,
+        element: (
+          <Suspense fallback={<Fallback />}>
+            <ForgetPassword />
+          </Suspense>
+        ),
+      },
   ]);
 
   return <RouterProvider router={router} />;

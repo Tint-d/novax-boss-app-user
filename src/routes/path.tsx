@@ -6,4 +6,5 @@ export const paths = {
   businessForm: "/businessForm",
   detail: "/detail",
   search: "/search",
+  forget_password: "/forget_password",
 };
