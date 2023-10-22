@@ -1,19 +1,29 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MainCategoryType } from "../../typings/type";
+import { BossType, MainCategoryType } from "../../typings/type";
 // import { CategoryType } from "../../utils/Navbar";
 
-export const businessAddress = createApi({
+interface BusinessAddressResponse {
+  bossAddresses: {
+    data: BossType[];
+    next_page_url: string | null;
+  };
+}
+
+export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
   tagTypes: ["businessAddress"],
   baseQuery: fetchBaseQuery({ baseUrl: "https://novax-mm.com/api/v1/user" }),
   endpoints: (builder) => ({
-    getBusinessAddress: builder.query<{}[], void>({
-      query: () => `/boss-address/list`,
+    getBusinessAddress: builder.query<
+      BusinessAddressResponse,
+      { page: number }
+    >({
+      query: ({ page }) => `/boss-address/list?page=${page}`,
     }),
     getCategories: builder.query<MainCategoryType, void>({
       query: () => `categories/list?address_count=true`,
     }),
-    searchCategories: builder.query<string, {}[]>({
+    searchCategories: builder.query<any, any>({
       query: (name: string) => `/boss-address/list?search=${name}`,
     }),
     getCountry: builder.query<{}[], void>({
@@ -27,4 +37,4 @@ export const {
   useGetCategoriesQuery,
   useSearchCategoriesQuery,
   useGetCountryQuery,
-} = businessAddress;
+} = businessAddressApi;

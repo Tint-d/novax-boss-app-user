@@ -1,21 +1,9 @@
 import { BiLogoFacebookCircle } from "react-icons/bi";
-import { useUserFacebookLoginQuery } from "../../redux/api/facebookApi";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+// import { useUserFacebookLoginQuery } from "../../redux/api/facebookApi";
+// import { useEffect, useState } from "react";
+// import { useLocation } from "react-router-dom";
 
 const FacebookLogin = () => {
-  const [data, setData] = useState();
-
-  const fetchLogin = async () => {
-    const res = await fetch("abc");
-    const data = await res.json();
-    setData(data);
-    console.log(data);
-  };
-
-  useEffect(() => {
-    fetchLogin();
-  }, []);
   return (
     <>
       <button

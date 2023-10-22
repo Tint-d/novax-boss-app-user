@@ -7,9 +7,9 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AiOutlineSearch, AiFillEye } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
-import { useGetCategoriesQuery } from "../redux/api/BusinessAddress";
+import { useGetCategoriesQuery } from "../redux/api/BusinessAddressApi";
 import { CategoryType } from "../typings/type";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { inputDefaultStyle } from "../constant/defaultStyle";
 import "./nav.css";
 const Navbar = () => {
@@ -22,6 +22,13 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const categories: undefined | CategoryType[] = data?.categories;
+
+  // console.log(categories, "in nav");
+
+  const filteredCategories = categories?.filter((category) =>
+    category.category_name.toLowerCase().includes(search)
+  );
+
   return (
     <div className="bg-[#0e1217] border-b-[1px] border-[#A8B3CF22]">
       <div className="flex md:gap-x-5 lg:gap-x-10 flex-wrap py-2 gap-1 justify-between items-center px-2 md:px-5">
@@ -43,19 +50,27 @@ const Navbar = () => {
         </h2>
         <div className=" md:flex hidden justify-end w-4/12 gap-x-20 items-center">
           <NavLink to="/">
-            <h2 className={`text-[20px] text-white`}>Home</h2>
+            <h2 className={`text-[15px] text-white`}>Home</h2>
+          </NavLink>
+          <NavLink to={"/business"}>
+            <h2 className={`text-[15px] text-white`}>Business</h2>
           </NavLink>
           <div className="flex justify-between items-center gap-3">
-            <NavLink to={"/business"}>
-              <h2 className={`text-[20px] text-white`}>Business</h2>
-            </NavLink>
+            <div
+              onClick={() => {
+                setSearch("");
+                setNavHide(!navhide);
+              }}
+              className=" flex gap-2 cursor-pointer"
+            >
+              <h2 className={`text-[15px] text-white`}>Business Type</h2>
 
-            <MdKeyboardArrowDown
-              onClick={() => setNavHide(!navhide)}
-              className={`text-[24px] ${
-                true ? "text-[#DCA715]" : "text-white"
-              }  `}
-            />
+              <MdKeyboardArrowDown
+                className={`text-[24px] cursor-pointer ${
+                  true ? "text-[#DCA715]" : "text-white"
+                }  `}
+              />
+            </div>
           </div>
         </div>
         {navhide && (
@@ -81,24 +96,27 @@ const Navbar = () => {
                     className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
                   />
                 </div>
-                <h2 className="text-center text-[16px] text-[#A8B3CF]">
+                <h2 className="text-center text-[15px] text-[#A8B3CF]">
                   လုပ်ငန်းရှင်များ အနေနဲ့ မိမိသိရှိလိုသော
                   လုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ရှာဖွေပြီး လုပ်ငန်း
                   တစ်ခုချင်းစီတိုင်းကို ဝင်ရောက်လေ့လာနိုင်ပါတယ်။
                 </h2>
               </div>
               <div className="w-8/12 flex justify-center flex-wrap gap-10  items-center">
-                {/* {categories?.map((item)=>{return(
-                   
-                )}} */}
-                {categories?.map((item: CategoryType) => {
+                {filteredCategories?.map((item: CategoryType) => {
                   return (
-                    <h2
+                    <div
                       key={item?.id}
-                      className=" text-[#A8B3CF] hover:text-white w-[130px] truncate text-[18px]"
+                      className=" text-[#A8B3CF] hover:text-white w-[130px] truncate text-[15px] cursor-pointer"
                     >
-                      {item?.category_name}
-                    </h2>
+                      {search.length > 0 ? (
+                        <Link to={`/search_business/${item.id}`}>
+                          <p>{item?.category_name}</p>
+                        </Link>
+                      ) : (
+                        <p>{item?.category_name}</p>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -121,7 +139,7 @@ const Navbar = () => {
                 </div>
                 <BsChevronDown
                   onClick={() => setLanbox(!lanbox)}
-                  className=" text-lg md:text-2xl text-white"
+                  className=" text-lg md:text-2xl text-white cursor-pointer"
                 />
                 {lanbox && (
                   <div className=" absolute bg-[#1c1f26] rounded-lg w-[160px]   z-10 top-14 right-0 ">
@@ -165,7 +183,7 @@ const Navbar = () => {
                     <div>
                       <BsChevronDown
                         onClick={() => setHide(!hide)}
-                        className=" text-2xl text-white"
+                        className=" text-2xl text-white cursor-pointer"
                       />
                     </div>
                   </div>

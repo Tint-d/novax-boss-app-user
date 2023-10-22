@@ -1,26 +1,8 @@
 import { TbClipboardCopy } from "react-icons/tb";
-export interface Boss {
-  id: number;
-  boss_name: string;
-  boss_no: string;
-  business_address: string;
-  business_description: string;
-  business_category_id: string;
-  business_city_id: string;
-  business_logo: string;
-  business_name: string;
-  cover_photo: string;
-  categories: {
-    id: number;
-    category_mm_name: string;
-    category_name: string;
-  };
-  city: { id: number; city_name: string; city_mm_name: string };
-}
-const HomeCard = ({ ...item }): Boss => {
-  console.log(item);
+
+const BusinessCard = ({ ...item }) => {
   return (
-    <div className="w-[280px] md:w-[270px] p-2  gap-y-2 rounded-md bg-[#262a31] flex flex-col justify-around items-center ">
+    <div className="  gap-y-2 rounded-md bg-[#262a31] flex flex-col justify-around items-center ">
       <div className="flex  justify-between w-full items-center">
         <img
           className="w-[30px] object-cover h-[30px] rounded-full"
@@ -51,4 +33,4 @@ const HomeCard = ({ ...item }): Boss => {
   );
 };
 
-export default HomeCard;
+export default BusinessCard;

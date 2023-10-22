@@ -2,12 +2,13 @@ import { useLocation } from "react-router-dom";
 import {
   useGetCountryQuery,
   useSearchCategoriesQuery,
-} from "../redux/api/BusinessAddress";
-import HomeCard, { Boss } from "../Component/Home/HomeCard";
+} from "../redux/api/BusinessAddressApi";
+// import HomeCard, { Boss } from "../Component/Home/HomeCard";
 import { inputDefaultStyle } from "../constant/defaultStyle";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import { useState } from "react";
+import HomeCard from "../components/business/BusinessCard";
 
 const Search = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const Search = () => {
   const [town, setTown] = useState<boolean>(true);
   const countryListData: any = countryList?.cities?.data;
   console.log(countryListData);
+
   return (
     <div className="w-full  min-h-screen bg-[#0e1217]">
       <div className=" mx-auto flex flex-col justify-center items-center py-2 container">
@@ -61,7 +63,7 @@ const Search = () => {
                 className={inputDefaultStyle}
               />
               <AiOutlineSearch
-                onClick={(e) => console.log(e)}
+                onClick={(e: any) => console.log(e)}
                 className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
               />
             </div>
@@ -100,7 +102,7 @@ const Search = () => {
                     className="placeholder:text-gray-700 bg-[#0e1217] p-2 outline-none"
                   />
                 </div>
-                {countryListData?.map((item): any => (
+                {countryListData?.map((item: any) => (
                   <li
                     key={item?.city_name}
                     className={`p-2 text-sm bg-[#0e1217] hover:bg-black text-white "
@@ -133,7 +135,7 @@ const Search = () => {
         </div>
         <div className="flex justify-around lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
           {bossAddresses?.map((item: any) => {
-            return <HomeCard key={item?.id} {...item} />;
+            return <HomeCard key={item?.id} />;
           })}
         </div>
       </div>

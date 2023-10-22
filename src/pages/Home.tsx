@@ -1,4 +1,4 @@
-import Brand from "../Component/Home/Brand";
+import Brand from "../components/home/Brand";
 
 const Home = () => {
   return (

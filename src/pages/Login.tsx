@@ -8,12 +8,13 @@ import { useUserLoginMutation } from "../redux/api/authApi";
 import FacebookLogin from "../components/auth/FacebookLogin";
 import "../App.css";
 import { ChangeAction, FormStateType } from "../typings/type";
-import { defaultInputFormStyle } from "../constants/style";
+// import { defaultInputFormStyle } from "../constants/style";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useStateContext } from "../context/StateContext";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { defaultInputFormStyle } from "../constant/defaultStyle";
 
 interface ApiResponse {
   data: {

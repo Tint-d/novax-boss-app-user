@@ -1,23 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { businessAddress } from "./api/BusinessAddress";
-import { pokemonApi } from "./api/userApi";
-import counterSlice from "./services/counterSlice";
+import { businessAddressApi } from "./api/BusinessAddressApi";
 import { authApi } from "./api/authApi";
 import { facebookAuthApi } from "./api/facebookApi";
+import businessSlice from "./services/businessSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice,
-    [pokemonApi.reducerPath]: pokemonApi.reducer,
+    business: businessSlice,
     [authApi.reducerPath]: authApi.reducer,
-    [businessAddress.reducerPath]: businessAddress.reducer,
+    [businessAddressApi.reducerPath]: businessAddressApi.reducer,
     [facebookAuthApi.reducerPath]: facebookAuthApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       facebookAuthApi.middleware,
-      businessAddress.middleware
+      businessAddressApi.middleware
     ),
 });
 

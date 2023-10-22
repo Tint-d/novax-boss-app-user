@@ -37,6 +37,7 @@ export interface City {
   id: number;
   city_name: string;
   city_mm_name: string;
+}
 
 export interface FormStateType {
   [key: string]: string;
@@ -60,3 +61,28 @@ export enum ChangeAction {
 export interface ActionType {
   type: ChangeAction;
 }
+
+export interface BossType {
+  boss_name: string;
+  boss_no: string;
+  business_address: string;
+  business_category_id: string;
+  business_city_id: string;
+  business_description: string;
+  business_logo: string;
+  business_name: string;
+  categories: {
+    category_mm_name: string;
+    category_name: string;
+    id: string;
+  };
+  city: {
+    city_mm_name: string;
+    city_name: string;
+    id: string;
+  };
+  cover_photo: string;
+  id: string;
+}
+
+// Now you can use the 'Boss' type in your code

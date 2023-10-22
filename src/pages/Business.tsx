@@ -1,4 +1,4 @@
-import HomeBusiness from "../Component/Home/HomeBusiness";
+import HomeBusiness from "../components/business/HomeBusiness";
 
 const Business = () => {
   return (
