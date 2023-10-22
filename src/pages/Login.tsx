@@ -1,7 +1,4 @@
-import logo from "../assets/logo.png";
 import { BiLogoMailchimp, BiRightArrow } from "react-icons/bi";
-import decoration1 from "../assets/left-bg-image.png";
-import decoration2 from "../assets/right-bg-image.png";
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { useUserLoginMutation } from "../redux/api/authApi";
@@ -15,6 +12,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
+import { t } from "i18next";
 
 interface ApiResponse {
   data: {
@@ -25,7 +23,7 @@ interface ApiResponse {
 
 interface CustomError {
   status: number;
-  data?: any;
+  data?: unknown;
   error?: string | undefined;
 }
 
@@ -37,7 +35,7 @@ const initialState = {
 const Login = () => {
   const { state, dispatch } = useStateContext();
   const [userLogin, { isLoading }] = useUserLoginMutation();
-  const [valid, setValid] = useState<any>(undefined);
+  const [valid, setValid] = useState<unknown>(undefined);
   const isCheck = false;
 
   const onSubmit = async (formData: FormStateType) => {
@@ -145,19 +143,19 @@ const Login = () => {
               type="submit"
               className="bg-[rgb(55,65,81)]/30 py-2 px-10 rounded-lg text-gray-400 border-gray-400 border-2"
             >
-              {isLoading ? <small className="loader"></small> : "Login"}
+              {isLoading ? <small className="loader"></small> : t("login")}
             </button>
           </div>
         </form>
 
         <FacebookLogin />
         <div className="flex items-center gap-5">
-          <p className="text-gray-400">Don't have an account? </p>
+          <p className="text-gray-400">{ t("Don't have an account?") } </p>
           <Link
             to={"/register"}
             className="text-[rgb(255,205,41)] flex items-center"
           >
-            <span>Create account </span>
+            <span>{t("Create account")} </span>
             <BiRightArrow />
           </Link>
         </div>
