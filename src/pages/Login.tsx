@@ -8,11 +8,12 @@ import { ChangeAction, FormStateType } from "../typings/type";
 // import { defaultInputFormStyle } from "../constants/style";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useStateContext } from "../context/StateContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
 import { t } from "i18next";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/services/authSlice";
 
@@ -73,17 +74,19 @@ const Login = () => {
           setValid(errorResponse.error);
         }
       }
-      if (valid?.data?.message) {
-        toast.error("Invalid Credentials!", {
-          position: toast.POSITION.BOTTOM_CENTER,
-          autoClose: 2000,
-        });
-        return;
-      }
     } catch (error) {
       console.error("An error occurred:", error);
     }
   };
+
+  useEffect(() => {
+    if ((valid as ApiResponse)?.data?.message) {
+      toast.error("Invalid Credentials!", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: 2000,
+      });
+    }
+  },[valid])
 
   const { error, handleSubmit, inputChangeHandler, formState } = useForm(
     initialState,

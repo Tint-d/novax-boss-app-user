@@ -4,7 +4,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["Auth"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://novax-mm.com/api/v1/user/auth",
+    baseUrl: getUrl("/user/auth")
   }),
   endpoints: (builder) => ({
     userLogin: builder.mutation({
@@ -52,3 +52,4 @@ export const {
   useUserFotgetPasswordQuery,
   useUserLogoutMutation,
 } = authApi;
+
