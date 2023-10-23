@@ -4,11 +4,13 @@ export const facebookAuthApi = createApi({
   reducerPath: "facebookAuthApi",
   tagTypes: ["FacebookAuth"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://novax-mm.com/api",
+    baseUrl: getUrl('/user/'),
   }),
   endpoints: (builder) => ({
     userFacebookLogin: builder.query({
-      query: () => ({ url: `auth/facebook/login` }),
+      query: () => ({
+        url: `/auth/facebook`,
+      }),
       providesTags: ["FacebookAuth"],
     }),
   }),

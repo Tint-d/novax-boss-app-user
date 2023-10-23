@@ -7,5 +7,6 @@ export const paths = {
   detail: "/detail",
   search: "/search",
   forget_password: "/forget_password",
-  search_business:"/search_business/:id"
+  search_business:"/search_business/:id",
+  faceook_login:"/auth/facebook/callback",
 };

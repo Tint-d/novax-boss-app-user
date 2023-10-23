@@ -3,6 +3,8 @@ import { paths } from "./path";
 import { lazy, Suspense } from "react";
 import Fallback from "../utils/Fallback";
 import Layout from "../utils/Layout";
+import React from 'react';
+const FacebookLoginAuth = lazy(() => import("../pages/FacebookLoginAuth"));
 const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
 const Login = lazy(() => import("../pages/Login"));
@@ -97,6 +99,16 @@ const Routes = () => {
         </Suspense>
       ),
     },
+    {
+      path: paths.faceook_login,
+      element :(
+        <Suspense fallback={<Fallback />}>
+        <Layout>
+          <FacebookLoginAuth />
+        </Layout>
+      </Suspense>
+      )
+    }
   ]);
 
   return <RouterProvider router={router} />;

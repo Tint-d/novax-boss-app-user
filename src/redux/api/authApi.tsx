@@ -4,12 +4,12 @@ export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["Auth"],
   baseQuery: fetchBaseQuery({
-    baseUrl: getUrl("/user/auth")
+    baseUrl: getUrl()
   }),
   endpoints: (builder) => ({
     userLogin: builder.mutation({
       query: (userData) => ({
-        url: "/login",
+        url: "v1/user/auth/login",
         method: "POST",
         body: userData,
       }),
@@ -17,7 +17,7 @@ export const authApi = createApi({
     }),
     userRegister: builder.mutation({
       query: (userData) => ({
-        url: "/register",
+        url: "v1/user/auth/register",
         method: "POST",
         body: userData,
       }),
@@ -33,8 +33,28 @@ export const authApi = createApi({
 
     userResetPassword: builder.mutation({
       query: () => ({
-        url: "/reset-password",
+        url: "v1/user/auth/reset-password",
       }),
+    }),
+    userFacebookLogin: builder.mutation({
+      query: () => ({
+        url: "/auth/facebook/login",
+        headers:{
+          "Access-Control-Allow-Origin": "*",
+          "withCredentials": "true",
+        }
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    userFacebookLoginCallback : builder.query({
+      query: (code : string) => ({
+        url: "/auth/facebook/callback?code="+code,
+        headers:{
+          "Access-Control-Allow-Origin": "*",
+          "withCredentials": "true",
+        }
+      }),
+      providesTags: ["Auth"],
     }),
   }),
 });
@@ -43,5 +63,7 @@ export const {
   useUserLoginMutation,
   useUserRegisterMutation,
   useUserFotgetPasswordQuery,
+  useUserFacebookLoginMutation,
+  useUserFacebookLoginCallbackQuery,
 } = authApi;
 
