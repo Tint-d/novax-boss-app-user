@@ -25,12 +25,9 @@ interface CityResponseType {
 export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
   tagTypes: ["businessAddress"],
-  baseQuery: fetchBaseQuery({ baseUrl: "https://novax-mm.com/api/v1/user" }),
+  baseQuery: fetchBaseQuery({ baseUrl: getUrl("/user/") }),
   endpoints: (builder) => ({
-    getBusinessAddress: builder.query<
-      BusinessAddressResponse,
-      { page: number }
-    >({
+    getBusinessAddress: builder.query<BusinessAddressResponse,{ page: number }>({
       query: ({ page }) => `/boss-address/list?page=${page}`,
     }),
     getBusinessAddressDetail: builder.query<any, string>({

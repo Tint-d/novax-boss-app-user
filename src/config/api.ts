@@ -1,1 +1,1 @@
-export const BACKEND_URL : string = 'https://novax-mm.com/api/v1';
+export const BACKEND_URL : string = 'https://novax-mm.com/api';
