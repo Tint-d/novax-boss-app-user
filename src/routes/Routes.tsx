@@ -10,9 +10,19 @@ const Register = lazy(() => import("../pages/Register"));
 const BusinessForm = lazy(() => import("../pages/BusinessForm"));
 const Detail = lazy(() => import("../pages/Detail"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"));
-const Search = lazy(() => import("../pages/Search"));
+const Search = lazy(() => import("../components/business/BusinessSearchBox"));
 const SearchBusinessCard = lazy(
   () => import("../components/business/SearchBusinessCard")
+);
+const SearchbusinessWithCity = lazy(
+  () => import("../components/business/SearchbusinessWithCity")
+);
+
+const BusinessAddForm = lazy(
+  () => import("../components/business/BusinessForm")
+);
+const BusinessDetail = lazy(
+  () => import("../components/business/BusinessDetail")
 );
 
 const Routes = () => {
@@ -41,7 +51,9 @@ const Routes = () => {
       path: paths.login,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Login />
+          <Layout>
+            <Login />
+          </Layout>
         </Suspense>
       ),
     },
@@ -93,6 +105,36 @@ const Routes = () => {
         <Suspense fallback={<Fallback />}>
           <Layout>
             <SearchBusinessCard />
+          </Layout>
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.search_city,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Layout>
+            <SearchbusinessWithCity />
+          </Layout>
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.business_information,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Layout>
+            <BusinessAddForm />
+          </Layout>
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.business_deatil,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Layout>
+            <BusinessDetail />
           </Layout>
         </Suspense>
       ),

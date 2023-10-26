@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetBusinessAddressQuery } from "../../redux/api/BusinessAddressApi";
 import { BossType } from "../../typings/type";
 import { useState } from "react";

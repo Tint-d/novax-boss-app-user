@@ -1,8 +1,5 @@
-import logo from "../assets/logo.png";
 import { BiLogoMailchimp, BiRightArrow } from "react-icons/bi";
-import decoration1 from "../assets/left-bg-image.png";
-import decoration2 from "../assets/right-bg-image.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { useUserLoginMutation } from "../redux/api/authApi";
 import FacebookLogin from "../components/auth/FacebookLogin";
@@ -15,10 +12,13 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/services/authSlice";
 
 interface ApiResponse {
   data: {
     message: string;
+    status: string;
   };
   status: number;
 }
@@ -38,17 +38,25 @@ const Login = () => {
   const { state, dispatch } = useStateContext();
   const [userLogin, { isLoading }] = useUserLoginMutation();
   const [valid, setValid] = useState<any>(undefined);
-  const isCheck = false;
+  const isCheckLogin = false;
+
+  const dispatchAction = useDispatch();
+
+  const navigate = useNavigate();
 
   const onSubmit = async (formData: FormStateType) => {
     console.log(formData, "inside the login");
 
     try {
       const result = await userLogin(formData);
-      console.log("result");
 
       if ("data" in result) {
         const apiResponse = result as ApiResponse;
+        if (apiResponse.data.message) {
+          navigate("/");
+          dispatchAction(addUser(apiResponse));
+        }
+
         if (apiResponse.data.message) {
           toast.success("Successfull login!", {
             position: toast.POSITION.BOTTOM_CENTER,
@@ -79,7 +87,7 @@ const Login = () => {
   const { error, handleSubmit, inputChangeHandler, formState } = useForm(
     initialState,
     onSubmit,
-    isCheck
+    isCheckLogin
   );
 
   return (

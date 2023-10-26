@@ -6,6 +6,19 @@ interface BusinessAddressResponse {
   bossAddresses: {
     data: BossType[];
     next_page_url: string | null;
+    prev_page_url: string | null;
+  };
+}
+
+interface CityType {
+  city_mm_name: string;
+  city_name: string;
+  id: number;
+}
+
+interface CityResponseType {
+  cities: {
+    data: CityType[];
   };
 }
 
@@ -20,14 +33,44 @@ export const businessAddressApi = createApi({
     >({
       query: ({ page }) => `/boss-address/list?page=${page}`,
     }),
+    getBusinessAddressDetail: builder.query<any, string>({
+      query: (id) => `/boss-address/view/${id}?withUser`,
+    }),
     getCategories: builder.query<MainCategoryType, void>({
       query: () => `categories/list?address_count=true`,
     }),
     searchCategories: builder.query<any, any>({
       query: (name: string) => `/boss-address/list?search=${name}`,
     }),
-    getCountry: builder.query<{}[], void>({
+    getCountry: builder.query<CityResponseType, void>({
       query: () => `/cities/list`,
+    }),
+    createBossAddress: builder.mutation({
+      query: ({ token, data }) => ({
+        url: "/boss-address/create",
+        method: "POST",
+        body: data,
+        headers: { authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
+    createSocialLink: builder.mutation({
+      query: ({ data, token, id }) => ({
+        url: `/boss-address/update/${id}/add/social-links`,
+        method: "POST",
+        body: data,
+        headers: { authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
+    appliedCode: builder.mutation({
+      query: ({ data, token }) => ({
+        url: "action-code/apply",
+        method: "POST",
+        body: data,
+        headers: { authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: ["businessAddress"],
     }),
   }),
 });
@@ -37,4 +80,8 @@ export const {
   useGetCategoriesQuery,
   useSearchCategoriesQuery,
   useGetCountryQuery,
+  useCreateBossAddressMutation,
+  useCreateSocialLinkMutation,
+  useGetBusinessAddressDetailQuery,
+  useAppliedCodeMutation,
 } = businessAddressApi;

@@ -9,23 +9,29 @@ type SubmitType = (formData: InitialStateType) => Promise<void>;
 const useForm = (
   initialState: InitialStateType,
   onSubmit: SubmitType,
-  isCheck?: boolean
+  isCheckRegister?: boolean,
+  isCheckLogin?: boolean
 ) => {
   const [formState, setFormState] = useState<InitialStateType>(initialState);
 
   const [error, setError] = useState<InitialStateType>({});
-  const inputChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }, []);
+  const inputChangeHandler = useCallback(
+    (
+      e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => {
+      const { name, value } = e.target;
+      setFormState((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    },
+    []
+  );
 
   const validateForm = () => {
     const newErrors: InitialStateType = {};
 
-    if (isCheck) {
+    if (isCheckRegister) {
       if (!formState.name) {
         newErrors.name = "Name is required";
       } else if (formState.name.length < 3) {
@@ -45,7 +51,7 @@ const useForm = (
       newErrors.password = "Password must be at least 8 characters";
     }
 
-    if (isCheck) {
+    if (isCheckRegister) {
       if (!formState.password_confirmation) {
         newErrors.password_confirmation = "Password Confirm is required";
       } else if (formState.password !== formState.password_confirmation) {
@@ -62,15 +68,15 @@ const useForm = (
       e.preventDefault();
 
       if (validateForm()) {
-        try {
-          console.log(formState, "insied custom");
-          await onSubmit(formState);
-        } catch (error) {
-          if (error instanceof Error) {
-            setError({ form: error.message });
-          } else {
-            setError({ form: "An unknown error occurred." });
-          }
+      }
+      try {
+        console.log(formState, "insied custom");
+        await onSubmit(formState);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError({ form: error.message });
+        } else {
+          setError({ form: "An unknown error occurred." });
         }
       }
     },
@@ -81,7 +87,14 @@ const useForm = (
     return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
   };
 
-  return { isCheck, error, handleSubmit, inputChangeHandler, formState };
+  return {
+    isCheckRegister,
+    isCheckLogin,
+    error,
+    handleSubmit,
+    inputChangeHandler,
+    formState,
+  };
 };
 
 export default useForm;

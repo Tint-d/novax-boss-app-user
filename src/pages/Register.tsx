@@ -1,7 +1,7 @@
-import logo from "../assets/logo.png";
 import { BiLogoMailchimp, BiLeftArrow } from "react-icons/bi";
-import decoration1 from "../assets/left-bg-image.png";
-import decoration2 from "../assets/right-bg-image.png";
+// import logo from "../assets/logo.png";
+// import decoration1 from "../assets/left-bg-image.png";
+// import decoration2 from "../assets/right-bg-image.png";
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { useUserRegisterMutation } from "../redux/api/authApi";
@@ -9,8 +9,9 @@ import "../App.css";
 import { ChangeAction, FormStateType } from "../typings/type";
 import { useStateContext } from "../context/StateContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { defaultInputFormStyle } from "../constants/style";
+// import { defaultInputFormStyle } from "../constants/style";
 import { ToastContainer, toast } from "react-toastify";
+import { defaultInputFormStyle } from "../constant/defaultStyle";
 
 interface ApiResponse {
   data: {
@@ -31,7 +32,7 @@ const Register = () => {
   const { state, dispatch } = useStateContext();
   const [userRegister, { isLoading }] = useUserRegisterMutation();
 
-  const isCheck = true as boolean;
+  const isCheckLogin = true as boolean;
 
   const onSubmit = async (formData: FormStateType) => {
     const data = await userRegister(formData);
@@ -51,7 +52,7 @@ const Register = () => {
   const { error, handleSubmit, inputChangeHandler, formState } = useForm(
     initialState,
     onSubmit,
-    isCheck
+    isCheckLogin
   );
 
   return (

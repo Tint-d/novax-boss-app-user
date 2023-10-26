@@ -3,10 +3,12 @@ import { businessAddressApi } from "./api/BusinessAddressApi";
 import { authApi } from "./api/authApi";
 import { facebookAuthApi } from "./api/facebookApi";
 import businessSlice from "./services/businessSlice";
+import authSlice from "./services/authSlice";
 
 export const store = configureStore({
   reducer: {
     business: businessSlice,
+    authSlice: authSlice,
     [authApi.reducerPath]: authApi.reducer,
     [businessAddressApi.reducerPath]: businessAddressApi.reducer,
     [facebookAuthApi.reducerPath]: facebookAuthApi.reducer,

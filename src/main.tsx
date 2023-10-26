@@ -4,11 +4,14 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.tsx";
 import { StateContextProvider } from "./context/StateContext.tsx";
+import { MantineProvider } from "@mantine/core";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <StateContextProvider>
-      <App />
+      <MantineProvider>
+        <App />
+      </MantineProvider>
     </StateContextProvider>
   </Provider>
 );

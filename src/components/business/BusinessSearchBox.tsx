@@ -1,34 +1,37 @@
-import { useLocation } from "react-router-dom";
-import {
-  useGetCountryQuery,
-  useSearchCategoriesQuery,
-} from "../redux/api/BusinessAddressApi";
-// import HomeCard, { Boss } from "../Component/Home/HomeCard";
-import { inputDefaultStyle } from "../constant/defaultStyle";
+import { useGetCountryQuery } from "../../redux/api/BusinessAddressApi";
+import { inputDefaultStyle } from "../../constant/defaultStyle";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import { useState } from "react";
-import HomeCard from "../components/business/BusinessCard";
+import { useSelector } from "react-redux";
+import {
+  InitialBusinessStateType,
+  setSearchTerm,
+} from "../../redux/services/businessSlice";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { City } from "../../typings/type";
 
-const Search = () => {
-  const location = useLocation();
-  const search = location.state;
-  const [countries, setCountries] = useState(null);
+const BusinessSearchBox = () => {
   const [inputValue, setInputValue] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected] = useState("");
   const [open, setOpen] = useState<boolean>(false);
 
-  const { data: searchData }: any = useSearchCategoriesQuery(search);
-  const { data: countryList }: any = useGetCountryQuery();
-  const bossAddresses: any = searchData?.bossAddresses?.data;
+  const { data: cityList } = useGetCountryQuery();
+
   const [town, setTown] = useState<boolean>(true);
-  const countryListData: any = countryList?.cities?.data;
-  console.log(countryListData);
+  const cityListData = cityList?.cities?.data;
+
+  const searchTerm = useSelector(
+    (state: InitialBusinessStateType) => state.business.searchTerm
+  );
+
+  const dispatch = useDispatch();
 
   return (
-    <div className="w-full  min-h-screen bg-[#0e1217]">
+    <div className="w-full bg-[#0e1217] mb-3 p-2 h-full">
       <div className=" mx-auto flex flex-col justify-center items-center py-2 container">
-        <div className="bg-[#060606] w-[30%] flex flex-col justify-between gap-y-2 items-center">
+        <div className="bg-[#060606] w-[30%] flex flex-col justify-between gap-y-2 items-center p-3">
           <h2 className=" text-lg text-[20px] text-[#A8B3CF]">
             အလှအပနှင့် အလှကုန်
           </h2>
@@ -57,18 +60,19 @@ const Search = () => {
           {town ? (
             <div className="flex w-[80%] p-2 bg-[#0e1217] rounded-md justify-center items-center gap-x-1">
               <input
-                onChange={(e) => console.log(e)}
+                value={searchTerm}
+                onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                 type="text"
                 placeholder="လုပ်ငန်းအမျိးအစား ရှာဖွေရန်..."
-                className={inputDefaultStyle}
+                className={inputDefaultStyle + "text-sm"}
               />
               <AiOutlineSearch
-                onClick={(e: any) => console.log(e)}
+                // onClick={(e: any) => console.log(e)}
                 className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
               />
             </div>
           ) : (
-            <div className="w-72 font-medium">
+            <div className="w-72 font-medium text-[#A8B3CF]">
               <div
                 onClick={() => setOpen(!open)}
                 className={`bg-[#0e1217] w-full p-2 flex items-center justify-between rounded ${
@@ -79,7 +83,7 @@ const Search = () => {
                   ? selected?.length > 25
                     ? selected?.substring(0, 25) + "..."
                     : selected
-                  : "Select Country"}
+                  : "Select City"}
                 <BiChevronDown
                   size={20}
                   className={`${open && "rotate-180"}`}
@@ -99,48 +103,50 @@ const Search = () => {
                       setInputValue(e.target.value.toLowerCase())
                     }
                     placeholder="Enter country name"
-                    className="placeholder:text-gray-700 bg-[#0e1217] p-2 outline-none"
+                    className="placeholder:text-gray-700 bg-[#0e1217] p-2 outline-none "
                   />
                 </div>
-                {countryListData?.map((item: any) => (
-                  <li
-                    key={item?.city_name}
-                    className={`p-2 text-sm bg-[#0e1217] hover:bg-black text-white "
-            ${
-              item?.city_name.toLowerCase() === selected?.toLowerCase() &&
-              "bg-sky-600 text-white"
-            }
-            ${
-              item?.city_name?.toLowerCase().startsWith(inputValue)
-                ? "block"
-                : "hidden"
-            }`}
-                    onClick={() => {
-                      if (
-                        item?.city_name?.toLowerCase() !==
-                        selected.toLowerCase()
-                      ) {
-                        setSelected(item?.city_name);
-                        setOpen(false);
-                        setInputValue("");
+                {cityListData?.map((item: City) => (
+                  <Link to={`/search_city/${item.id}`}>
+                    <li
+                      key={item?.city_name}
+                      className={`p-2 text-sm bg-[#0e1217] hover:bg-black "
+                      ${
+                        item?.city_name.toLowerCase() ===
+                          selected?.toLowerCase() && "bg-sky-600 text-white"
                       }
-                    }}
-                  >
-                    {item?.city_name}
-                  </li>
+                      ${
+                        item?.city_name?.toLowerCase().startsWith(inputValue)
+                          ? "block"
+                          : "hidden"
+                      }`}
+                      onClick={() => {
+                        if (
+                          item?.city_name?.toLowerCase() !==
+                          selected.toLowerCase()
+                        ) {
+                          // seletedAndLink(item?.id, item?.city_name);
+                          setOpen(false);
+                          setInputValue("");
+                        }
+                      }}
+                    >
+                      <p>{item?.city_name}</p>
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>
           )}
         </div>
-        <div className="flex justify-around lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
+        {/* <div className="flex justify-around lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
           {bossAddresses?.map((item: any) => {
             return <HomeCard key={item?.id} />;
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default Search;
+export default BusinessSearchBox;

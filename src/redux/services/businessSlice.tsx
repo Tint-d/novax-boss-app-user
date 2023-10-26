@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from "@reduxjs/toolkit";
-// import type { RootState } from "../store";
 
-// interface CounterState {
-//   value: number;
-// }
+export interface InitialBusinessStateType {
+  business: {
+    items: [];
+    searchTerm: string;
+  };
+}
 
 const initialState = {
-  business: [],
+  items: [],
+  searchTerm: "",
 };
 
 export const businessSlice = createSlice({
@@ -15,12 +17,16 @@ export const businessSlice = createSlice({
   initialState,
   reducers: {
     addBusiness: (state, { payload }) => {
-      state.business = payload;
+      state.items = payload;
+    },
+    setSearchTerm: (state, { payload }) => {
+      state.searchTerm = payload;
+      // console.log(state.searchTerm);
     },
   },
 });
 
-export const { addBusiness } = businessSlice.actions;
+export const { addBusiness, setSearchTerm } = businessSlice.actions;
 
 // export const selectCount = (state: RootState) => state.counter.value;
 
