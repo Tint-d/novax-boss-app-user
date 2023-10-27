@@ -14,7 +14,7 @@ import { CategoryType, City, FormStateType } from "../../typings/type";
 import Cookies from "js-cookie";
 import useForm from "../../hooks/useForm";
 import useInput from "../../hooks/useInput";
-import { FileUploader } from "react-drag-drop-files";
+
 const fileTypes = ["JPG", "PNG", "GIF"];
 
 interface DropType {
@@ -65,7 +65,7 @@ const BusinessForm = ({ className }: any) => {
   const [profileFiles, setProfileFiles] = useState<DropType[]>([]);
   const [businessPhotoFiles, setBusinessPhotoFiles] = useState<DropType[]>([]);
   const [search] = useState("");
-
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const token = Cookies.get("token");
   const { data: cityList } = useGetCountryQuery();
   const citiesList = cityList?.cities.data;

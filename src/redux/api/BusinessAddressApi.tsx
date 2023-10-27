@@ -72,6 +72,16 @@ export const businessAddressApi = createApi({
       }),
       invalidatesTags: ["businessAddress"],
     }),
+    getProfile: builder.query<any, any>({
+      // v1/user/profile/me?withAddress=true
+      query: () => ({
+        url: "/profile/me?withAddress=true",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer YOUR_ACCESS_TOKEN_HERE`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -84,4 +94,5 @@ export const {
   useCreateSocialLinkMutation,
   useGetBusinessAddressDetailQuery,
   useAppliedCodeMutation,
+  useGetProfileQuery,
 } = businessAddressApi;

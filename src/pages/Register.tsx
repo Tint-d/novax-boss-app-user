@@ -2,7 +2,7 @@ import { BiLogoMailchimp, BiLeftArrow } from "react-icons/bi";
 // import logo from "../assets/logo.png";
 // import decoration1 from "../assets/left-bg-image.png";
 // import decoration2 from "../assets/right-bg-image.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { useUserRegisterMutation } from "../redux/api/authApi";
 import "../App.css";
@@ -34,13 +34,15 @@ const Register = () => {
 
   const isCheckLogin = true as boolean;
 
+  const navigate = useNavigate();
+
   const onSubmit = async (formData: FormStateType) => {
     const data = await userRegister(formData);
     if ("data" in data) {
       const apiResponse = data as ApiResponse;
       console.log(data, "data in register");
-
       if (apiResponse.data.status === "success") {
+        navigate("/login");
         toast.success("Successful registration!", {
           position: toast.POSITION.BOTTOM_CENTER,
           autoClose: 2000,

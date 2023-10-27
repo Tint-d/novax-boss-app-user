@@ -30,7 +30,14 @@ export const authApi = createApi({
       },
       providesTags: ["Auth"],
     }),
-
+    userLogout: builder.mutation({
+      query: (token) => ({
+        url: `/logout`,
+        method: "POST",
+        headers: { authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: ["Auth"],
+    }),
     userResetPassword: builder.mutation({
       query: () => ({
         url: "/reset-password",
@@ -43,4 +50,5 @@ export const {
   useUserLoginMutation,
   useUserRegisterMutation,
   useUserFotgetPasswordQuery,
+  useUserLogoutMutation,
 } = authApi;
