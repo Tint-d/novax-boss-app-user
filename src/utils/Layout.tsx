@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 
 const Layout = ({ children }: ChildrenType) => {
   return (
-    <div className="bg-[#1C1F26] w-full">
+    <div className=" bg-[#0E1217] w-full">
       <Navbar />
       {children}
     </div>

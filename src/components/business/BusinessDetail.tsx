@@ -1,10 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useGetBusinessAddressDetailQuery } from "../../redux/api/BusinessAddressApi";
-import { TbClipboardCopy } from "react-icons/tb";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
-// import "../../App.css";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "../../App.css";
+import React, { useState } from "react";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { RxDotFilled } from "react-icons/rx";
+// import Swiper from "swiper";
+import { FaFacebookSquare, FaTiktok, FaYoutube } from "react-icons/fa";
 
 const BusinessDetail = () => {
   const { id } = useParams() as { id: string };
@@ -18,46 +25,182 @@ const BusinessDetail = () => {
 
   if (isLoading) {
     return (
-      <p className=" flex justify-center items-center h-screen">Loading...</p>
+      <p className=" flex justify-center items-center h-screen text-white">
+        Loading...
+      </p>
     );
   }
   const details = items?.address;
 
+  console.log(details);
+
   return (
-    <div className="flex flex-wrap gap-3 justify-center text-white items-center mt-5">
-      {/* <img src={details.cover_photo} alt="" /> */}
-      <Swiper
-        spaceBetween={30}
-        effect={"fade"}
-        navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[EffectFade, Navigation, Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
+    <div className=" max-h-screen h-[520px] w-[974px] bg-[#1C1F26] my mx-auto max-w-screen  flex justify-center rounded-lg ">
+      <div className=" w-[607px] overflow-y-scroll no-scrollbar scroll-smooth">
+        <img
+          src={details.cover_photo}
+          className="w-[392px] h-[204px] object-cover rounded-md mt-5"
+          alt=""
+        />
+        <div className=" flex gap-3 items-center mt-5">
           <img
-            className=" w-80"
-            src="https://swiperjs.com/demos/images/nature-1.jpg"
+            src={details.business_logo}
+            className=" object-cover w-[48px] h-[48px] rounded-full"
+            alt=""
           />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className=" w-80"
-            src="https://swiperjs.com/demos/images/nature-2.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            className=" w-80"
-            src="https://swiperjs.com/demos/images/nature-3.jpg"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </SwiperSlide>
-      </Swiper>
+          <h2 className="text-[#DCA715] font-semibold">
+            Creative Marketing Agency
+          </h2>
+        </div>
+        <div className=" mt-5 flex flex-col gap-5">
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">Boss Name</h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">{details.boss_name}</p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">
+              Business Name
+            </h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.business_name}
+            </p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">
+              Business Type
+            </h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.categories.category_name}
+            </p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">
+              Main Product
+            </h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.main_product}
+            </p>
+          </div>
+
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">
+              Business Address
+            </h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.business_address}
+            </p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">
+              Contact Number
+            </h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.contact_numbers.map((num: any) => num)}
+            </p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">City</h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.city.city_name}
+            </p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">
+              Business Description
+            </h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">
+              {details.business_description}
+            </p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">Vision</h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">{details.vision}</p>
+          </div>
+          <div>
+            <h2 className=" underline text-[#A8B3CF] font-bold">Mission</h2>
+            <p className="text-[#A8B3CF] ms-3 text-sm">{details.mission}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* right side */}
+
+      <div className="md:w-4/12 w-[367px] border-0  md:border-l-[3px] ps-0 md:ps-5 border-[#A8B3CF33] flex flex-col justify-center gap-y-10 items-center">
+        <div className=" w-[303px] h-[170px] ">
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
+          >
+            <>
+              <SwiperSlide>
+                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+              </SwiperSlide>
+              <SwiperSlide>
+                <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+              </SwiperSlide>
+            </>
+          </Swiper>
+        </div>
+        <div className=" flex justify-center gap-5 select-none">
+          {details.social_links.length !== 0 ? (
+            <div>
+              {details.social_link.map((social: any) => (
+                <div>
+                  <a
+                    href={social.href}
+                    className=" flex flex-col items-center gap-2 cursor-pointer"
+                  >
+                    <FaFacebookSquare className=" text-[#295396] text-3xl" />
+                    <p className="cus text-[#A8B3CF] text-sm">Facebook</p>
+                  </a>
+                  <a
+                    href={social.href}
+                    className=" flex flex-col items-center gap-2 cursor-pointer"
+                  >
+                    <FaYoutube className=" text-[#E62117] text-3xl" />
+                    <p className=" text-[#A8B3CF] text-sm">Youtube</p>
+                  </a>
+                  <a
+                    href={social.href}
+                    className=" flex flex-col items-center gap-2 cursor-pointer"
+                  >
+                    <FaTiktok className=" text-white p-1 rounded bg-[#230319] text-3xl" />
+                    <p className=" text-[#A8B3CF] text-sm">Tiktok</p>
+                  </a>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className=" flex gap-5 items-center select-none">
+              <div className=" flex flex-col items-center gap-2 ">
+                <FaFacebookSquare className=" text-[#295396] text-3xl" />
+                <p className="cus text-[#A8B3CF] text-sm">Facebook</p>
+              </div>
+              <div className=" flex flex-col items-center gap-2 ">
+                <FaYoutube className=" text-[#E62117] text-3xl" />
+                <p className=" text-[#A8B3CF] text-sm">Youtube</p>
+              </div>
+              <div className=" flex flex-col items-center gap-2 ">
+                <FaTiktok className=" text-white p-1 rounded bg-[#230319] text-3xl" />
+                <p className=" text-[#A8B3CF] text-sm">Tiktok</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

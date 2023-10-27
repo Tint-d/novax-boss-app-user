@@ -4,12 +4,14 @@ export interface InitialBusinessStateType {
   business: {
     items: [];
     searchTerm: string;
+    profile: [];
   };
 }
 
 const initialState = {
   items: [],
   searchTerm: "",
+  profile: [],
 };
 
 export const businessSlice = createSlice({
@@ -23,10 +25,13 @@ export const businessSlice = createSlice({
       state.searchTerm = payload;
       // console.log(state.searchTerm);
     },
+    addProfile: (state, { payload }) => {
+      state.profile = payload;
+    },
   },
 });
 
-export const { addBusiness, setSearchTerm } = businessSlice.actions;
+export const { addBusiness, setSearchTerm, addProfile } = businessSlice.actions;
 
 // export const selectCount = (state: RootState) => state.counter.value;
 

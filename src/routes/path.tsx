@@ -11,4 +11,5 @@ export const paths = {
   search_city: "/search_city/:id",
   business_information: "/business_information",
   business_deatil: "/business_card_detail/:id",
+  profile: "/profile",
 };

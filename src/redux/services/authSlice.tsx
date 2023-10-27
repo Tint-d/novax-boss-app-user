@@ -22,8 +22,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, { payload }) => {
-      console.log(payload);
-
       state.user = payload.data.user;
       state.token = payload.data.token;
       Cookies.set("token", state.token, { expires: 30 });

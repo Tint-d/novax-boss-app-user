@@ -25,6 +25,8 @@ const BusinessDetail = lazy(
   () => import("../components/business/BusinessDetail")
 );
 
+const Profile = lazy(() => import("../pages/Profile"));
+
 const Routes = () => {
   const router = createBrowserRouter([
     {
@@ -135,6 +137,16 @@ const Routes = () => {
         <Suspense fallback={<Fallback />}>
           <Layout>
             <BusinessDetail />
+          </Layout>
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.profile,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Layout>
+            <Profile />
           </Layout>
         </Suspense>
       ),

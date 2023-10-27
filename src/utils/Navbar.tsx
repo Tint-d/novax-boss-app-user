@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlinePlus, AiOutlineMenu } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { BsChevronDown } from "react-icons/bs";
@@ -19,18 +19,37 @@ import { paths } from "../routes/path";
 import Cookies from "js-cookie";
 import { BsPencilSquare } from "react-icons/bs";
 import { useDisclosure } from "@mantine/hooks";
-import { Menu, Button, Text, Input } from "@mantine/core";
+import { Menu, Modal } from "@mantine/core";
+import { BsExclamationTriangle } from "react-icons/bs";
+import { useUserLogoutMutation } from "../redux/api/authApi";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../redux/services/authSlice";
+import { addProfile } from "../redux/services/businessSlice";
+import { useSelector } from "react-redux";
+
+interface Profile {
+  boss_address: null | string; // Replace 'string' with the actual type of boss_address if it's not always null
+  created_at: string;
+  email: string;
+  email_verified_at: null | string; // Replace 'string' with the actual type if it's not always null
+  facebook_id: null | string; // Replace 'string' with the actual type if it's not always null
+  facebook_profile_photo: null | string; // Replace 'string' with the actual type if it's not always null
+  id: number;
+  name: string;
+  profile_photo: null | string; // Replace 'string' with the actual type if it's not always null
+}
 
 const Navbar = () => {
   const [applyCode, setApplyCode] = useState("");
   const [navhide, setNavHide] = useState(false);
-
+  const [opened, { open, close }] = useDisclosure(false);
   const [hide, setHide] = useState<boolean>(true);
   const [change, setChange] = useState<boolean>(false);
   const [lanbox, setLanbox] = useState<boolean>(false);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const { data } = useGetCategoriesQuery();
+  const [profile, setProfile] = useState<Profile | null>(null);
   const categories: undefined | CategoryType[] = data?.categories;
   const filteredCategories = categories?.filter((category) =>
     category.category_name.toLowerCase().includes(search)
@@ -44,6 +63,50 @@ const Navbar = () => {
     setApplyCode("");
     console.log(result);
   };
+
+  const [userLogout] = useUserLogoutMutation();
+
+  const dispatch = useDispatch();
+  const logoutHandler = async () => {
+    const data = await userLogout(token);
+    close();
+    dispatch(removeUser());
+    console.log(data);
+  };
+
+  const fetchProfile = async () => {
+    const token = Cookies.get("token"); // Replace with your actual authorization token
+    const headers = { Authorization: `Bearer ${token}` };
+
+    try {
+      const res = await fetch(
+        "https://novax-mm.com/api/v1/user/profile/me?withAddress=true",
+        {
+          headers,
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`Request failed with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      setProfile(data?.data);
+      dispatch(addProfile(profile));
+      console.log(data.data);
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+    }
+  };
+
+  // fetchProfile();
+
+  const san = useSelector((state: any) => state.business.profile);
+  console.log(san);
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   return (
     <div className="bg-[#0e1217] border-b-[1px] border-[#A8B3CF22] w-full">
@@ -61,9 +124,11 @@ const Navbar = () => {
             />
           )}
         </div>
-        <h2 className="lg:text-[15px] text-[15px]  text-white font-[800]">
-          BOSSNETWORK
-        </h2>
+        <Link to={"/"}>
+          <h2 className="lg:text-[15px] text-[15px]  text-white font-[800]">
+            BOSSNETWORK
+          </h2>
+        </Link>
         <div className=" md:flex hidden justify-end w-4/12 gap-x-20 items-center">
           <NavLink to="/">
             <h2 className={`text-[15px] text-white`}>Home</h2>
@@ -183,14 +248,20 @@ const Navbar = () => {
                 <div className="relative w-[80px] md:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
                     className=" w-[35px]  h-[35px] rounded-full"
-                    src={
-                      "https://i.pinimg.com/564x/48/6c/a0/486ca00640b169300b48e9ceacd8e401.jpg"
-                    }
+                    src={`
+                    ${
+                      profile?.profile_photo
+                        ? profile?.profile_photo
+                        : "https://i.pinimg.com/564x/48/6c/a0/486ca00640b169300b48e9ceacd8e401.jpg"
+                    }  
+                    `}
                   />
                   <div>
                     <div className="flex justify-between w-[50px] md:w-[180px] items-center">
                       <div className="md:flex flex-col justify-between gap-y-1 hidden">
-                        <h2 className="text-white">CoodeX</h2>
+                        <h2 className="text-white">
+                          {token ? profile?.name : ""}
+                        </h2>
                         <div className="">
                           <h2 className="px-3  text-[16px] text-center rounded-xl text-[#484848] bg-warining">
                             User
@@ -264,11 +335,59 @@ const Navbar = () => {
                             See Business Information
                           </h2>
                         </button>
-                        <button className=" flex justify-start gap-2  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded  w-full">
-                          <CgProfile className="text-[26px]  " />
-                          <h2 className="text-[16px] pt-1">Profile</h2>
-                        </button>
-                        <button className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full">
+                        <Link to={"/profile"}>
+                          <button className=" flex justify-start gap-2  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded  w-full">
+                            <CgProfile className="text-[26px]  " />
+                            <h2 className="text-[16px] pt-1">Profile</h2>
+                          </button>
+                        </Link>
+                        <Modal
+                          opened={opened}
+                          onClose={close}
+                          centered
+                          styles={{
+                            header: {
+                              background: "#1C1F26",
+                              color: "white",
+                            },
+                            body: {
+                              background: "#1C1F26",
+                              height: "180px",
+                            },
+                            close: {
+                              color: "white",
+                              background: "transparent",
+                              "&:hover": {
+                                background: "transparent",
+                              },
+                            },
+                          }}
+                        >
+                          <div className="flex flex-col gap-7 justify-center h-full items-center">
+                            <p className="text-[#A8B3CF]">
+                              Are you sure to logout?
+                            </p>
+                            <BsExclamationTriangle className="text-[#DCA715] text-6xl" />
+                            <div className="flex gap-2">
+                              <button
+                                onClick={close}
+                                className=" rounded bg-[#FF0000] w-24  text-[#A8B3CF]"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                onClick={logoutHandler}
+                                className=" rounded bg-[#00FF47] w-24 h-10 text-[#A8B3CF]"
+                              >
+                                Confirm
+                              </button>
+                            </div>
+                          </div>
+                        </Modal>
+                        <button
+                          onClick={open}
+                          className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full"
+                        >
                           <RiLogoutCircleLine className="text-[26px] " />
                           <h2 className="text-[16px] pt-1">Log out</h2>
                         </button>
