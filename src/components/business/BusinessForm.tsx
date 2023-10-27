@@ -1,5 +1,5 @@
 import { SiFacebook, SiTiktok, SiYoutube } from "react-icons/si";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImageAlt } from "react-icons/bs";
@@ -10,6 +10,8 @@ import {
   useGetCategoriesQuery,
   useGetCountryQuery,
 } from "../../redux/api/BusinessAddressApi";
+import { Select } from "@mantine/core";
+import "./business.css";
 import { CategoryType, City, FormStateType } from "../../typings/type";
 import Cookies from "js-cookie";
 import useForm from "../../hooks/useForm";
@@ -65,10 +67,11 @@ const BusinessForm = ({ className }: any) => {
   const [profileFiles, setProfileFiles] = useState<DropType[]>([]);
   const [businessPhotoFiles, setBusinessPhotoFiles] = useState<DropType[]>([]);
   const [search] = useState("");
-
+  const [mainImage, setMainImage] = useState<number>(0);
   const token = Cookies.get("token");
   const { data: cityList } = useGetCountryQuery();
-  const citiesList = cityList?.cities.data;
+  const citiesList = cityList?.cities?.data;
+  console.log(citiesList);
   const [createBossAddress] = useCreateBossAddressMutation();
 
   const { changeInputHandler, input } = useInput(initialState);
@@ -77,9 +80,11 @@ const BusinessForm = ({ className }: any) => {
   const filteredCategories = categories?.filter((category) =>
     category.category_name.toLowerCase().includes(search)
   );
-
+  const business = categories?.map((item: any) => item?.category_name);
+  const city = citiesList?.map((item: any) => item?.city_name);
+  console.log(city);
   // console.log(logoFiles[0]?.preview);
-  console.log(businessPhotoFiles);
+  // console.log(businessPhotoFiles);
 
   const handleDrop = (
     acceptedFiles: File[],
@@ -110,7 +115,7 @@ const BusinessForm = ({ className }: any) => {
   });
 
   // const [createSocialLink] = useCreateSocialLinkMutation();
-
+  console.log;
   const businesSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const contactNumbers = Array.isArray(input.contact_numbers)
@@ -154,7 +159,7 @@ const BusinessForm = ({ className }: any) => {
     // </div>
     <form
       onSubmit={businesSubmit}
-      className="relative text-sm  w-[60%] h-full my-auto bg-[#0E1217] flex flex-wrap justify-between items-center  mx-auto p-5 rounded"
+      className="relative text-sm md:w-[700px] w-[355px]  sm:w-[400px] md:p-0  p-19  lg:w-[975px] mt-[20px] h-full my-auto bg-[#0E1217] flex flex-wrap justify-between items-center  mx-auto  rounded"
     >
       <div>
         {/* {businessPhotoFiles?.map((photos: any) => (
@@ -164,7 +169,7 @@ const BusinessForm = ({ className }: any) => {
       </div>
       {/* onClick Function U can add to close form */}
       <RxCross1 className=" absolute top-5 right-10 text-sm text-white" />
-      <div className="md:w-7/12 w-12/12  h-screen overflow-y-scroll no-scrollbar">
+      <div className="md:w-7/12 w-12/12 px-3 py-2  h-screen overflow-y-scroll no-scrollbar">
         <div className=" flex flex-col justify-around items-center gap-y-8 md:gap-y-5">
           <div className=" w-full">
             <h2 className="  text-center text-[#A8B3CF] pb-3">Business Logo</h2>
@@ -187,7 +192,7 @@ const BusinessForm = ({ className }: any) => {
                     <AiOutlineCloudUpload className="text-[50px] text-[#A8B3CF33]" />
                   </div>
                 ) : (
-                  <img src={logoFiles[0]?.preview} width={100} height={100} />
+                  <img src={logoFiles[0]?.preview} className="w-full" />
                 )}
               </div>
             </div>
@@ -281,7 +286,7 @@ const BusinessForm = ({ className }: any) => {
           </div>
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">Business Type ...</h2>
-            <select
+            {/* <select
               name="business_category_id"
               value={input.business_category_id}
               onChange={changeInputHandler}
@@ -299,12 +304,45 @@ const BusinessForm = ({ className }: any) => {
                   </option>
                 );
               })}
-            </select>
+            </select> */}
+            <Select
+              styles={{
+                dropdown: {
+                  backgroundColor: "#1C1F26",
+                  color: "#fff",
+                },
+                label: {
+                  color: "white",
+                },
+                input: {
+                  borderColor: "#A8B3CF33",
+                  backgroundColor: "#0E1217",
+                  color: "#fff",
+                },
+                item: {
+                  color: "white",
+                  "&[data-selected]": {
+                    "&, &:hover": {
+                      backgroundColor: "#0E121722",
+                      color: "#A8B3CF",
+                    },
+                  },
+                  "&[data-hovered]": {
+                    backgroundColor: "#0E121766",
+                    color: "#A8B3CF",
+                  },
+                },
+              }}
+              placeholder="Choose Business Type"
+              data={business}
+              dropdownPosition="bottom"
+              dropdownComponent="true"
+              searchable
+            />
           </div>
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">City</h2>
-
-            <select
+            {/* <select
               name="business_city_id"
               value={input.business_city_id}
               onChange={changeInputHandler}
@@ -315,7 +353,42 @@ const BusinessForm = ({ className }: any) => {
                   {city.city_name}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <Select
+              styles={{
+                dropdown: {
+                  backgroundColor: "#1C1F26",
+                  color: "#fff",
+                },
+                label: {
+                  color: "white",
+                },
+                input: {
+                  borderColor: "#A8B3CF33",
+                  backgroundColor: "#0E1217",
+                  color: "#fff",
+                },
+                item: {
+                  color: "white",
+                  "&[data-selected]": {
+                    "&, &:hover": {
+                      backgroundColor: "#0E121722",
+                      color: "#A8B3CF",
+                    },
+                  },
+                  "&[data-hovered]": {
+                    backgroundColor: "#0E121766",
+                    color: "#A8B3CF",
+                  },
+                },
+              }}
+              placeholder="Choose City"
+              data={city}
+              dropdownPosition="bottom"
+              dropdownComponent="true"
+              searchable
+            />
+            /
           </div>
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">Contact Number</h2>
@@ -377,11 +450,11 @@ const BusinessForm = ({ className }: any) => {
           </div>
         </div>
       </div>
-      <div className="md:w-4/12 w-[100%] border-0  md:border-l-[3px] ps-0 md:ps-5 border-[#A8B3CF33] flex flex-col justify-between gap-y-10 items-center">
+      <div className="md:w-4/12 w-[100%]  border-0 p-3  md:border-l-[3px]  border-[#A8B3CF33] flex flex-col justify-between gap-y-10 items-center">
         <div className="w-[100%]">
           <h2 className=" text-[#A8B3CF] pb-2 text-sm">FaceBook Url</h2>
-          <div className="md:w-[70%] w-[100%] px-2 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiFacebook className="text-blue-600  text-[24px]" />
+          <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
+            <SiFacebook className="text-blue-600  text-[26px]" />
             <input
               name="social_links[0]"
               value={input.social_links[0]}
@@ -394,8 +467,8 @@ const BusinessForm = ({ className }: any) => {
 
         <div className="w-[100%]">
           <h2 className="text-sm text-[#A8B3CF] pb-2">YouTube Url</h2>
-          <div className="md:w-[70%] w-[100%] px-2 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiYoutube className="text-red-600  text-[24px]" />
+          <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
+            <SiYoutube className="text-red-600  text-[28px]" />
             <input
               name="social_links[1]"
               value={input.social_links[1]}
@@ -407,8 +480,8 @@ const BusinessForm = ({ className }: any) => {
         </div>
         <div className="w-[100%]">
           <h2 className="text-sm text-[#A8B3CF] pb-2">Titok Url</h2>
-          <div className="md:w-[70%] w-[100%] px-2 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiTiktok className="text-white/70  text-[24px]" />
+          <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
+            <SiTiktok className="text-white/70  text-[26px]" />
             <input
               name="social_links[2]"
               value={input.social_links[2]}
@@ -420,8 +493,8 @@ const BusinessForm = ({ className }: any) => {
         </div>
         <div className="w-[100%]">
           <div className=" w-[100%]">
-            <h2 className="text-sm text-[#A8B3CF] pb-2">Business Photo</h2>
-            <div className="w-[100%]  flex justify-center items-center h-[200px] bg-[#1C1F26] border border-[#A8B3CF33]">
+            <h2 className="text-sm text-[#A8B3CF] pb-5">Business Photo</h2>
+            <div className="w-[100%]  flex-col flex justify-center items-center h-[280px] bg-[#1C1F26] border border-[#A8B3CF33]">
               <div
                 {...businessPhotoDropzone.getRootProps({
                   className: className,
@@ -439,17 +512,62 @@ const BusinessForm = ({ className }: any) => {
                     <AiOutlineCloudUpload className="text-[80px] text-[#A8B3CF33]" />
                   </div>
                 ) : (
-                  <div className=" h-56 flex flex-wrap  gap-3 justify-center items-center">
-                    {businessPhotoFiles?.map((business, index) => (
+                  // <div className=" h-56 flex flex-wrap  gap-3 justify-center items-center">
+                  //   {businessPhotoFiles?.map((business, index) => (
+                  //     <img
+                  //       key={index}
+                  //       src={business.preview}
+                  //       className=" w-14 flex flex-wrap gap-3 h-14 justify-start object-cover"
+                  //     />
+                  //   ))}
+                  // </div>
+                  <div className="w-[100%] flex flex-col">
+                    <div>
                       <img
-                        key={index}
-                        src={business.preview}
-                        className=" w-14 flex flex-wrap gap-3 h-14 justify-start object-cover"
+                        src={businessPhotoFiles[mainImage]?.preview}
+                        className="w-full object-contain h-[200px]"
+                        alt=""
                       />
-                    ))}
+                    </div>
                   </div>
                 )}
               </div>
+              {businessPhotoFiles.length !== 0 && (
+                <div className="flex gap-1 justify-center items-center">
+                  {businessPhotoFiles.length > 0 && (
+                    <img
+                      onClick={() => setMainImage(0)}
+                      src={businessPhotoFiles[0]?.preview}
+                      className="w-[70px] h-[70px] object-contain border border-white/30"
+                      alt=""
+                    />
+                  )}
+                  {businessPhotoFiles.length > 1 && (
+                    <img
+                      onClick={() => setMainImage(1)}
+                      src={businessPhotoFiles[1]?.preview}
+                      className="w-[70px] h-[70px] object-contain border border-white/30"
+                      alt=""
+                    />
+                  )}
+                  {businessPhotoFiles.length > 2 && (
+                    <img
+                      onClick={() => setMainImage(2)}
+                      src={businessPhotoFiles[2]?.preview}
+                      className="w-[70px] h-[70px] object-contain border border-white/30"
+                      alt=""
+                    />
+                  )}
+                  {businessPhotoFiles.length > 3 && (
+                    <img
+                      onClick={() => setMainImage(3)}
+                      src={businessPhotoFiles[3]?.preview}
+                      className="w-[70px] h-[70px] object-contain border border-white/30"
+                      alt=""
+                    />
+                  )}
+                </div>
+              )}
             </div>
             {/* <div className="w-[100%] bg-[#1C1F26] mt-2 h-[100px] border border-[#A8B3CF33]">
                 To Place image
