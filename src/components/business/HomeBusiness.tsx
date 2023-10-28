@@ -27,8 +27,6 @@ const HomeBusiness = () => {
   const serachBossName = useSelector(
     (state: InitialBusinessStateType) => state.business.items
   );
-  // console.log(serachBossName.map((abc: any) => abc.boss_name));
-  console.log(serachBossName);
 
   useEffect(() => {
     dispatch(addBusiness(bossData));
@@ -52,10 +50,16 @@ const HomeBusiness = () => {
     );
   }
 
+  const shouldRenderPagination = serachBossName?.some(
+    (boss: BossType) =>
+      searchTerm === "" ||
+      boss.business_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className=" mx-auto mt-5 bg-[#0e1217] container">
+    <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container">
       <BusinessSearchBox />
-      <div className="flex justify- lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
+      <div className="flex w-full gap-y-5  justify-around py-5  lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
         {serachBossName
           ?.filter((boss: BossType) => {
             if (searchTerm === "") {
@@ -71,7 +75,9 @@ const HomeBusiness = () => {
           ?.map((item: BossType) => (
             <BusinessCard key={item.id} {...item} />
           ))}
-        {/* {bossData} */}
+      </div>
+
+      {shouldRenderPagination && (
         <div className=" flex items-center justify-center gap-3">
           <button
             disabled={isFetching && true}
@@ -91,7 +97,7 @@ const HomeBusiness = () => {
             <RiArrowDropRightFill className=" text-xl" />
           </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

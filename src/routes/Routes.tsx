@@ -8,7 +8,6 @@ const Business = lazy(() => import("../pages/Business"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const BusinessForm = lazy(() => import("../pages/BusinessForm"));
-const Detail = lazy(() => import("../pages/Detail"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"));
 const Search = lazy(() => import("../components/business/BusinessSearchBox"));
 const SearchBusinessCard = lazy(
@@ -26,6 +25,7 @@ const BusinessDetail = lazy(
 );
 
 const Profile = lazy(() => import("../pages/Profile"));
+const BusinessEdit = lazy(() => import("../components/business/BusinessEdit"));
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -63,7 +63,9 @@ const Routes = () => {
       path: paths.register,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Register />
+          <Layout>
+            <Register />
+          </Layout>
         </Suspense>
       ),
     },
@@ -75,14 +77,7 @@ const Routes = () => {
         </Suspense>
       ),
     },
-    {
-      path: paths.detail,
-      element: (
-        <Suspense fallback={<Fallback />}>
-          <Detail />
-        </Suspense>
-      ),
-    },
+
     {
       path: paths.search,
       element: (
@@ -97,7 +92,9 @@ const Routes = () => {
       path: paths.forget_password,
       element: (
         <Suspense fallback={<Fallback />}>
-          <ForgetPassword />
+          <Layout>
+            <ForgetPassword />
+          </Layout>
         </Suspense>
       ),
     },
@@ -147,6 +144,16 @@ const Routes = () => {
         <Suspense fallback={<Fallback />}>
           <Layout>
             <Profile />
+          </Layout>
+        </Suspense>
+      ),
+    },
+    {
+      path: paths.business_edit,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Layout>
+            <BusinessEdit />
           </Layout>
         </Suspense>
       ),

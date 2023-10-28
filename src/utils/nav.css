@@ -1,3 +1,4 @@
-a.active .red {
-  color: red;
+.active {
+  color: #dca715;
+  /* background-color: #dca715; */
 }

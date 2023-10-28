@@ -9,7 +9,11 @@ import { MantineProvider } from "@mantine/core";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <StateContextProvider>
-      <MantineProvider>
+      <MantineProvider
+        theme={{
+          fontFamily: "Josefin Sans, sans-serif",
+        }}
+      >
         <App />
       </MantineProvider>
     </StateContextProvider>

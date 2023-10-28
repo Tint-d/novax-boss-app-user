@@ -5,7 +5,7 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImageAlt } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import {
-  // useCreateBossAddressMutation,
+  //   useCreateBossAddressMutation,
   useGetCategoriesQuery,
   useGetCountryQuery,
 } from "../../redux/api/BusinessAddressApi";
@@ -43,15 +43,16 @@ const initialState = {
   main_product: "",
 };
 
-const BusinessForm = ({ className }: any) => {
+const BusinessEdit = ({ className }: any) => {
   const [logoFiles, setLogoFiles] = useState<DropType[]>([]);
   const [profileFiles, setProfileFiles] = useState<DropType[]>([]);
   const [businessPhotoFiles, setBusinessPhotoFiles] = useState<DropType[]>([]);
   const [mainImage, setMainImage] = useState<number>(0);
-  // const token = Cookies.get("token");
+  //   const token = Cookies.get("token");
   const { data: cityList } = useGetCountryQuery();
   const citiesList = cityList?.cities?.data;
-  // const [createBossAddress] = useCreateBossAddressMutation();
+  console.log(citiesList, "city");
+  //   const [createBossAddress] = useCreateBossAddressMutation();
 
   const { changeInputHandler, input } = useInput(initialState);
   const { data } = useGetCategoriesQuery();
@@ -493,4 +494,4 @@ const BusinessForm = ({ className }: any) => {
   );
 };
 
-export default BusinessForm;
+export default BusinessEdit;
