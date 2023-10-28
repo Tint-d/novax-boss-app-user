@@ -54,7 +54,8 @@ const Navbar = () => {
   const filteredCategories = categories?.filter((category) =>
     category.category_name.toLowerCase().includes(search)
   );
-
+  const [fill, setFill] = useState<boolean>(false);
+  const [codeSuccess, setCodeSuccess] = useState<boolean>(false);
   const token = Cookies.get("token");
   const [appliedCode] = useAppliedCodeMutation();
 
@@ -103,7 +104,6 @@ const Navbar = () => {
 
   const san = useSelector((state: any) => state.business.profile);
   console.log(san);
-
   useEffect(() => {
     fetchProfile();
   }, []);
@@ -155,9 +155,9 @@ const Navbar = () => {
           </div>
         </div>
         {navhide && (
-          <div className="absolute top-20 w-screen">
-            <div className=" bg-[#222222] px-[100px] flex justify-center items-center py-5  container mx-auto">
-              <div className="w-4/12  px-5 border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
+          <div className="absolute left-[-10px] top-20 w-screen">
+            <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
+              <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
                   <img
                     className="h-[150px] mx-auto"
@@ -165,7 +165,7 @@ const Navbar = () => {
                     alt=""
                   />
                 </div>
-                <div className="flex w-full p-2 bg-[#0e1217] rounded-md justify-center items-center gap-x-1">
+                <div className="flex  w-full p-2 bg-[#0e1217] rounded-md justify-center items-center gap-x-1">
                   <input
                     onChange={(e) => setSearch(e.target.value)}
                     type="text"
@@ -183,12 +183,12 @@ const Navbar = () => {
                   တစ်ခုချင်းစီတိုင်းကို ဝင်ရောက်လေ့လာနိုင်ပါတယ်။
                 </h2>
               </div>
-              <div className="w-8/12 flex justify-center flex-wrap gap-10  items-center">
+              <div className="md:w-8/12 w-12/12  flex md:h-auto h-[300px] no-scrollbar  overflow-y-scroll justify-around md:justify-center flex-wrap gap-5  md:gap-10  items-center">
                 {filteredCategories?.map((item: CategoryType) => {
                   return (
                     <div
                       key={item?.id}
-                      className=" text-[#A8B3CF] hover:text-white w-[130px] truncate text-[15px] cursor-pointer"
+                      className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
                       {search.length > 0 ? (
                         <Link to={`/search_business/${item.id}`}>
@@ -223,7 +223,7 @@ const Navbar = () => {
                   className=" text-lg md:text-2xl text-white cursor-pointer"
                 />
                 {lanbox && (
-                  <div className=" absolute bg-[#1c1f26] rounded-lg w-[160px]   z-10 top-14 right-0 ">
+                  <div className=" absolute bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-14 right-0 ">
                     <div className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                       <img
                         className=" w-[30px] h-[20px]  rounded"
@@ -278,69 +278,92 @@ const Navbar = () => {
                   </div>
                   {!hide && (
                     <div className="flex absolute rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
-                      {true ? (
+                      {san.length == 0 ? (
                         <div>
-                          <Menu shadow="md" width={200}>
-                            <Menu.Target>
-                              <button className=" flex justify-start  px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
-                                <BsPencilSquare className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
-                                <h2 className="text-[16px]">
-                                  Address Code Fill
-                                </h2>
-                              </button>
-                            </Menu.Target>
-
-                            <Menu.Dropdown className="bg-black w-full h-24 flex flex-col gap-3">
-                              <div className=" flex flex-col gap-3 mt-1">
-                                <input
-                                  value={applyCode}
-                                  onChange={(e) => setApplyCode(e.target.value)}
-                                  placeholder="Fill Code.."
-                                  type="text"
-                                  className=" outline-none rounded bg-transparent border-2 border-[#A8B3CF] text-white text-sm py-1"
-                                />
-                                <button
-                                  onClick={handleApplyCode}
-                                  className=" w-28 py-1 rounded bg-[#00FF47] text-[##A8B3CF]"
-                                >
-                                  <span className="text-[#A8B3CF]">
-                                    Contince
-                                  </span>{" "}
+                          {!fill ? (
+                            <div>
+                              {codeSuccess ? (
+                                <button className=" flex justify-start px-3  gap-x-2 items-center py-3   w-[250px] hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                                  <BsPencilSquare className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
+                                  <h2 className="text-[16px]">
+                                    Address Code Fill
+                                  </h2>
                                 </button>
-                              </div>
-                            </Menu.Dropdown>
-                          </Menu>
-
-                          <Link to={paths.business_information}>
-                            <button className=" flex justify-start  px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
-                              <AiOutlinePlus className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
-                              <h2 className="text-[16px]">
-                                Add business information
-                              </h2>
-                            </button>
-                          </Link>
+                              ) : (
+                                <Link to={paths.business_information}>
+                                  <button className=" flex justify-start  px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                                    <AiOutlinePlus className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
+                                    <h2 className="text-[16px]">
+                                      Add business information
+                                    </h2>
+                                  </button>
+                                </Link>
+                              )}
+                              <Link to={"/profile"}>
+                                <button className=" flex justify-start gap-2  w-[250px]  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded">
+                                  <CgProfile className="text-[26px]  " />
+                                  <h2 className="text-[16px] pt-1">Profile</h2>
+                                </button>
+                              </Link>
+                              <button
+                                onClick={open}
+                                className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full"
+                              >
+                                <RiLogoutCircleLine className="text-[26px] " />
+                                <h2 className="text-[16px] pt-1">Log out</h2>
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="h-[180px] flex flex-col justify-center gap-y-3 items-center">
+                              <input
+                                type="text"
+                                placeholder="address code ဖြည့်ရန်"
+                                className="w-[250px] py-2 border ps-3 bg-[#0E1217] border-[#A8B3CF33]"
+                              />
+                              <button className=" px-4 rounded py-1 text-white bg-[#00FF47]">
+                                Continue
+                              </button>
+                            </div>
+                          )}
+                          {/*  */}
                         </div>
                       ) : (
-                        <button className=" flex justify-start  px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
-                          <FiEdit className="text-[24px]" />
-                          <h2 className="text-[16px]">
-                            Edit business information
-                          </h2>
-                        </button>
+                        <div>
+                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                            <FiEdit className="text-[24px]" />
+                            <h2 className="text-[16px]">
+                              Edit business information
+                            </h2>
+                          </button>
+                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                            <AiFillEye className="text-[26px]" />
+                            <h2 className="text-[14px]">
+                              လုပ်ငန်းအချက်အလက် ကိုကြည့်ရန်
+                            </h2>
+                          </button>
+                          <Link to={"/profile"}>
+                            <button className=" flex justify-start gap-2  w-[250px]  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded">
+                              <CgProfile className="text-[26px]  " />
+                              <h2 className="text-[16px] pt-1">Profile</h2>
+                            </button>
+                          </Link>
+                          <button
+                            onClick={open}
+                            className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full"
+                          >
+                            <RiLogoutCircleLine className="text-[26px] " />
+                            <h2 className="text-[16px] pt-1">Log out</h2>
+                          </button>
+                        </div>
                       )}
                       <div>
-                        <button className=" flex justify-start gap-2  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded  w-full">
+                        {/* <button className=" flex justify-start gap-2  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded  w-full">
                           <AiFillEye className="text-[26px]  " />
                           <h2 className="text-[16px] pt-1">
                             See Business Information
                           </h2>
-                        </button>
-                        <Link to={"/profile"}>
-                          <button className=" flex justify-start gap-2  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded  w-full">
-                            <CgProfile className="text-[26px]  " />
-                            <h2 className="text-[16px] pt-1">Profile</h2>
-                          </button>
-                        </Link>
+                        </button> */}
+
                         <Modal
                           opened={opened}
                           onClose={close}
@@ -384,13 +407,6 @@ const Navbar = () => {
                             </div>
                           </div>
                         </Modal>
-                        <button
-                          onClick={open}
-                          className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full"
-                        >
-                          <RiLogoutCircleLine className="text-[26px] " />
-                          <h2 className="text-[16px] pt-1">Log out</h2>
-                        </button>
                       </div>
                     </div>
                   )}
