@@ -53,9 +53,9 @@ const HomeBusiness = () => {
   }
 
   return (
-    <div className=" mx-auto mt-5 bg-[#0e1217] container">
+    <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container">
       <BusinessSearchBox />
-      <div className="flex justify- lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
+      <div className="flex w-full gap-y-5  justify-around py-5  lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
         {serachBossName
           ?.filter((boss: BossType) => {
             if (searchTerm === "") {
@@ -72,25 +72,25 @@ const HomeBusiness = () => {
             <BusinessCard key={item.id} {...item} />
           ))}
         {/* {bossData} */}
-        <div className=" flex items-center justify-center gap-3">
-          <button
-            disabled={isFetching && true}
-            onClick={prevHandler}
-            className=" bg-white h-6 w-6 flex justify-center rounded items-center"
-          >
-            <RiArrowDropLeftFill className=" text-xl" />
-          </button>
-          <button className=" bg-white text-black h-6 w-6 rounded-full">
-            {isFetching ? <small className="loader"></small> : activePage}
-          </button>
-          <button
-            disabled={isLoading && true}
-            onClick={nextHandler}
-            className=" bg-white h-6 w-6 rounded flex justify-center items-center"
-          >
-            <RiArrowDropRightFill className=" text-xl" />
-          </button>
-        </div>
+      </div>
+      <div className=" flex items-center justify-center gap-3">
+        <button
+          disabled={isFetching && true}
+          onClick={prevHandler}
+          className=" bg-white h-6 w-6 flex justify-center rounded items-center"
+        >
+          <RiArrowDropLeftFill className=" text-xl" />
+        </button>
+        <button className=" bg-white text-black h-6 w-6 rounded-full">
+          {isFetching ? <small className="loader"></small> : activePage}
+        </button>
+        <button
+          disabled={isLoading && true}
+          onClick={nextHandler}
+          className=" bg-white h-6 w-6 rounded flex justify-center items-center"
+        >
+          <RiArrowDropRightFill className=" text-xl" />
+        </button>
       </div>
     </div>
   );

@@ -132,7 +132,7 @@ const BusinessDetail = () => {
 
         {/* right side */}
 
-        <div className="lg:w-4/12 md:w-5/12 w-12/12 w-[367px] border-0  md:border-l-[3px] ps-0 md:ps-5 border-[#A8B3CF33] flex flex-col justify-center gap-y-10 items-center">
+        <div className="lg:w-4/12 pt-3 md:w-5/12 w-12/12 w-[367px] border-0  md:border-l-[3px] ps-0 md:ps-5 border-[#A8B3CF33] flex flex-col justify-center gap-y-10 items-center">
           <div className=" w-[303px] h-[170px] ">
             <Swiper
               spaceBetween={30}

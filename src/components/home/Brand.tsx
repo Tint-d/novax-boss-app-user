@@ -15,18 +15,18 @@ const Brand = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className=" min-h-screen container mx-auto p "
+      className=" min-h-screen container mx-auto lg:px-10 md:px-6 px-4 "
     >
       <div className="">
-        <h2 className=" text-[#DCA715] flex justify-center">
+        <h2 className=" text-[#DCA715] pt-5 flex justify-center">
           “ BE A PUPPET MASTER ”
         </h2>
       </div>
-      <div className="flex justify-between h-full items-center">
-        <div className=" ">
+      <div className="flex justify-between flex-wrap h-full items-center">
+        <div className="md:w-7/12  w-12/12">
           <div className="flex justify-start items-center mb-3">
             <img src={Logo} className=" w-32 h-32" alt="" />
-            <h4 className="text-[#DCA715] text-5xl font-bold">
+            <h4 className="text-[#DCA715] text-3xl md:text-5xl font-bold">
               <p>BOSS</p> NETWORKS
             </h4>
           </div>
@@ -50,7 +50,11 @@ const Brand = () => {
             </button>
           </div>
         </div>
-        <img src={Home} alt="" className=" w-full h-full object-cover" />
+        <img
+          src={Home}
+          alt=""
+          className="md:w-5/12 w-12/12 h-full object-cover"
+        />
       </div>
     </div>
   );
