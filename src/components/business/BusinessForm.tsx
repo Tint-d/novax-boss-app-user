@@ -67,11 +67,9 @@ const BusinessForm = ({ className }: any) => {
   const [profileFiles, setProfileFiles] = useState<DropType[]>([]);
   const [businessPhotoFiles, setBusinessPhotoFiles] = useState<DropType[]>([]);
   const [search] = useState("");
-<<<<<<< HEAD
   const [mainImage, setMainImage] = useState<number>(0);
-=======
+
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
->>>>>>> refs/remotes/origin/main
   const token = Cookies.get("token");
   const { data: cityList } = useGetCountryQuery();
   const citiesList = cityList?.cities?.data;
@@ -84,9 +82,9 @@ const BusinessForm = ({ className }: any) => {
   const filteredCategories = categories?.filter((category) =>
     category.category_name.toLowerCase().includes(search)
   );
-  const business = categories?.map((item: any) => item?.category_name);
-  const city = citiesList?.map((item: any) => item?.city_name);
-  console.log(city);
+  // const business = categories?.map((item: any) => item?.category_name);
+  // const city = citiesList?.map((item: any) => item?.city_name);
+  // console.log(city);
   // console.log(logoFiles[0]?.preview);
   // console.log(businessPhotoFiles);
 
@@ -338,7 +336,7 @@ const BusinessForm = ({ className }: any) => {
                 },
               }}
               placeholder="Choose Business Type"
-              data={business}
+              data={["a"]}
               dropdownPosition="bottom"
               dropdownComponent="true"
               searchable
@@ -387,7 +385,7 @@ const BusinessForm = ({ className }: any) => {
                 },
               }}
               placeholder="Choose City"
-              data={city}
+              data={["a"]}
               dropdownPosition="bottom"
               dropdownComponent="true"
               searchable

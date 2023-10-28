@@ -109,8 +109,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="bg-[#0e1217] border-b-[1px] border-[#A8B3CF22] w-full">
-      <div className="flex md:gap-x-5 lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5">
+    <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full">
+      <div className="flex md:gap-x-5  lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5">
         <div className="md:hidden block">
           {!change ? (
             <AiOutlineMenu
@@ -129,7 +129,7 @@ const Navbar = () => {
             BOSSNETWORK
           </h2>
         </Link>
-        <div className=" md:flex hidden justify-end w-4/12 gap-x-20 items-center">
+        <div className=" md:flex hidden justify-end w-4/12 md:gap-x-10 lg:gap-x-20 items-center">
           <NavLink to="/">
             <h2 className={`text-[15px] text-white`}>Home</h2>
           </NavLink>
@@ -245,7 +245,7 @@ const Navbar = () => {
               </div>
               <div className=" h-[60px] p-[1px] bg-white/80"></div>
               {token ? (
-                <div className="relative w-[80px] md:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
+                <div className="relative w-[80px] md:w-[150px] lg:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
                     className=" w-[35px]  h-[35px] rounded-full"
                     src={`
@@ -257,7 +257,7 @@ const Navbar = () => {
                     `}
                   />
                   <div>
-                    <div className="flex justify-between w-[50px] md:w-[180px] items-center">
+                    <div className="flex justify-between w-[50px] md:w-[100px] lg:w-[180px] items-center">
                       <div className="md:flex flex-col justify-between gap-y-1 hidden">
                         <h2 className="text-white">
                           {token ? profile?.name : ""}
@@ -277,7 +277,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   {!hide && (
-                    <div className="flex absolute rounded-lg z-10 w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-0 justify-between items-center bg-[#1c1f26] flex-col">
+                    <div className="flex absolute rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
                       {true ? (
                         <div>
                           <Menu shadow="md" width={200}>
@@ -408,22 +408,46 @@ const Navbar = () => {
           </button>
         )}
         {change && (
-          <div className=" flex flex-col w-full py-2  md:hidden bg-[#A8B3CF33] justify-between  items-center">
-            <h2
-              className={`text-[20px] ${
-                false ? "shadow-xl shadow-[#1C1F26] bg-[#495060]" : ""
-              } text-center w-[300px]    py-1 text-white `}
-            >
-              Home
-            </h2>
-            <h2
-              className={`text-[20px] ${
-                true ? "shadow-xl shadow-[#1C1F26] bg-[#495060]" : ""
-              } text-center w-[300px]    py-1 text-white 
+          <div className=" flex flex-col w-full gap-y-2 py-2  md:hidden bg-[#A8B3CF33] justify-between  items-center">
+            <NavLink to="/">
+              <h2
+                className={`text-[20px] ${
+                  false ? "shadow-xl" : ""
+                } text-center w-[300px]    py-1 text-white hover:bg-[#495060] shadow-xl shadow-[#1CF26] `}
+              >
+                Home
+              </h2>
+            </NavLink>
+
+            <NavLink to="/business">
+              <h2
+                className={`text-[20px] ${
+                  true ? "shadow-xl" : ""
+                } text-center w-[300px]    py-1 text-white hover:bg-[#495060] shadow-xl shadow-[#1CF26] 
 `}
+              >
+                Business
+              </h2>
+            </NavLink>
+
+            <div
+              onClick={() => {
+                setSearch("");
+                setNavHide(!navhide);
+              }}
+              className="flex  w-[300px]  py-1     justify-center items-center gap-x-5"
             >
-              Business
-            </h2>
+              <h2
+                className={`text-[20px] text-center text-white 
+`}
+              >
+                Business Type
+              </h2>
+
+              <MdKeyboardArrowDown
+                className={`text-[26px] cursor-pointer  text-white`}
+              />
+            </div>
           </div>
         )}
       </div>
