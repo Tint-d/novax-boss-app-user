@@ -19,7 +19,7 @@ import { paths } from "../routes/path";
 import Cookies from "js-cookie";
 import { BsPencilSquare } from "react-icons/bs";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal } from "@mantine/core";
+import { Menu, Modal } from "@mantine/core";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { useUserLogoutMutation } from "../redux/api/authApi";
 import { useDispatch } from "react-redux";
@@ -27,8 +27,6 @@ import { removeUser } from "../redux/services/authSlice";
 import { addProfile } from "../redux/services/businessSlice";
 import { useSelector } from "react-redux";
 import SearchPhoto from "../assets/Search.png";
-import "./nav.css";
-import Logo from "../assets/logo.png";
 
 interface Profile {
   boss_address: null | string; // Replace 'string' with the actual type of boss_address if it's not always null
@@ -103,16 +101,18 @@ const Navbar = () => {
     }
   };
 
+  // fetchProfile();
+
+  const san = useSelector((state: any) => state.business.profile);
+  console.log(san);
   useEffect(() => {
     fetchProfile();
   }, []);
 
-  const san = useSelector((state: any) => state.business.profile);
-  console.log(san);
   const wid = window.location.pathname;
 
   return (
-    <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full text-[#A8B3CF] select-none">
+    <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full">
       <div className="flex md:gap-x-5  lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5">
         <div className="md:hidden block">
           {!change ? (
@@ -131,33 +131,25 @@ const Navbar = () => {
           )}
         </div>
         <Link to={"/"}>
-          <h2 className="lg:text-[15px] text-[15px]  text-[#A8B3CF] font-[800]">
-            <span className=" flex  items-end">
-              <img
-                src={Logo}
-                className="w-[40px] h-[40px] object-cover "
-                alt=""
-              />
-              <p className="">NETWORK</p>
-            </span>
+          <h2 className="lg:text-[15px] text-[15px]  text-white font-[800]">
+            BOSSNETWORK
           </h2>
         </Link>
         <div className=" md:flex hidden justify-end w-4/12 md:gap-x-10 lg:gap-x-20 items-center">
           <NavLink
             to="/"
             className={`${
-              wid === "/" ? "text-[#dca715] text-[15px]" : ""
-            } text-[15px] text-white`}
+              wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
+            } text-[15px] `}
           >
             Home
-            {/* </NavLink> */}
-            {/* <h2 Home</h2> */}
           </NavLink>
+
           <NavLink
             to={"/business"}
             className={`${
-              wid === "/business" ? "text-[#dca715] text-[15px]" : ""
-            } text-[15px] text-white`}
+              wid === "/business" ? "text-[#dca715] text-[15px]" : "text-white"
+            } text-[15px] `}
           >
             Business
           </NavLink>
@@ -180,7 +172,7 @@ const Navbar = () => {
           </div>
         </div>
         {navhide && (
-          <div className=" absolute left-[-10px] top-[230px] md:top-20 w-screen">
+          <div className="absolute left-[-10px] top-[230px] md:top-20 w-screen">
             <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
               <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
@@ -299,7 +291,7 @@ const Navbar = () => {
                   </div>
                   {!hide && (
                     <div className="flex absolute rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
-                      {san?.length === 0 ? (
+                      {san.length == 0 ? (
                         <div>
                           {!fill ? (
                             <div>
@@ -350,14 +342,12 @@ const Navbar = () => {
                         </div>
                       ) : (
                         <div>
-                          <Link to={"/edit"}>
-                            <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
-                              <FiEdit className="text-[24px]" />
-                              <h2 className="text-[16px]">
-                                Edit business information
-                              </h2>
-                            </button>
-                          </Link>
+                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                            <FiEdit className="text-[24px]" />
+                            <h2 className="text-[16px]">
+                              Edit business information
+                            </h2>
+                          </button>
                           <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                             <AiFillEye className="text-[26px]" />
                             <h2 className="text-[14px]">
@@ -380,6 +370,13 @@ const Navbar = () => {
                         </div>
                       )}
                       <div>
+                        {/* <button className=" flex justify-start gap-2  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded  w-full">
+                          <AiFillEye className="text-[26px]  " />
+                          <h2 className="text-[16px] pt-1">
+                            See Business Information
+                          </h2>
+                        </button> */}
+
                         <Modal
                           opened={opened}
                           onClose={close}
@@ -440,45 +437,50 @@ const Navbar = () => {
           </button>
         )}
         {change && (
-          <div className=" flex flex-col w-full gap-y-2 py-2  md:hidden bg-[#A8B3CF33] justify-between items-center">
+          <div className=" flex flex-col w-full gap-y-2 py-2  md:hidden bg-[#A8B3CF33] justify-between  items-center">
             <NavLink
               to="/"
               className={`${
-                wid === "/" ? "text-[#dca715] text-[15px]" : "text-[#A8B3CF]"
-              } text-[15px]  text-[#A8B3CF]`}
+                wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
+              } text-[15px] `}
             >
               Home
             </NavLink>
 
             <NavLink
-              to="/business"
+              to={"/business"}
               className={`${
                 wid === "/business"
                   ? "text-[#dca715] text-[15px]"
-                  : "text-[#A8B3CF]"
-              } text-[15px] text-[#A8B3CF]`}
+                  : "text-white"
+              } text-[15px] `}
             >
               Business
             </NavLink>
-            {wid === "/" ? (
-              ""
-            ) : (
-              <div
-                onClick={() => {
-                  setSearch("");
-                  setNavHide(!navhide);
-                }}
-                className="flex  w-[300px]  py-1     justify-center items-center gap-x-2 ms-1"
-              >
-                <h2 className={`text-[15px] text-center text-white `}>
-                  Business Type
-                </h2>
 
-                <MdKeyboardArrowDown
-                  className={`text-[26px] cursor-pointer  text-white`}
-                />
-              </div>
-            )}
+            <div
+              onClick={() => {
+                setSearch("");
+                setNavHide(!navhide);
+              }}
+              className="flex  w-[300px]  py-1     justify-center items-center gap-x-5"
+            >
+              {wid === "/" ? (
+                ""
+              ) : (
+                <span className=" flex items-center ms-1">
+                  <h2
+                    className={`text-[15px] text-center text-white 
+                  `}
+                  >
+                    Business Type
+                  </h2>
+                  <MdKeyboardArrowDown
+                    className={`text-[26px] cursor-pointer  text-white`}
+                  />
+                </span>
+              )}
+            </div>
           </div>
         )}
       </div>

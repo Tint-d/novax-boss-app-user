@@ -47,6 +47,7 @@ const BusinessForm = ({ className }: any) => {
   const [logoFiles, setLogoFiles] = useState<DropType[]>([]);
   const [profileFiles, setProfileFiles] = useState<DropType[]>([]);
   const [businessPhotoFiles, setBusinessPhotoFiles] = useState<DropType[]>([]);
+  const [search] = useState("");
   const [mainImage, setMainImage] = useState<number>(0);
   // const token = Cookies.get("token");
   const { data: cityList } = useGetCountryQuery();
@@ -250,7 +251,7 @@ const BusinessForm = ({ className }: any) => {
               placeholder="Choose Business Type"
               data={
                 categories
-                  ? categories?.map((item: CategoryType) => item?.category_name)
+                  ? categories?.map((item: any) => item?.category_name)
                   : []
               }
               dropdownPosition="bottom"
@@ -290,7 +291,7 @@ const BusinessForm = ({ className }: any) => {
               placeholder="Choose City"
               data={
                 citiesList
-                  ? citiesList?.map((item: City) => item?.city_name)
+                  ? citiesList?.map((item: any) => item?.category_name)
                   : []
               }
               dropdownPosition="bottom"

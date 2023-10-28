@@ -16,7 +16,7 @@ const Brand = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className=" min-h-screen container mx-auto lg:px-10 md:px-6 px-4 relative "
+      className=" min-h-screen container mx-auto lg:px-10 md:px-6 px-4 relative"
     >
       <div className="">
         <h2 className=" text-[#DCA715] pt-5 flex justify-center">

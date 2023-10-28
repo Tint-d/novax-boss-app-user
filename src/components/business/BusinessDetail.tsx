@@ -8,7 +8,6 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "../../App.css";
 import { FaFacebookSquare, FaTiktok, FaYoutube } from "react-icons/fa";
-import Layout from "../../utils/Layout";
 
 const BusinessDetail = () => {
   const { id } = useParams() as { id: string };
@@ -32,7 +31,6 @@ const BusinessDetail = () => {
   console.log(details);
 
   return (
-    // <Layout
     <div className="bg-[#0E1217]">
       <div className="lg:h-[600px] lg:p-2 md:p-3  p-5 md:min-h-screen  lg:w-[975px] flex-wrap md:w-[700px] w-[355px] mt-10 bg-[#1C1F26] my mx-auto max-w-screen  flex justify-around rounded-lg ">
         <div className=" lg:w-7/12 md:w-6/12  w-12/12 md:pb-2 pb-5 h-[600px] overflow-y-scroll no-scrollbar scroll-smooth">

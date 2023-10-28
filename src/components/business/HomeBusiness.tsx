@@ -98,6 +98,7 @@ const HomeBusiness = () => {
           </button>
         </div>
       )}
+      {/* {bossData} */}
     </div>
   );
 };
