@@ -2,6 +2,7 @@ import { BiLogoFacebookCircle } from "react-icons/bi";
 import React, { useEffect } from 'react';
 import { useUserFacebookLoginMutation } from "../../redux/api/authApi";
 interface ApiResponse {
+  data: { redirectUrl: string };
   redirectUrl: string;
   success : boolean;
 }
@@ -12,9 +13,9 @@ const FacebookLogin = () => {
 
   useEffect(() => {
       async function fetchData() {
-        const result = await userFacebookLogin();
+        const result = await userFacebookLogin('');
 
-        const { redirectUrl } = result.data as ApiResponse;
+        const { redirectUrl } = (result as unknown as ApiResponse).data;
         console.log(redirectUrl);
         setRedirectUrl(redirectUrl);
       }

@@ -4,7 +4,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["Auth"],
   baseQuery: fetchBaseQuery({
-    baseUrl: getUrl()
+    baseUrl: window.getUrl('')
   }),
   endpoints: (builder) => ({
     userLogin: builder.mutation({

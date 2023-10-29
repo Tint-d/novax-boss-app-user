@@ -9,6 +9,37 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "../../App.css";
 import { FaFacebookSquare, FaTiktok, FaYoutube } from "react-icons/fa";
 
+
+interface detailsType {
+  boss_name: string;
+  business_name: string;
+  categories: {
+    category_name: string;
+  };
+  main_product: string;
+  business_address: string;
+  contact_numbers: string[];
+  city: {
+    city_name: string;
+  };
+  business_description: string;
+  vision: string;
+  mission: string;
+  cover_photo: string;
+  business_logo: string;
+  social_links: Social[];
+}
+
+interface Social {
+  href: string;
+  type : string;  
+}
+
+interface response {
+    bossAddress: detailsType;
+}
+
+
 const BusinessDetail = () => {
   const { id } = useParams() as { id: string };
 
@@ -26,9 +57,8 @@ const BusinessDetail = () => {
       </p>
     );
   }
-  const details = items?.address;
+  const details = (items as response)?.bossAddress;
 
-  console.log(details);
 
   return (
     <div className="bg-[#0E1217]">
@@ -94,7 +124,7 @@ const BusinessDetail = () => {
                 Contact Number
               </h2>
               <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.contact_numbers.map((num: any) => num)}
+                {details.contact_numbers.map((num: string) => num)}
               </p>
             </div>
             <div>
@@ -160,7 +190,7 @@ const BusinessDetail = () => {
           <div className=" flex justify-center gap-5 select-none">
             {details.social_links.length !== 0 ? (
               <div>
-                {details.social_link.map((social: any) => (
+                {details.social_links.map((social: Social) => (
                   <div>
                     <a
                       href={social.href}

@@ -4,7 +4,7 @@ export const facebookAuthApi = createApi({
   reducerPath: "facebookAuthApi",
   tagTypes: ["FacebookAuth"],
   baseQuery: fetchBaseQuery({
-    baseUrl: getUrl('/user/'),
+    baseUrl: window.getUrl('/user/'),
   }),
   endpoints: (builder) => ({
     userFacebookLogin: builder.query({

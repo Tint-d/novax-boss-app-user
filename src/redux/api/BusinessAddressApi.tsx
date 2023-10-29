@@ -25,7 +25,7 @@ interface CityResponseType {
 export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
   tagTypes: ["businessAddress"],
-  baseQuery: fetchBaseQuery({ baseUrl: getUrl("/v1/user/") }),
+  baseQuery: fetchBaseQuery({ baseUrl: window.getUrl("/v1/user/") }),
   endpoints: (builder) => ({
     getBusinessAddress: builder.query<BusinessAddressResponse,{ page: number }>({
       query: ({ page }) => `/boss-address/list?page=${page}`,
@@ -69,7 +69,7 @@ export const businessAddressApi = createApi({
       }),
       invalidatesTags: ["businessAddress"],
     }),
-    getProfile: builder.query<unknwon, unknwon>({
+    getProfile: builder.query<unknown, unknown>({
       // v1/user/profile/me?withAddress=true
       query: (token : string) => ({
         url: "/profile/me?withAddress=true",
