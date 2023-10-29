@@ -2,13 +2,10 @@ import { useState, useEffect, useCallback } from "react";
 import { AiOutlinePlus, AiOutlineMenu } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { BsChevronDown } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
-import { RiLogoutCircleLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AiOutlineSearch, AiFillEye } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import {
-  useAppliedCodeMutation,
   useGetCategoriesQuery,
 } from "../redux/api/BusinessAddressApi";
 import { CategoryType } from "../typings/type";
@@ -17,21 +14,25 @@ import { inputDefaultStyle } from "../constant/defaultStyle";
 import "./nav.css";
 import { paths } from "../routes/path";
 import Cookies from "js-cookie";
-import { BsPencilSquare } from "react-icons/bs";
 import { useDisclosure } from "@mantine/hooks";
-import { Menu, Modal } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { useUserLogoutMutation } from "../redux/api/authApi";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../redux/services/authSlice";
-import { addProfile } from "../redux/services/businessSlice";
+import {  removeUser } from "../redux/services/authSlice";
+import { addProfile, selectProfile } from "../redux/services/businessSlice";
 import { useSelector } from "react-redux";
 import SearchPhoto from "../assets/Search.png";
-import React from 'react';
 import { changeLanguage } from "@/redux/services/settinSlice";
+import { t } from "i18next";
+import { RootState } from "@/redux/store";
+import ProfileNav from "@/components/nav/ProfileNav";
+import ActionCodeApply from "@/components/nav/ApplyActionCode";
+import Logout from "@/components/nav/Logout";
+import { useAppSelector } from "@/redux/hook";
 
-interface Profile {
-  boss_address: null | string; // Replace 'string' with the actual type of boss_address if it's not always null
+export interface Profile {
+  boss_address: unknown // Replace 'string' with the actual type of boss_address if it's not always null
   created_at: string;
   email: string;
   email_verified_at: null | string; // Replace 'string' with the actual type if it's not always null
@@ -40,10 +41,10 @@ interface Profile {
   id: number;
   name: string;
   profile_photo: null | string; // Replace 'string' with the actual type if it's not always null
+  action_codes : null | string[]
 }
 
 const Navbar = () => {
-  const [applyCode, setApplyCode] = useState("");
   const [navhide, setNavHide] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [hide, setHide] = useState<boolean>(true);
@@ -57,16 +58,7 @@ const Navbar = () => {
   const filteredCategories = categories?.filter((category) =>
     category.category_name.toLowerCase().includes(search)
   );
-  const [fill, setFill] = useState<boolean>(false);
-  const [codeSuccess, setCodeSuccess] = useState<boolean>(false);
   const token = Cookies.get("token");
-  const [appliedCode] = useAppliedCodeMutation();
-
-  const handleApplyCode = async () => {
-    const result = await appliedCode({ token, data: applyCode });
-    setApplyCode("");
-    console.log(result);
-  };
 
   const [userLogout] = useUserLogoutMutation();
 
@@ -96,21 +88,35 @@ const Navbar = () => {
       }
 
       const data = await res.json();
+      dispatch(addProfile(data?.data));
+      console.log('give',data)
       setProfile(data?.data);
-      dispatch(addProfile(profile));
-      console.log(data.data);
+   
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }
   };
 
-  // fetchProfile();
+  const pf = useAppSelector(selectProfile);
 
-  const san = useSelector((state: any) => state.business.profile);
+
+  const currentLanguate = useSelector((state: RootState) => state.setting.language);
+   let lg ;
+  if(currentLanguate == 'mm'){
+    lg = (
+      <img className="w-[35px] h-[25px] rounded" src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg" alt="" />
+    )
+  }else{
+    lg = (
+      <img className="w-[30px] h-[20px] rounded" src="https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg" alt="" />
+    )
+  }
  
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  console.log('profiel',pf)
 
   const wid = window.location.pathname;
 
@@ -120,6 +126,13 @@ const Navbar = () => {
      localStorage.setItem('language', value);
      window.location.reload();
   },[dispatch])
+  let profilePhoto;
+  if(profile?.profile_photo == null && profile?.facebook_profile_photo != null){
+    profilePhoto = profile?.facebook_profile_photo;
+  }
+    else{
+      profilePhoto = profile?.profile_photo;
+    }
 
   return (
     <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full">
@@ -174,15 +187,13 @@ const Navbar = () => {
               <h2 className={`text-[15px] text-white`}>Business Type</h2>
 
               <MdKeyboardArrowDown
-                className={`text-[24px] cursor-pointer ${
-                  true ? "text-[#DCA715]" : "text-white"
-                }  `}
+                className={`text-[24px] cursor-pointer text-[#DCA715] `}
               />
             </div>
           </div>
         </div>
         {navhide && (
-          <div className="absolute left-[-10px] top-[230px] md:top-20 w-screen">
+          <div className="absolute left-[-10px] top-[20vh] md:top-20 w-screen z-30">
             <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
               <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
@@ -201,9 +212,7 @@ const Navbar = () => {
                   />
                 </div>
                 <h2 className="text-center text-[15px] text-[#A8B3CF]">
-                  လုပ်ငန်းရှင်များ အနေနဲ့ မိမိသိရှိလိုသော
-                  လုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ရှာဖွေပြီး လုပ်ငန်း
-                  တစ်ခုချင်းစီတိုင်းကို ဝင်ရောက်လေ့လာနိုင်ပါတယ်။
+                  {t("Entrepreneurs want to know Select business types and search for business Each one can be accessed and studied.")}
                 </h2>
               </div>
               <div className="md:w-8/12 w-12/12  flex md:h-auto h-[300px] no-scrollbar  overflow-y-scroll justify-around md:justify-center flex-wrap gap-5  md:gap-10  items-center">
@@ -231,11 +240,7 @@ const Navbar = () => {
             <div className="flex  justify-between gap-x-4 items-center">
               <div className="relative flex bg-[#1c1f26] p-1 md:p-2 rounded justify-center items-center gap-x-2">
                 <div>
-                  <img
-                    className="md:w-[35px] w-[15px] md:h-[25px] rounded"
-                    src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg"
-                    alt=""
-                  />
+                  {lg}
                 </div>
                 <BsChevronDown
                   onClick={() => setLanbox(!lanbox)}
@@ -244,8 +249,8 @@ const Navbar = () => {
                 {lanbox && (
                   <div className=" absolute bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-14 right-0 ">
                     <div onClick={()=>swithLanuage('mm')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
-                      <img
-                        className=" w-[30px] h-[20px]  rounded"
+                    <img
+                        className="w-[30px] h-[20px] rounded"
                         src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg"
                         alt=""
                       />
@@ -254,7 +259,7 @@ const Navbar = () => {
                     <div onClick={()=>swithLanuage('en')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                       <img
                         className="w-[30px] h-[20px] rounded"
-                        src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png"
+                        src="https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg"
                         alt=""
                       />
                       <h2 className="text-sm text-white">English</h2>
@@ -266,14 +271,8 @@ const Navbar = () => {
               {token ? (
                 <div className="relative w-[80px] md:w-[150px] lg:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
-                    className=" w-[35px]  h-[35px] rounded-full"
-                    src={`
-                    ${
-                      profile?.profile_photo
-                        ? profile?.profile_photo
-                        : "https://i.pinimg.com/564x/48/6c/a0/486ca00640b169300b48e9ceacd8e401.jpg"
-                    }  
-                    `}
+                    className=" min-w-[35px]  h-[35px] rounded-full object-cover"
+                    src={profilePhoto !}
                   />
                   <div>
                     <div className="flex justify-between w-[50px] md:w-[100px] lg:w-[180px] items-center">
@@ -297,51 +296,27 @@ const Navbar = () => {
                   </div>
                   {!hide && (
                     <div className="flex absolute rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
-                      {san?.length == 0 ? (
+                      {pf?.boss_address == null ? (
                         <div>
-                          {!fill ? (
+                          {pf?.action_codes !== null ? (
                             <div>
-                              {codeSuccess ? (
-                                <button className=" flex justify-start px-3  gap-x-2 items-center py-3   w-[250px] hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
-                                  <BsPencilSquare className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
-                                  <h2 className="text-[16px]">
-                                    Address Code Fill
-                                  </h2>
-                                </button>
-                              ) : (
-                                <Link to={paths.business_information}>
+                                <NavLink to={paths.business_information}>
                                   <button className=" flex justify-start  px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                                     <AiOutlinePlus className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
                                     <h2 className="text-[16px]">
                                       Add business information
                                     </h2>
                                   </button>
-                                </Link>
-                              )}
-                              <Link to={"/profile"}>
-                                <button className=" flex justify-start gap-2  w-[250px]  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded">
-                                  <CgProfile className="text-[26px]  " />
-                                  <h2 className="text-[16px] pt-1">Profile</h2>
-                                </button>
-                              </Link>
-                              <button
-                                onClick={open}
-                                className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full"
-                              >
-                                <RiLogoutCircleLine className="text-[26px] " />
-                                <h2 className="text-[16px] pt-1">Log out</h2>
-                              </button>
+                                </NavLink>
+                             <ProfileNav />
+                             <Logout open={open} />
+
                             </div>
                           ) : (
-                            <div className="h-[180px] flex flex-col justify-center gap-y-3 items-center">
-                              <input
-                                type="text"
-                                placeholder="address code ဖြည့်ရန်"
-                                className="w-[250px] py-2 border ps-3 bg-[#0E1217] border-[#A8B3CF33]"
-                              />
-                              <button className=" px-4 rounded py-1 text-white bg-[#00FF47]">
-                                Continue
-                              </button>
+                        <div >
+                            <ActionCodeApply profile={pf}/>
+                            <ProfileNav />
+                           <Logout open={open} />
                             </div>
                           )}
                           {/*  */}
@@ -360,19 +335,9 @@ const Navbar = () => {
                               လုပ်ငန်းအချက်အလက် ကိုကြည့်ရန်
                             </h2>
                           </button>
-                          <Link to={"/profile"}>
-                            <button className=" flex justify-start gap-2  w-[250px]  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded">
-                              <CgProfile className="text-[26px]  " />
-                              <h2 className="text-[16px] pt-1">Profile</h2>
-                            </button>
-                          </Link>
-                          <button
-                            onClick={open}
-                            className=" flex justify-start gap-2  px-3 items-center text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded py-3  w-full"
-                          >
-                            <RiLogoutCircleLine className="text-[26px] " />
-                            <h2 className="text-[16px] pt-1">Log out</h2>
-                          </button>
+                          
+                          <ProfileNav />
+                           <Logout open={open} />
                         </div>
                       )}
                       <div>
@@ -406,20 +371,20 @@ const Navbar = () => {
                           }}
                         >
                           <div className="flex flex-col gap-7 justify-center h-full items-center">
-                            <p className="text-[#A8B3CF]">
+                            <p className="text-white">
                               Are you sure to logout?
                             </p>
                             <BsExclamationTriangle className="text-[#DCA715] text-6xl" />
                             <div className="flex gap-2">
                               <button
                                 onClick={close}
-                                className=" rounded bg-[#FF0000] w-24  text-[#A8B3CF]"
+                                className=" rounded bg-[#FF0000] w-24  text-white"
                               >
                                 Cancel
                               </button>
                               <button
                                 onClick={logoutHandler}
-                                className=" rounded bg-[#00FF47] w-24 h-10 text-[#A8B3CF]"
+                                className=" rounded bg-[#00FF47] w-24 h-10 text-white"
                               >
                                 Confirm
                               </button>
@@ -431,15 +396,15 @@ const Navbar = () => {
                   )}
                 </div>
               ) : (
-                <Link to={"/login"} className=" text-white">
-                  Login
+                <Link to={"/login"} className=" text-white text-[.8em] sm:text-sm capitalize">
+                  {t('login')}
                 </Link>
               )}
             </div>
           </div>
         ) : (
           <button className="px-3 py-1">
-            <h2 className="text-[20px] font-semibold text-white ">Login</h2>
+            <h2 className="text-[20px] font-semibold text-white">{t('login')}</h2>
           </button>
         )}
         {change && (

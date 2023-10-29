@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BossType, MainCategoryType } from "../../typings/type";
 // import { CategoryType } from "../../utils/Navbar";
-
+import Cookies from "js-cookie";
 interface BusinessAddressResponse {
   bossAddresses: {
     data: BossType[];
@@ -27,6 +27,8 @@ export const enum BossFilterType {
   CITY = "city",
   DEFAULT = "default",
 }
+
+const token = Cookies.get("token");
 
 export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
@@ -78,7 +80,7 @@ export const businessAddressApi = createApi({
       invalidatesTags: ["businessAddress"],
     }),
     appliedCode: builder.mutation({
-      query: ({ data, token }) => ({
+      query: ( data ) => ({
         url: "action-code/apply",
         method: "POST",
         body: data,

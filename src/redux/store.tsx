@@ -5,6 +5,7 @@ import { facebookAuthApi } from "./api/facebookApi";
 import businessSlice from "./services/businessSlice";
 import authSlice from "./services/authSlice";
 import { settingSlice } from "./services/settinSlice";
+import { profileApi } from "./api/profile";
 
 export const store = configureStore({
   reducer: {
@@ -14,12 +15,14 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [businessAddressApi.reducerPath]: businessAddressApi.reducer,
     [facebookAuthApi.reducerPath]: facebookAuthApi.reducer,
+    [profileApi.reducerPath]: profileApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       facebookAuthApi.middleware,
       businessAddressApi.middleware,
+      profileApi.middleware
     ),
 });
 

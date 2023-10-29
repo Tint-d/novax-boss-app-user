@@ -2,6 +2,7 @@ import Routes from "./routes/Routes";
 import { selectLanguage } from "./redux/services/settinSlice";
 import { useAppSelector } from "./redux/hook";
 import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
 
   const language = useAppSelector(selectLanguage);

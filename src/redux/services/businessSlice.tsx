@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from '@/redux/store';
+import { Profile } from "@/utils/Navbar";
 
 export interface InitialBusinessStateType {
-  business: {
     items: [];
     searchTerm: string;
-    profile: [];
-  };
+    profile: Profile| [];
 }
 
-const initialState = {
+const initialState :InitialBusinessStateType  = {
   items: [],
   searchTerm: "",
   profile: [],
@@ -33,6 +33,6 @@ export const businessSlice = createSlice({
 
 export const { addBusiness, setSearchTerm, addProfile } = businessSlice.actions;
 
-// export const selectCount = (state: RootState) => state.counter.value;
+export const selectProfile = (state: RootState) => state.business.profile as Profile;
 
 export default businessSlice.reducer;

@@ -25,4 +25,5 @@ export const {  changeLanguage } = settingSlice.actions
 
 export const selectLanguage = (state: RootState) => (state.setting as SettingState).language
 
+
 export default settingSlice.reducer

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from '@/redux/store';
 import Cookies from "js-cookie";
 
 // interface User {
@@ -35,6 +36,8 @@ export const authSlice = createSlice({
     },
   },
 });
+
+export const selectUser = (state: RootState) => state.authSlice.user;
 
 export const { addUser, removeUser } = authSlice.actions;
 export default authSlice.reducer;
