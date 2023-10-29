@@ -25,18 +25,18 @@ interface CityResponseType {
 export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
   tagTypes: ["businessAddress"],
-  baseQuery: fetchBaseQuery({ baseUrl: getUrl("/user/") }),
+  baseQuery: fetchBaseQuery({ baseUrl: getUrl("/v1/user/") }),
   endpoints: (builder) => ({
     getBusinessAddress: builder.query<BusinessAddressResponse,{ page: number }>({
       query: ({ page }) => `/boss-address/list?page=${page}`,
     }),
-    getBusinessAddressDetail: builder.query<any, string>({
+    getBusinessAddressDetail: builder.query<unknown, string>({
       query: (id) => `/boss-address/view/${id}?withUser`,
     }),
     getCategories: builder.query<MainCategoryType, void>({
       query: () => `categories/list?address_count=true`,
     }),
-    searchCategories: builder.query<any, any>({
+    searchCategories: builder.query<unknown, unknown>({
       query: (name: string) => `/boss-address/list?search=${name}`,
     }),
     getCountry: builder.query<CityResponseType, void>({
@@ -69,13 +69,13 @@ export const businessAddressApi = createApi({
       }),
       invalidatesTags: ["businessAddress"],
     }),
-    getProfile: builder.query<any, any>({
+    getProfile: builder.query<unknwon, unknwon>({
       // v1/user/profile/me?withAddress=true
-      query: () => ({
+      query: (token : string) => ({
         url: "/profile/me?withAddress=true",
         method: "GET",
         headers: {
-          Authorization: `Bearer YOUR_ACCESS_TOKEN_HERE`,
+          Authorization: `Bearer ${token}`,
         },
       }),
     }),

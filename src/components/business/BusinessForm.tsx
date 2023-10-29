@@ -50,13 +50,14 @@ const BusinessForm = ({ className }: any) => {
   const [search] = useState("");
   const [mainImage, setMainImage] = useState<number>(0);
   // const token = Cookies.get("token");
-  const { data: cityList } = useGetCountryQuery();
-  const citiesList = cityList?.cities?.data;
+  const cities = useGetCountryQuery();
+  const citiesList = cities.data?.cities?.data;
+  console.log(citiesList)
   // const [createBossAddress] = useCreateBossAddressMutation();
 
   const { changeInputHandler, input } = useInput(initialState);
-  const { data } = useGetCategoriesQuery();
-  const categories: undefined | CategoryType[] = data?.categories;
+  const cata = useGetCategoriesQuery();
+  const categories = cata.data?.categories
 
   const handleDrop = (
     acceptedFiles: File[],
@@ -291,12 +292,11 @@ const BusinessForm = ({ className }: any) => {
               placeholder="Choose City"
               data={
                 citiesList
-                  ? citiesList?.map((item: any) => item?.category_name)
+                  ? citiesList?.map((item: any) => item?.city_name)
                   : []
               }
               dropdownPosition="bottom"
               searchable
-              autoComplete="nope"
             />
           </div>
           <div className="w-full">

@@ -21,7 +21,7 @@ const ForgetPassword = () => {
 
   return (
     <div className=" h-[100vh] flex justify-center items-center bg-[rgb(14,18,23)] relative">
-      <div className="flex flex-col gap-10 items-center object-cover">
+      <div className="flex flex-col gap-10 items-center object-cover px-10 sm:px-5">
         {/* <img src={logo} className="w-[150px]" alt="" /> */}
 
         <div className="flex flex-col items-center gap-10">

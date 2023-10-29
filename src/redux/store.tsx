@@ -4,9 +4,11 @@ import { authApi } from "./api/authApi";
 import { facebookAuthApi } from "./api/facebookApi";
 import businessSlice from "./services/businessSlice";
 import authSlice from "./services/authSlice";
+import { settingSlice } from "./services/settinSlice";
 
 export const store = configureStore({
   reducer: {
+    setting : settingSlice.reducer,
     business: businessSlice,
     authSlice: authSlice,
     [authApi.reducerPath]: authApi.reducer,
@@ -17,7 +19,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       authApi.middleware,
       facebookAuthApi.middleware,
-      businessAddressApi.middleware
+      businessAddressApi.middleware,
     ),
 });
 

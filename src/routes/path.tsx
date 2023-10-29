@@ -13,5 +13,5 @@ export const paths = {
   business_deatil: "/business_card_detail/:id",
   profile: "/profile",
   business_edit: "/edit",
-  faceook_login:"/auth/facebook/callback",
+  facebook_login:"/auth/facebook/callback",
 };

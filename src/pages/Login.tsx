@@ -96,21 +96,21 @@ const Login = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] flex justify-center items-center bg-[rgb(14,18,23)] ">
-      <div className="flex flex-col gap-10 items-center">
+      <div className="flex flex-col gap-10 items-center px-10">
         {/* <img src={logo} className="w-[150px]" alt="" /> */}
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col  gap-10">
-            <div className="flex flex-col gap-5 border-b-2 py-1 text-gray-400 bg-transparent outline-none border-gray-400 w-full">
+            <div className="flex flex-col gap-5 border-b-2 py-1 text-gray-400 outline-none border-gray-400 w-full">
               {error.email && <p className="text-red-500">{error.email}</p>}
 
-              <div className=" flex">
+              <div className="flex bg-transparent">
                 <BiLogoMailchimp className=" text-2xl" />
                 <input
                   autoComplete="nope"
                   name="email"
                   value={formState.email}
                   onChange={inputChangeHandler}
-                  className={defaultInputFormStyle + "text-sm w-full "}
+                  className={defaultInputFormStyle + "bg-transparent"}
                   placeholder="Email"
                   type="email"
                 />
@@ -149,7 +149,7 @@ const Login = () => {
             </div>
           </div>
           <div className="flex gap-10 my-3 items-center">
-            <Link to={"/forget_password"} className="text-[rgb(255,205,41)]">
+            <Link to={"/forget_password"} className="text-[rgb(255,205,41)] text-[.8em]">
               Forget your password?
             </Link>
             <button
@@ -157,7 +157,7 @@ const Login = () => {
               type="submit"
               className="bg-[rgb(55,65,81)]/30 py-2 px-10 rounded-lg text-gray-400 border-gray-400 border-2"
             >
-              {isLoading ? <small className="loader"></small> : t("login")}
+              {isLoading ? <small className="loader"></small> : <p className="text-[.8em] whitespace-nowrap">{t("login")}</p>}
             </button>
           </div>
         </form>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AiOutlinePlus, AiOutlineMenu } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { BsChevronDown } from "react-icons/bs";
@@ -27,6 +27,8 @@ import { removeUser } from "../redux/services/authSlice";
 import { addProfile } from "../redux/services/businessSlice";
 import { useSelector } from "react-redux";
 import SearchPhoto from "../assets/Search.png";
+import React from 'react';
+import { changeLanguage } from "@/redux/services/settinSlice";
 
 interface Profile {
   boss_address: null | string; // Replace 'string' with the actual type of boss_address if it's not always null
@@ -79,6 +81,7 @@ const Navbar = () => {
   const fetchProfile = async () => {
     const token = Cookies.get("token"); // Replace with your actual authorization token
     const headers = { Authorization: `Bearer ${token}` };
+    console.log("token", Cookies.get("token"));
 
     try {
       const res = await fetch(
@@ -104,12 +107,19 @@ const Navbar = () => {
   // fetchProfile();
 
   const san = useSelector((state: any) => state.business.profile);
-  console.log(san);
+ 
   useEffect(() => {
     fetchProfile();
   }, []);
 
   const wid = window.location.pathname;
+
+  //change localization
+  const swithLanuage = useCallback((value:string)=>{
+    dispatch(changeLanguage(value))
+     localStorage.setItem('language', value);
+     window.location.reload();
+  },[dispatch])
 
   return (
     <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full">
@@ -203,7 +213,7 @@ const Navbar = () => {
                       key={item?.id}
                       className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
-                      {search.length > 0 ? (
+                      {search?.length > 0 ? (
                         <Link to={`/search_business/${item.id}`}>
                           <p>{item?.category_name}</p>
                         </Link>
@@ -237,7 +247,7 @@ const Navbar = () => {
                 />
                 {lanbox && (
                   <div className=" absolute bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-14 right-0 ">
-                    <div className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
+                    <div onClick={()=>swithLanuage('mm')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                       <img
                         className=" w-[30px] h-[20px]  rounded"
                         src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg"
@@ -245,7 +255,7 @@ const Navbar = () => {
                       />
                       <h2 className="text-sm text-white">Myanmar</h2>
                     </div>
-                    <div className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
+                    <div onClick={()=>swithLanuage('en')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                       <img
                         className="w-[30px] h-[20px] rounded"
                         src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png"
@@ -291,7 +301,7 @@ const Navbar = () => {
                   </div>
                   {!hide && (
                     <div className="flex absolute rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
-                      {san.length == 0 ? (
+                      {san?.length == 0 ? (
                         <div>
                           {!fill ? (
                             <div>

@@ -160,6 +160,14 @@ const Routes = () => {
         </Suspense>
       ),
     },
+    {
+      path: paths.facebook_login,
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <FacebookLoginAuth />
+        </Suspense>
+      ),
+    },
   ]);
 
   return <RouterProvider router={router} />;

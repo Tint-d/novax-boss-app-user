@@ -19,8 +19,8 @@ const resources : IResourceType = {
   console.log('resources', localstorageLanguage)
 
   i18n.use(initReactI18next).init({
-    lng: 'mm', // Default language
-    fallbackLng: 'mm',
+    lng: localstorageLanguage, // Default language
+    fallbackLng: 'en',
     resources: resources,
     interpolation: {
       escapeValue: false, // React already escapes, so no need to escape HTML entities
