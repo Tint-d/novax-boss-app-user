@@ -7,7 +7,6 @@ import { Button } from '@mantine/core';
 import Cookies from 'js-cookie';
 import { useUpdateProfileInfoMutation, useUpdateProfilePhotoMutation } from '@/redux/api/profile';
 import { ToastContainer, toast } from "react-toastify";
-import { useAppSelector } from '@/redux/hook';
 
 
 interface Profile {
@@ -23,9 +22,7 @@ const ProfileNav = () => {
     const imageInput = useRef<HTMLInputElement>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [updateProfileInfo, { isLoading }] = useUpdateProfileInfoMutation();
-    const [updateProfilePhoto, { isLoading : uploadLoading }] = useUpdateProfilePhotoMutation();
-    const user = useAppSelector((state) => state.user);
-            console.log(user)
+    const [updateProfilePhoto, { isLoading : uploadLoading }] = useUpdateProfilePhotoMutation();         
 
     const [profile, setProfile] = useState<Profile>({
         name: "",
@@ -49,7 +46,7 @@ const ProfileNav = () => {
                 );
 
                 if (!res.ok) {
-                    toast.error(res.text, {
+                    toast.error(res.text as unknown as string, {
                         position: toast.POSITION.BOTTOM_CENTER,
                         autoClose: 2000,
                       });
@@ -113,8 +110,10 @@ const ProfileNav = () => {
               })
 
         }
-        catch(res){
-            toast.error(res.data.message, {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch(res :any){
+
+            toast.error(res?.data.message, {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 2000,
               })

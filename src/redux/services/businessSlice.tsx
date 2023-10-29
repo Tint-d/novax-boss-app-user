@@ -3,12 +3,20 @@ import { RootState } from '@/redux/store';
 import { Profile } from "@/utils/Navbar";
 
 export interface InitialBusinessStateType {
+  business: {
     items: [];
     searchTerm: string;
-    profile: Profile| [];
+    profile: Profile | [];
+  }
 }
 
-const initialState :InitialBusinessStateType  = {
+export interface InitialStateType {
+    items: [];
+    searchTerm: string;
+    profile: Profile | [];
+}
+
+const initialState: InitialStateType = {
   items: [],
   searchTerm: "",
   profile: [],
