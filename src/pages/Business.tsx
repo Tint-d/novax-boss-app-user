@@ -1,3 +1,4 @@
+import React from "react";
 import HomeBusiness from "../components/business/HomeBusiness";
 
 const Business = () => {

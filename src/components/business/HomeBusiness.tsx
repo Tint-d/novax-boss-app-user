@@ -10,6 +10,7 @@ import "../../App.css";
 import { BossType } from "../../typings/type";
 import BusinessCard from "./BusinessCard";
 import BusinessSearchBox from "./BusinessSearchBox";
+import React from "react";
 
 const HomeBusiness = () => {
   const [activePage, setPage] = useState(1);

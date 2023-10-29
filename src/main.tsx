@@ -7,6 +7,8 @@ import { StateContextProvider } from "./context/StateContext.tsx";
 import { MantineProvider } from "@mantine/core";
 import {I18nextProvider}  from "react-i18next";
 import i18n from './services/i18nService.js'
+import React from 'react';
+
 
 const startApp = async() => {
 
