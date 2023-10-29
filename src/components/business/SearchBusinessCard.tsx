@@ -1,66 +1,82 @@
 import { useParams } from "react-router-dom";
-import { useGetBusinessAddressQuery } from "../../redux/api/BusinessAddressApi";
+import { BossFilterType, useGetBusinessAddressFilterQuery } from "../../redux/api/BusinessAddressApi";
 import { BossType } from "../../typings/type";
-import { useState } from "react";
-import { TbClipboardCopy } from "react-icons/tb";
+import { useEffect, useState } from "react";
+import { RiArrowDropLeftFill, RiArrowDropRightFill } from "react-icons/ri";
+import Skeleton from 'react-loading-skeleton'
+import BusinessCard from "./BusinessCard";
 
 const SearchBusinessCard = () => {
   const { id } = useParams() as { id: string };
+  const [business, setBusiness] = useState<BossType[]>([]);
 
-  const [activePage] = useState(1);
-  const { data, isLoading } = useGetBusinessAddressQuery({
+  const [activePage,setPage] = useState(1);
+  const { data, isLoading ,isFetching } = useGetBusinessAddressFilterQuery({
     page: activePage,
+    id: id,
+    type : BossFilterType.CATEGORY,
   });
+  const bossData = data?.bossAddresses;
 
-  const bossData = data?.bossAddresses?.data;
 
+  useEffect(()=>{
+    setBusiness(bossData?.data as BossType[]);
+  },[id,bossData,activePage])
+
+  const nextHandler = () => {
+    if (bossData?.next_page_url) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
+  const prevHandler = () => {
+    if (bossData?.prev_page_url) {
+      setPage((prev) => prev - 1);
+    }
+  };
+  
+  const inline = window.innerWidth > 768 ? true : false;
+
+  const width = window.innerWidth > 768 ? "w-[270px]" : "w-[280px]";
+
+  const height = window.innerWidth > 768 ? 280 : 250;
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      // <p className=" text-white flex justify-center items-center">Loading...</p>
+      <div className="flex justify-center items-center relative flex-wrap mt-12  w-full">
+                <Skeleton height={height} baseColor='#96969613' className={`${width}`} highlightColor='#6f6e6e13' inline={inline} count={10} containerClassName="flex justify-center items-center gap-3 flex-wrap w-full h-full container mx-auto gap-y-8"/>
+        </div>
+    );
   }
 
   return (
-    <div className=" mx-auto  h-screen  bg-[#0e1217] container">
+    <div className=" mx-auto mt-4 pb-6  bg-[#0e1217] container">
       <div className="flex justify-center gap-3 h-full  items-center flex-wrap">
-        {bossData?.map((item: BossType) => (
-          <div key={item.id}>
-            {item.categories.id == id ? (
-              <div
-                key={item.id}
-                className="w-[280px] md:w-[270px] p-2  gap-y-2 rounded-md bg-[#262a31] flex flex-col justify-around items-center "
-              >
-                <div className="flex  justify-between w-full items-center">
-                  <img
-                    className="w-[30px] object-cover h-[30px] rounded-full"
-                    src={item?.business_logo}
-                  />
-                  <TbClipboardCopy className=" w-[40px] h-[40px] p-2 shadow-xl shadow-black/40 text-white bg-[#262a31] rounded-full" />
-                </div>
-
-                <h2 className=" w-full  text-[20px] text-warining truncate">
-                  {item?.business_name}
-                </h2>
-                <div className=" flex w-full justify-between items-center">
-                  <h2 className=" px-2 md:text-[14px] rounded-md text-[#A8B3CF] shadow-lg shadow-black/20 truncate w-[100px]">
-                    {item?.categories?.category_name}
-                  </h2>
-                  <h2 className=" px-2 md:text-[14px] rounded-md text-[#A8B3CF] shadow-lg shadow-black/20 truncate w-[100px]">
-                    {item?.city?.city_name}
-                  </h2>
-                </div>
-                <p className=" h-[80px] w-full overflow-hidden leading-5 tracking-wider text-[14px] text-white">
-                  {item?.business_description.slice(0, 120) + " ...."}
-                </p>
-                <img
-                  className=" w-full rounded-md h-[120px] object-cover"
-                  src={item?.cover_photo}
-                />
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+        {business?.map((item: BossType) => (
+             <BusinessCard key={item.id} {...item} />
         ))}
+
       </div>
+       {/* paginateion */}
+       <div className=" flex items-center justify-center gap-3 mt-4">
+          <button
+            disabled={isFetching && true}
+            onClick={prevHandler}
+            className=" bg-white h-6 w-6 flex justify-center rounded items-center"
+          >
+            <RiArrowDropLeftFill className=" text-xl" />
+          </button>
+          <button className=" bg-white text-black h-6 w-6 rounded-full">
+            {isFetching ? <small className="loader"></small> : activePage}
+          </button>
+          <button
+            disabled={isLoading && true}
+            onClick={nextHandler}
+            className=" bg-white h-6 w-6 rounded flex justify-center items-center"
+          >
+            <RiArrowDropRightFill className=" text-xl" />
+          </button>
+        </div>
     </div>
   );
 };

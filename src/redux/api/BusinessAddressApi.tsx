@@ -22,6 +22,12 @@ interface CityResponseType {
   };
 }
 
+export const enum BossFilterType {
+  CATEGORY = "category",
+  CITY = "city",
+  DEFAULT = "default",
+}
+
 export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
   tagTypes: ["businessAddress"],
@@ -29,6 +35,17 @@ export const businessAddressApi = createApi({
   endpoints: (builder) => ({
     getBusinessAddress: builder.query<BusinessAddressResponse,{ page: number }>({
       query: ({ page }) => `/boss-address/list?page=${page}`,
+    }),
+    getBusinessAddressFilter: builder.query<BusinessAddressResponse,{ type: BossFilterType,id:string, page: number }>({
+      query: ({ page ,type,id }) => {
+        if(type == BossFilterType.CATEGORY){
+          return `/boss-address/list?page=${page}&category_id=${id}`;
+        }else if(type == BossFilterType.CITY){
+          return `/boss-address/list?page=${page}&city_id=${id}`;
+        }else{
+          return `/boss-address/list?page=${page}`;
+        }
+      },
     }),
     getBusinessAddressDetail: builder.query<unknown, string>({
       query: (id) => `/boss-address/view/${id}?withUser`,
@@ -92,4 +109,5 @@ export const {
   useGetBusinessAddressDetailQuery,
   useAppliedCodeMutation,
   useGetProfileQuery,
+  useGetBusinessAddressFilterQuery,
 } = businessAddressApi;

@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "../../App.css";
 import { FaFacebookSquare, FaTiktok, FaYoutube } from "react-icons/fa";
+import Skeleton from 'react-loading-skeleton'
 
 
 interface detailsType {
@@ -36,7 +37,7 @@ interface Social {
 }
 
 interface response {
-    bossAddress: detailsType;
+    address: detailsType;
 }
 
 
@@ -46,32 +47,31 @@ const BusinessDetail = () => {
   const { data: items, isLoading } = useGetBusinessAddressDetailQuery(id);
   console.log(items);
 
-  if (!items) {
-    return null;
-  }
 
-  if (isLoading) {
-    return (
-      <p className=" flex justify-center items-center h-screen text-white">
-        Loading...
-      </p>
-    );
-  }
-  const details = (items as response)?.bossAddress;
+  const details = (items as response)?.address;
 
+  const loadingSkeleton = (
+    <div className="flex justify-center items-center relative mt-12 pb-10 w-full">
+    <Skeleton height={"100vh"} baseColor='#96969613' className={`w-[80vw]`} highlightColor='#6f6e6e13'  count={1}/>
+  </div>)
 
+if (isLoading) {
   return (
-    <div className="bg-[#0E1217]">
-      <div className="lg:h-[600px] lg:p-2 md:p-3  p-5 md:min-h-screen  lg:w-[975px] flex-wrap md:w-[700px] w-[355px] mt-10 bg-[#1C1F26] my mx-auto max-w-screen  flex justify-around rounded-lg ">
-        <div className=" lg:w-7/12 md:w-6/12  w-12/12 md:pb-2 pb-5 h-[600px] overflow-y-scroll no-scrollbar scroll-smooth">
+    loadingSkeleton
+  );
+}
+  return (
+    <div className="bg-[#0E1217] pb-10">
+      <div className="lg:h-[50vh] lg:p-2 md:p-3  p-5 md:min-h-screen  lg:w-[975px] flex-wrap md:w-[700px] w-[355px] mt-10 bg-[#1C1F26] my mx-auto max-w-screen  flex justify-around rounded-2xl ">
+        <div className=" lg:w-7/12 md:w-6/12  w-12/12 md:pb-2 pb-5 h-[80vh] overflow-y-scroll no-scrollbar scroll-smooth rounded-2xl ">
           <img
-            src={details.cover_photo}
-            className="w-[392px] h-[204px] object-cover rounded-md mt-5"
+            src={details?.cover_photo}
+            className="w-[392px] h-[204px] object-cover rounded-2xl mt-5"
             alt=""
           />
           <div className=" flex gap-3 items-center mt-5">
             <img
-              src={details.business_logo}
+              src={details?.business_logo}
               className=" object-cover w-[48px] h-[48px] rounded-full"
               alt=""
             />
@@ -84,30 +84,30 @@ const BusinessDetail = () => {
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Boss Name
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">{details.boss_name}</p>
+              <p className="text-white ms-3 text-sm">{details?.boss_name}</p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Business Name
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.business_name}
+              <p className="text-white ms-3 text-sm">
+                {details?.business_name}
               </p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Business Type
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.categories.category_name}
+              <p className="text-white ms-3 text-sm">
+                {details?.categories.category_name}
               </p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Main Product
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.main_product}
+              <p className="text-white ms-3 text-sm">
+                {details?.main_product}
               </p>
             </div>
 
@@ -115,43 +115,43 @@ const BusinessDetail = () => {
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Business Address
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.business_address}
+              <p className="text-white ms-3 text-sm">
+                {details?.business_address}
               </p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Contact Number
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.contact_numbers.map((num: string) => num)}
+              <p className="text-white ms-3 text-sm">
+                {details?.contact_numbers.map((num: string) => num)}
               </p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">City</h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.city.city_name}
+              <p className="text-white ms-3 text-sm">
+                {details?.city.city_name}
               </p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Business Description
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">
-                {details.business_description}
+              <p className="text-white ms-3 text-sm">
+                {details?.business_description}
               </p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Vision
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">{details.vision}</p>
+              <p className="text-white ms-3 text-sm">{details?.vision}</p>
             </div>
             <div>
               <h2 className=" underline text-[#A8B3CF] font-bold mb-2">
                 Mission
               </h2>
-              <p className="text-[#A8B3CF] ms-3 text-sm">{details.mission}</p>
+              <p className="text-white ms-3 text-sm">{details?.mission}</p>
             </div>
           </div>
         </div>
@@ -188,9 +188,9 @@ const BusinessDetail = () => {
             </Swiper>
           </div>
           <div className=" flex justify-center gap-5 select-none">
-            {details.social_links.length !== 0 ? (
+            {details?.social_links.length !== 0 ? (
               <div>
-                {details.social_links.map((social: Social) => (
+                {details?.social_links.map((social: Social) => (
                   <div>
                     <a
                       href={social.href}
@@ -217,20 +217,21 @@ const BusinessDetail = () => {
                 ))}
               </div>
             ) : (
-              <div className=" flex gap-5 items-center select-none">
-                <div className=" flex flex-col items-center gap-2 ">
-                  <FaFacebookSquare className=" text-[#295396] text-3xl" />
-                  <p className="cus text-[#A8B3CF] text-sm">Facebook</p>
-                </div>
-                <div className=" flex flex-col items-center gap-2 ">
-                  <FaYoutube className=" text-[#E62117] text-3xl" />
-                  <p className=" text-[#A8B3CF] text-sm">Youtube</p>
-                </div>
-                <div className=" flex flex-col items-center gap-2 ">
-                  <FaTiktok className=" text-white p-1 rounded bg-[#230319] text-3xl" />
-                  <p className=" text-[#A8B3CF] text-sm">Tiktok</p>
-                </div>
-              </div>
+              // <div className=" flex gap-5 items-center select-none">
+              //   <div className=" flex flex-col items-center gap-2 ">
+              //     <FaFacebookSquare className=" text-[#295396] text-3xl" />
+              //     <p className="cus text-[#A8B3CF] text-sm">Facebook</p>
+              //   </div>
+              //   <div className=" flex flex-col items-center gap-2 ">
+              //     <FaYoutube className=" text-[#E62117] text-3xl" />
+              //     <p className=" text-[#A8B3CF] text-sm">Youtube</p>
+              //   </div>
+              //   <div className=" flex flex-col items-center gap-2 ">
+              //     <FaTiktok className=" text-white p-1 rounded bg-[#230319] text-3xl" />
+              //     <p className=" text-[#A8B3CF] text-sm">Tiktok</p>
+              //   </div>
+              // </div>
+              <></>
             )}
           </div>
         </div>

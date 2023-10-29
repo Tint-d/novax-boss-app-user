@@ -1,0 +1,15 @@
+/* Define the initial state of the element with the "fallback" class */
+.fallback {
+  opacity: 0;
+  animation: fadeInOut 2s linear infinite; /* Adjust the duration as needed */
+}
+
+/* Define keyframes for the fade-in and fade-out animation */
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: .5;
+  }
+  50% {
+    opacity: 1;
+  }
+}

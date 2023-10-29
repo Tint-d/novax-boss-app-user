@@ -213,13 +213,9 @@ const Navbar = () => {
                       key={item?.id}
                       className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
-                      {search?.length > 0 ? (
-                        <Link to={`/search_business/${item.id}`}>
+                     <Link to={`/search_business/${item.id}`}>
                           <p>{item?.category_name}</p>
                         </Link>
-                      ) : (
-                        <p>{item?.category_name}</p>
-                      )}
                     </div>
                   );
                 })}

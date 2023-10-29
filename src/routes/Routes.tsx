@@ -3,7 +3,7 @@ import { paths } from "./path";
 import { lazy, Suspense } from "react";
 import Fallback from "../utils/Fallback";
 import Layout from "../utils/Layout";
-import React from 'react';
+import Authenticated from "@/components/auth/guards/Authenticated";
 const FacebookLoginAuth = lazy(() => import("../pages/FacebookLoginAuth"));
 const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
@@ -55,9 +55,11 @@ const Routes = () => {
       path: paths.login,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Layout>
-            <Login />
-          </Layout>
+          <Authenticated>
+            <Layout>
+              <Login />
+            </Layout>
+          </Authenticated>
         </Suspense>
       ),
     },
@@ -65,9 +67,11 @@ const Routes = () => {
       path: paths.register,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Layout>
+           <Authenticated>
+            <Layout>
             <Register />
-          </Layout>
+            </Layout>
+          </Authenticated>
         </Suspense>
       ),
     },
@@ -94,9 +98,11 @@ const Routes = () => {
       path: paths.forget_password,
       element: (
         <Suspense fallback={<Fallback />}>
-          <Layout>
-            <ForgetPassword />
-          </Layout>
+          <Authenticated>
+            <Layout>
+              <ForgetPassword />
+            </Layout>
+          </Authenticated>
         </Suspense>
       ),
     },
@@ -164,10 +170,20 @@ const Routes = () => {
       path: paths.facebook_login,
       element: (
         <Suspense fallback={<Fallback />}>
+          <Authenticated>
           <FacebookLoginAuth />
+          </Authenticated>
         </Suspense>
       ),
     },
+    {
+      path: 'fallback',
+      element: (
+        <Suspense fallback={<Fallback />}>
+          <Fallback />
+        </Suspense>
+      ),
+    }
   ]);
 
   return <RouterProvider router={router} />;

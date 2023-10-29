@@ -10,7 +10,8 @@ import "../../App.css";
 import { BossType } from "../../typings/type";
 import BusinessCard from "./BusinessCard";
 import BusinessSearchBox from "./BusinessSearchBox";
-import React from "react";
+import Skeleton from 'react-loading-skeleton'
+
 
 const HomeBusiness = () => {
   const [activePage, setPage] = useState(1);
@@ -45,22 +46,31 @@ const HomeBusiness = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <p className=" text-white flex justify-center items-center">Loading...</p>
-    );
-  }
+  const inline = window.innerWidth > 768 ? true : false;
 
-  const shouldRenderPagination = serachBossName?.some(
-    (boss: BossType) =>
-      searchTerm === "" ||
-      boss.business_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const width = window.innerWidth > 768 ? "w-[270px]" : "w-[280px]";
+
+  const height = window.innerWidth > 768 ? 320 : 300;
+
+  const loadingSkeleton = (
+    <div className="flex justify-center items-center relative flex-wrap mt-12  w-full">
+    <Skeleton height={height} baseColor='#96969613' className={`${width}`} highlightColor='#6f6e6e13' inline={inline} count={20} containerClassName="flex justify-center sm:justify-around items-center gap-3 lg:gap-8 flex-wrap w-full h-full container mx-auto gap-y-8  py-5  lg:px-10  md:gap-5 "/>
+</div>
+  )
+
+  // const shouldRenderPagination = serachBossName?.some(
+  //   (boss: BossType) =>
+  //     searchTerm === "" ||
+  //     boss.business_name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container">
       <BusinessSearchBox />
-      <div className="flex w-full gap-y-5  justify-around py-5  lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
+
+      {isLoading ? loadingSkeleton : (
+        <>
+         <div className="flex w-full gap-y-5  justify-around py-5  lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
         {serachBossName
           ?.filter((boss: BossType) => {
             if (searchTerm === "") {
@@ -77,8 +87,6 @@ const HomeBusiness = () => {
             <BusinessCard key={item.id} {...item} />
           ))}
       </div>
-
-      {shouldRenderPagination && (
         <div className=" flex items-center justify-center gap-3">
           <button
             disabled={isFetching && true}
@@ -98,7 +106,10 @@ const HomeBusiness = () => {
             <RiArrowDropRightFill className=" text-xl" />
           </button>
         </div>
-      )}
+        </>
+     
+        )}
+      
       {/* {bossData} */}
     </div>
   );
