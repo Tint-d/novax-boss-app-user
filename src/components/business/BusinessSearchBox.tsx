@@ -32,9 +32,9 @@ const BusinessSearchBox = () => {
     <div className="w-full bg-[#0E1217] mb-3 p-2 h-full">
       <div className=" mx-auto flex flex-wrap justify-around items-center py-0 md:py-2 container">
         <div className="  flex flex-col  justify-between gap-y-2 items-center p-1">
-          <h2 className=" text-lg text-[20px] text-[#A8B3CF] mb-2">
+          {/* <h2 className=" text-lg text-[20px] text-[#A8B3CF] mb-2">
             အလှအပနှင့် အလှကုန်
-          </h2>
+          </h2> */}
           <div className="flex justify-between items-center gap-5">
             <button
               onClick={() => setTown(true)}
