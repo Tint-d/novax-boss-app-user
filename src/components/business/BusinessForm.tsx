@@ -61,7 +61,8 @@ const BusinessForm = () => {
     formState: { errors },
     setError
   } = useForm<BossSubmitData>({
-    resolver: yupResolver(BossAddressValidationSchema)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: yupResolver(BossAddressValidationSchema) as any,
   });
 
   const logoInput = useRef<HTMLInputElement>(null);
