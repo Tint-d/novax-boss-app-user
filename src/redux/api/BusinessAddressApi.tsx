@@ -62,7 +62,7 @@ export const businessAddressApi = createApi({
       query: () => `/cities/list`,
     }),
     createBossAddress: builder.mutation({
-      query: ({ token, data }) => ({
+      query: ( data ) => ({
         url: "/boss-address/create",
         method: "POST",
         body: data,

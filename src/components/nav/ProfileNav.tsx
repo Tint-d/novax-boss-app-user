@@ -2,69 +2,26 @@ import { useDisclosure } from '@mantine/hooks';
 import { Modal } from '@mantine/core';
 import { CgLock, CgProfile } from 'react-icons/cg';
 import { t } from 'i18next';
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { Button } from '@mantine/core';
-import Cookies from 'js-cookie';
 import { useUpdateProfileInfoMutation, useUpdateProfilePhotoMutation } from '@/redux/api/profile';
 import { ToastContainer, toast } from "react-toastify";
+import { Profile } from '@/utils/Navbar';
+import { useAppDispatch } from '@/redux/hook';
+import { addProfile } from '@/redux/services/businessSlice';
 
 
-interface Profile {
-    name: string;
-    facebook_profile_photo: string;
-    profile_photo: string;
-}
 
-const ProfileNav = () => {
+const ProfileNav = ({profile} : {profile:Profile}) => {
 
     const [opened, { open, close }] = useDisclosure(false);
     const [editMode, setEditMode] = useState<boolean>(false);
     const imageInput = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [updateProfileInfo, { isLoading }] = useUpdateProfileInfoMutation();
-    const [updateProfilePhoto, { isLoading : uploadLoading }] = useUpdateProfilePhotoMutation();         
-
-    const [profile, setProfile] = useState<Profile>({
-        name: "",
-        facebook_profile_photo: "",
-        profile_photo: ""
-    })
-
-
-    const fetchProfile = useCallback(
-        async () => {
-            const token = Cookies.get("token"); // Replace with your actual authorization token
-            const headers = { Authorization: `Bearer ${token}` };
-            console.log("token", Cookies.get("token"));
-            
-            try {
-                const res = await fetch(
-                    "https://novax-mm.com/api/v1/user/profile/me?withAddress=true",
-                    {
-                        headers,
-                    }
-                );
-
-                if (!res.ok) {
-                    toast.error(res.text as unknown as string, {
-                        position: toast.POSITION.BOTTOM_CENTER,
-                        autoClose: 2000,
-                      });
-                }
-
-                const data = await res.json();
-                setProfile(data?.data);
-                console.log(data.data);
-            } catch (error) {
-                console.error("Error fetching profile data:", error);
-            }
-        },
-        []
-    )
-
-    useEffect(() => {
-        fetchProfile();
-    }, [fetchProfile])
+    const [updateProfilePhoto, { isLoading : uploadLoading }] = useUpdateProfilePhotoMutation();   
+    const dispatch = useAppDispatch();      
 
     let profilePhoto;
     if (profile?.profile_photo == null && profile?.facebook_profile_photo != null) {
@@ -94,16 +51,26 @@ const ProfileNav = () => {
     const saveProfile = async () => {
         const data = new FormData();
         const image = imageInput.current!.files![0];
-        data.append("name", profile?.name);
+        const inputName = inputRef.current!.value;
+        data.append("name", inputRef.current!.value);
         if(image){
             data.append("photo", image)
         }
         try{
+            if(inputName !== "" && profile.name !== inputName){
             await updateProfileInfo(data).unwrap();
+            }
+            const user: Profile = {
+                ...profile,
+                name: inputName,
+            }
             if(image){
                 await updateProfilePhoto(data).unwrap();
+                user.profile_photo = previewImage;
             }
+            dispatch(addProfile(user));
             setEditMode(false);
+
             toast.success("Profile Updated Successfully", {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 2000,
@@ -160,7 +127,7 @@ const ProfileNav = () => {
                                 previewImage ? (
                                      <img onClick={imageEdit} src={previewImage} alt="" className="rounded-full w-[150px] h-[150px] object-cover" /> 
                                 ) : (
-                                    <img onClick={imageEdit} src={profilePhoto} alt="" className="rounded-full w-[150px] h-[150px] object-cover" /> 
+                                    <img onClick={imageEdit} src={profilePhoto!} alt="" className="rounded-full w-[150px] h-[150px] object-cover" /> 
                                 )
                             }
 
@@ -172,8 +139,9 @@ const ProfileNav = () => {
                         {
                             editMode ? (
                                 <input type="text" className="bg-[#1C1F26] text-white w-[170px] sm:w-[220px] h-[40px] border border-gray-400 rounded-lg px-3"
-                                onChange={(e)=>setProfile({...profile,name:e.target.value})}
-                                value={profile?.name ?? null}
+                                ref = {inputRef}
+                                defaultValue={profile?.name ?? null}
+                                required
                                 placeholder="Name" />
                             ) : (
                                 <div className="flex gap-6 relative w-full justify-center items-center">

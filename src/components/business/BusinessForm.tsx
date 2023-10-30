@@ -1,27 +1,18 @@
 import { SiFacebook, SiTiktok, SiYoutube } from "react-icons/si";
-import { FormEvent, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { ChangeEvent, FormEvent, RefObject, useMemo, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImageAlt } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 import {
-  // useCreateBossAddressMutation,
+  useCreateBossAddressMutation,
   useGetCategoriesQuery,
   useGetCountryQuery,
 } from "../../redux/api/BusinessAddressApi";
 import { Select } from "@mantine/core";
 import "./business.css";
-import { CategoryType, City } from "../../typings/type";
 // import Cookies from "js-cookie";
 import useInput from "../../hooks/useInput";
 
-interface DropType {
-  path: string;
-  preview: string;
-  name: string;
-  size: number;
-  type: string;
-}
 
 const initialState = {
   boss_no: "",
@@ -43,86 +34,95 @@ const initialState = {
   main_product: "",
 };
 
-const BusinessForm = ({ className }: any) => {
-  const [logoFiles, setLogoFiles] = useState<DropType[]>([]);
-  const [profileFiles, setProfileFiles] = useState<DropType[]>([]);
-  const [businessPhotoFiles, setBusinessPhotoFiles] = useState<DropType[]>([]);
-  const [search] = useState("");
-  const [mainImage, setMainImage] = useState<number>(0);
-  // const token = Cookies.get("token");
+const BusinessForm = () => {
+  const [createBossAddress,{isLoading}] = useCreateBossAddressMutation();
+
+  const logoInput = useRef<HTMLInputElement>(null);
+  const [logoPreviewImage, setLogoPreviewImage] = useState<string[]>([]);
+
   const cities = useGetCountryQuery();
-  const citiesList = cities.data?.cities?.data;
-  console.log(citiesList)
-  // const [createBossAddress] = useCreateBossAddressMutation();
+  const citiesList = useMemo(() => cities.data?.cities?.data, [cities.data])
 
   const { changeInputHandler, input } = useInput(initialState);
   const cata = useGetCategoriesQuery();
-  const categories = cata.data?.categories
+  const categories = useMemo(() => cata.data?.categories, [cata.data]);
 
-  const handleDrop = (
-    acceptedFiles: File[],
-    setFiles: React.Dispatch<React.SetStateAction<DropType[]>>
-  ) => {
-    if (acceptedFiles?.length) {
-      setFiles((previousFiles: DropType[]) => [
-        ...previousFiles,
-        ...acceptedFiles.map((file: any) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
-        ),
-      ]);
-    }
+
+  const fileChanged = (e: ChangeEvent<HTMLInputElement>, setFiles: React.Dispatch<React.SetStateAction< string[]>>) => {
+    const files = Array.from(e.target.files || []); 
+    console.log('file changed')
+    files.forEach((file: File) => { 
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFiles((prevFiles) => [...prevFiles, URL.createObjectURL(file) as string]);
+      };
+      reader.readAsDataURL(file);
+    });
   };
 
-  const logoDropzone = useDropzone({
-    onDrop: (acceptedFiles: File[]) => handleDrop(acceptedFiles, setLogoFiles),
-  });
-
-  const profileDropzone = useDropzone({
-    onDrop: (acceptedFiles: File[]) =>
-      handleDrop(acceptedFiles, setProfileFiles),
-  });
-
-  const businessPhotoDropzone = useDropzone({
-    onDrop: (acceptedFiles: File[]) =>
-      handleDrop(acceptedFiles, setBusinessPhotoFiles),
-  });
+  const handleFileClick = (ref : RefObject<HTMLInputElement>) =>{
+    console.log('fileClicked')
+    console.log(ref.current?.click())
+  
+  }
 
   // const [createSocialLink] = useCreateSocialLinkMutation();
   const businesSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("boss_no", input.boss_no);
+    formData.append("boss_name", input.boss_name);
+    formData.append("business_name", input.business_name);
+    formData.append("business_address", input.business_address);
+    formData.append("business_description", input.business_description);
+    formData.append("social_links", input.social_links);
+    formData.append("business_category_id", input.business_category_id);
+    formData.append("user_id", input.user_id);
+    formData.append("business_city_id", input.business_city_id);
+    formData.append("contact_numbers", input.contact_numbers);
+    formData.append("suprise", input.suprise);
+    formData.append("vision", input.vision);
+    formData.append("mission", input.mission);
+    formData.append("main_product", input.main_product);
+
+    console.log(formData.get('boss_no'))
+    const res = await createBossAddress(formData).unwrap();
+    console.log(res);
   };
 
+
+  console.log('preview',logoPreviewImage);
   return (
     <form
       onSubmit={businesSubmit}
       className="relative text-sm md:w-[700px] w-[355px]  sm:w-[400px] md:p-0  p-19  lg:w-[975px] mt-[20px] h-full my-auto bg-[#0E1217] flex flex-wrap justify-between items-center  mx-auto  rounded"
     >
       <div></div>
-      <RxCross1 className=" absolute top-5 right-10 text-sm text-white" />
       <div className="md:w-7/12 w-12/12 px-3 py-2  h-screen overflow-y-scroll no-scrollbar">
         <div className=" flex flex-col justify-around items-center gap-y-8 md:gap-y-5">
           <div className=" w-full">
             <h2 className="  text-center text-[#A8B3CF] pb-3">Business Logo</h2>
-
-            <div className="w-[200px] mx-auto flex justify-center items-center h-[200px] bg-[#1C1F26] border border-[#A8B3CF33]">
+            <div onClick={()=>handleFileClick(logoInput)} className="w-[200px] mx-auto flex justify-center items-center h-[200px] bg-[#1C1F26] border border-[#A8B3CF33]">
               <div
-                {...logoDropzone.getRootProps({ className: className })}
+            
                 className=" flex justify-center items-center flex-col"
               >
                 <input
-                  {...logoDropzone.getInputProps()}
+                  ref={logoInput}
+                  type="file"
                   name="business_logo"
                   value={input.business_logo}
-                  onChange={changeInputHandler}
-                  className=" bg-red-500 flex justify-center items-center "
+                  onChange={(e) => fileChanged(e, setLogoPreviewImage)}
+                  accept="image/*"
+                  className="hidden"
                 />
-                {logoFiles.length === 0 ? (
-                  <div className="flex flex-col justify-center items-center gap-y-3">
+                {logoPreviewImage.length == 0  ? (
+                  <div onClick={ ()=> console.log('hi') } className="flex flex-col justify-center items-center gap-y-3">
                     <BsImageAlt className="text-[60px] text-[#A8B3CF33]" />
                     <AiOutlineCloudUpload className="text-[50px] text-[#A8B3CF33]" />
                   </div>
                 ) : (
-                  <img src={logoFiles[0]?.preview} className="w-full" />
+                  <img src={logoPreviewImage[logoPreviewImage.length -1]} className="w-[200px] h-[200px] object-cover" />
                 )}
               </div>
             </div>
@@ -131,31 +131,7 @@ const BusinessForm = ({ className }: any) => {
             <h2 className="  text-center text-[#A8B3CF] pb-3">
               Business Profile
             </h2>
-            <div
-              className={`
-              ${profileFiles.length !== 0 ? " bg-transparent border-0" : ""}
-              w-full  flex justify-center items-center h-[200px] bg-[#1C1F26] border border-[#A8B3CF33] rounded`}
-            >
-              <div {...profileDropzone.getRootProps({ className: className })}>
-                <input
-                  {...profileDropzone.getInputProps()}
-                  name="cover_photo"
-                  value={input.cover_photo}
-                  onChange={changeInputHandler}
-                />
-                {profileFiles.length === 0 ? (
-                  <div className="flex justify-center items-center gap-x-10">
-                    <BsImageAlt className="text-[80px] text-[#A8B3CF33]" />
-                    <AiOutlineCloudUpload className="text-[80px] text-[#A8B3CF33]" />
-                  </div>
-                ) : (
-                  <img
-                    src={profileFiles[0]?.preview}
-                    className=" w-full h-[200px] object-cover"
-                  />
-                )}
-              </div>
-            </div>
+            
           </div>
           {/* <div className=" mt-20"></div> */}
           <div className="md:w-full mt-5 w-full gap-y-8  flex flex-wrap justify-between items-center">
@@ -404,79 +380,14 @@ const BusinessForm = ({ className }: any) => {
           <div className=" w-[100%]">
             <h2 className="text-sm text-[#A8B3CF] pb-5">Business Photo</h2>
             <div className="w-[100%]  flex-col flex justify-center items-center h-[280px] bg-[#1C1F26] border border-[#A8B3CF33]">
-              <div
-                {...businessPhotoDropzone.getRootProps({
-                  className: className,
-                })}
-              >
+              <div>
                 <input
-                  {...businessPhotoDropzone.getInputProps()}
                   name="business_photos"
                   value={input.business_photos}
                   onChange={changeInputHandler}
-                />
-                {businessPhotoFiles.length === 0 ? (
-                  <div className="flex justify-center items-center h-32">
-                    <BsImageAlt className="text-[80px] text-[#A8B3CF33]" />
-                    <AiOutlineCloudUpload className="text-[80px] text-[#A8B3CF33]" />
-                  </div>
-                ) : (
-                  // <div className=" h-56 flex flex-wrap  gap-3 justify-center items-center">
-                  //   {businessPhotoFiles?.map((business, index) => (
-                  //     <img
-                  //       key={index}
-                  //       src={business.preview}
-                  //       className=" w-14 flex flex-wrap gap-3 h-14 justify-start object-cover"
-                  //     />
-                  //   ))}
-                  // </div>
-                  <div className="w-[100%] flex flex-col">
-                    <div>
-                      <img
-                        src={businessPhotoFiles[mainImage]?.preview}
-                        className="w-full object-contain h-[200px]"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                )}
+                />  
               </div>
-              {businessPhotoFiles.length !== 0 && (
-                <div className="flex gap-1 justify-center items-center">
-                  {businessPhotoFiles.length > 0 && (
-                    <img
-                      onClick={() => setMainImage(0)}
-                      src={businessPhotoFiles[0]?.preview}
-                      className="w-[70px] h-[70px] object-contain border border-white/30"
-                      alt=""
-                    />
-                  )}
-                  {businessPhotoFiles.length > 1 && (
-                    <img
-                      onClick={() => setMainImage(1)}
-                      src={businessPhotoFiles[1]?.preview}
-                      className="w-[70px] h-[70px] object-contain border border-white/30"
-                      alt=""
-                    />
-                  )}
-                  {businessPhotoFiles.length > 2 && (
-                    <img
-                      onClick={() => setMainImage(2)}
-                      src={businessPhotoFiles[2]?.preview}
-                      className="w-[70px] h-[70px] object-contain border border-white/30"
-                      alt=""
-                    />
-                  )}
-                  {businessPhotoFiles.length > 3 && (
-                    <img
-                      onClick={() => setMainImage(3)}
-                      src={businessPhotoFiles[3]?.preview}
-                      className="w-[70px] h-[70px] object-contain border border-white/30"
-                      alt=""
-                    />
-                  )}
-                </div>
-              )}
+              
             </div>
             {/* <div className="w-[100%] bg-[#1C1F26] mt-2 h-[100px] border border-[#A8B3CF33]">
                 To Place image

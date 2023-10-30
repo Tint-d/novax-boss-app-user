@@ -1,8 +1,5 @@
 import { ChangeEvent, useCallback, useState } from "react";
 
-interface InputType {
-  [key: string]: string;
-}
 
 const useInput = (initialState: any) => {
   const [input, setInput] = useState(initialState);
@@ -16,8 +13,9 @@ const useInput = (initialState: any) => {
         ...prev,
         [name]: value,
       }));
+      alert(input)
     },
-    [input]
+    []
   );
   return { changeInputHandler, input, setInput };
 };

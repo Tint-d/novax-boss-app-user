@@ -127,11 +127,11 @@ const Navbar = () => {
      window.location.reload();
   },[dispatch])
   let profilePhoto;
-  if(profile?.profile_photo == null && profile?.facebook_profile_photo != null){
-    profilePhoto = profile?.facebook_profile_photo;
+  if(pf?.profile_photo == null && pf?.facebook_profile_photo != null){
+    profilePhoto = pf?.facebook_profile_photo;
   }
     else{
-      profilePhoto = profile?.profile_photo;
+      profilePhoto = pf?.profile_photo;
     }
 
   return (
@@ -278,7 +278,7 @@ const Navbar = () => {
                     <div className="flex justify-between w-[50px] md:w-[100px] lg:w-[180px] items-center">
                       <div className="md:flex flex-col justify-between gap-y-1 hidden">
                         <h2 className="text-white">
-                          {token ? profile?.name : ""}
+                          {token ? pf?.name : ""}
                         </h2>
                         <div className="">
                           <h2 className="px-3  text-[16px] text-center rounded-xl text-[#484848] bg-warining">
@@ -308,14 +308,14 @@ const Navbar = () => {
                                     </h2>
                                   </button>
                                 </NavLink>
-                             <ProfileNav />
+                             <ProfileNav profile={pf} />
                              <Logout open={open} />
 
                             </div>
                           ) : (
                         <div >
                             <ActionCodeApply profile={pf}/>
-                            <ProfileNav />
+                            <ProfileNav profile={pf}/>
                            <Logout open={open} />
                             </div>
                           )}
@@ -336,7 +336,7 @@ const Navbar = () => {
                             </h2>
                           </button>
                           
-                          <ProfileNav />
+                          <ProfileNav profile={pf} />
                            <Logout open={open} />
                         </div>
                       )}
@@ -370,21 +370,21 @@ const Navbar = () => {
                             },
                           }}
                         >
-                          <div className="flex flex-col gap-7 justify-center h-full items-center">
+                          <div className="flex flex-col gap-7 justify-center h-full items-center pb-5">
                             <p className="text-white">
                               Are you sure to logout?
                             </p>
                             <BsExclamationTriangle className="text-[#DCA715] text-6xl" />
-                            <div className="flex gap-2">
+                            <div className="flex gap-24">
                               <button
                                 onClick={close}
-                                className=" rounded bg-[#FF0000] w-24  text-white"
+                                className=" rounded bg-[#cf0303] w-24  text-white font-bold"
                               >
                                 Cancel
                               </button>
                               <button
                                 onClick={logoutHandler}
-                                className=" rounded bg-[#00FF47] w-24 h-10 text-white"
+                                className=" rounded bg-[#06c53c] w-24 h-10 text-white font-bold"
                               >
                                 Confirm
                               </button>
