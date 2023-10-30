@@ -4,6 +4,7 @@ import { lazy, Suspense } from "react";
 import Fallback from "../utils/Fallback";
 import Layout from "../utils/Layout";
 import Authenticated from "@/components/auth/guards/Authenticated";
+import Guest from "@/components/auth/guards/Guest";
 const FacebookLoginAuth = lazy(() => import("../pages/FacebookLoginAuth"));
 const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
@@ -130,9 +131,11 @@ const Routes = () => {
       path: paths.business_information,
       element: (
         <Suspense fallback={<Fallback />}>
+           <Guest>
           <Layout>
             <BusinessAddForm />
           </Layout>
+          </Guest>
         </Suspense>
       ),
     },
@@ -140,9 +143,11 @@ const Routes = () => {
       path: paths.business_deatil,
       element: (
         <Suspense fallback={<Fallback />}>
+           <Guest>
           <Layout>
             <BusinessDetail />
           </Layout>
+          </Guest>
         </Suspense>
       ),
     },
@@ -160,9 +165,11 @@ const Routes = () => {
       path: paths.business_edit,
       element: (
         <Suspense fallback={<Fallback />}>
+           <Guest>
           <Layout>
             <BusinessEdit />
           </Layout>
+          </Guest>
         </Suspense>
       ),
     },

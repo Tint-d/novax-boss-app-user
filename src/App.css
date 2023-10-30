@@ -52,3 +52,8 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.invalid-feedback {
+  display: block;
+  color: red!important;
+}

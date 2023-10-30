@@ -4,9 +4,8 @@ import homeBg from "../../assets/homeBg.png";
 import Logo from "../../assets/logo.png";
 import Home from "../../assets/home2.png";
 import { FaFacebookF } from "react-icons/fa";
-import { RxCross2 } from "react-icons/rx";
-import { useState } from "react";
-
+import { Suspense, lazy, useState } from "react";
+const QA = lazy(() => import("./QA"));
 const Brand = () => {
   const [message, setMessage] = useState<boolean>(false);
   return (
@@ -60,35 +59,12 @@ const Brand = () => {
 
       <div className="fixed bottom-[10%] md:right-20 right-5">
         {message && (
-          <div className="md:w-[440px] w-[340px] h-auto rounded-md absolute right-0 bottom-[25%]  p-2 flex flex-col gap-y-4 justify-center items-center bg-[#262a31]">
-            <RxCross2
-              onClick={() => setMessage(false)}
-              className="text-xl absolute cursor-pointer top-5 right-3 text-[#A8B3CF]"
-            />
-            <img
-              width={70}
-              height={70}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRyurWsC_LPj6-Xp9-4885OYTNNSDjDvSFIQ&usqp=CAU"
-            />
-            <h2 className="text-[16px] py-2 w-[300px] text-center text-[#A8B3CF]">
-              သင်မေးလိုသောမေးခွန်းများကို နှိပ်၍ အဖြေများကို ရယူနိုင်ပါသည်။
-            </h2>
-            <div className="flex justify-around gap-3 flex-wrap items-center">
-              <button className="text-[14px] h-[50px] leading-5 text-white w-[200px]  bg-[#383d47] px-3  rounded-[30px]">
-                သင်တန်းအကြောင်းပိုမိုသိရှိလိုပါသလား။
-              </button>
-              <button className="text-[14px] h-[50px] leading-5 text-white w-[200px]  bg-[#383d47] px-3  rounded-[30px]">
-                SIR သင်တန်းဖွင့်သေးပါသလား?
-              </button>
-              <button className="text-[14px] h-[50px] leading-5 text-white w-[200px]  bg-[#383d47] px-3  rounded-[30px]">
-                Unloacker 3 သင်တန်းဖွင့်သေးပါသလား?
-              </button>
-            </div>
-            <div className="h-[200px] w-full overflow-y-scroll no-scrollbar"></div>
-          </div>
+          <Suspense fallback={<div>Loading...</div>}>
+              <QA setMessage={setMessage}/>
+          </Suspense>
         )}
         <button
-          onClick={() => setMessage(true)}
+          onClick={() => setMessage(!message)}
           className="w-[50px] absolute bottom-[-55px] right-[10px] h-[50px] rounded-full  bg-[#DCA715]"
         >
           <BiMessageRoundedDots className="text-3xl mx-auto text-black" />

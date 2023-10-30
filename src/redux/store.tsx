@@ -6,6 +6,7 @@ import businessSlice from "./services/businessSlice";
 import authSlice from "./services/authSlice";
 import { settingSlice } from "./services/settinSlice";
 import { profileApi } from "./api/profile";
+import { supportMessage } from "./api/supportMessageApi";
 
 export const store = configureStore({
   reducer: {
@@ -16,13 +17,16 @@ export const store = configureStore({
     [businessAddressApi.reducerPath]: businessAddressApi.reducer,
     [facebookAuthApi.reducerPath]: facebookAuthApi.reducer,
     [profileApi.reducerPath]: profileApi.reducer,
+    [supportMessage.reducerPath]: supportMessage.reducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
       facebookAuthApi.middleware,
       businessAddressApi.middleware,
-      profileApi.middleware
+      profileApi.middleware,
+      supportMessage.middleware,
     ),
 });
 

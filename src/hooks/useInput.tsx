@@ -13,7 +13,6 @@ const useInput = (initialState: any) => {
         ...prev,
         [name]: value,
       }));
-      alert(input)
     },
     []
   );

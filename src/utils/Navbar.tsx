@@ -74,10 +74,10 @@ const Navbar = () => {
     const token = Cookies.get("token"); // Replace with your actual authorization token
     const headers = { Authorization: `Bearer ${token}` };
     console.log("token", Cookies.get("token"));
-
+    const url = window.getUrl('/v1/user/profile/me?withAddress=true');
     try {
       const res = await fetch(
-        "https://novax-mm.com/api/v1/user/profile/me?withAddress=true",
+        url,
         {
           headers,
         }
@@ -271,7 +271,7 @@ const Navbar = () => {
               {token ? (
                 <div className="relative w-[80px] md:w-[150px] lg:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
-                    className=" min-w-[35px]  h-[35px] rounded-full object-cover"
+                    className=" min-w-[35px] max-w-[36px] h-[35px] rounded-full object-cover"
                     src={profilePhoto !}
                   />
                   <div>

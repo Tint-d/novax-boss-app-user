@@ -65,7 +65,7 @@ const HomeBusiness = () => {
   // );
 
   return (
-    <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container">
+    <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container pb-10">
       <BusinessSearchBox />
 
       {isLoading ? loadingSkeleton : (
