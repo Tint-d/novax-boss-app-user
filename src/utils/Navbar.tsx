@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy } from "react";
 import { AiOutlinePlus, AiOutlineMenu } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { BsChevronDown } from "react-icons/bs";
@@ -30,6 +30,7 @@ import ProfileNav from "@/components/nav/ProfileNav";
 import ActionCodeApply from "@/components/nav/ApplyActionCode";
 import Logout from "@/components/nav/Logout";
 import { useAppSelector } from "@/redux/hook";
+import defaultProfile from '@/assets/default_profile.jpeg';
 
 export interface Profile {
   boss_address: unknown // Replace 'string' with the actual type of boss_address if it's not always null
@@ -129,9 +130,12 @@ const Navbar = () => {
   if(pf?.profile_photo == null && pf?.facebook_profile_photo != null){
     profilePhoto = pf?.facebook_profile_photo;
   }
-    else{
-      profilePhoto = pf?.profile_photo;
-    }
+  else if(pf?.profile_photo == null && pf?.facebook_profile_photo == null){
+    profilePhoto = defaultProfile;
+  }
+  else{
+    profilePhoto = pf?.profile_photo;
+  }
 
   return (
     <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full px-5">

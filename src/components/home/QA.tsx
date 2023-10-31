@@ -23,6 +23,7 @@ type MessageHistory = Message[]
 const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     const [messageHistory, setMessageHistory] = useState<MessageHistory>([]);
+    const  [loading, setLoading] = useState<boolean>(false);
 
     const { data: questions, isLoading } = useGetSupportQuestionsQuery({});
     const messageContainer = document.getElementById('supportMessage');
@@ -45,6 +46,9 @@ const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<bo
     })
 
     const getAnwser = async (q: Question) => {
+       if(!isLoading && !loading)
+       {
+        setLoading(true);
         const code = q.support_code;
 
         const question: Message = {
@@ -71,6 +75,10 @@ const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<bo
         catch (error) {
             console.log('here');
         }
+        finally {
+            setLoading(false);
+        }
+       }
     }
 
 
