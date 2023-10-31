@@ -116,8 +116,6 @@ const Navbar = () => {
     fetchProfile();
   }, []);
 
-  console.log('profiel',pf)
-
   const wid = window.location.pathname;
 
   //change localization
@@ -272,13 +270,13 @@ const Navbar = () => {
               </div>
               <div className=" h-[60px] p-[1px] bg-white/80"></div>
               {token ? (
-                <div className="relative w-[80px] md:w-[150px] lg:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
+                <div className="relative w-[80px]  flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
                     className=" min-w-[35px] max-w-[36px] h-[35px] rounded-full object-cover"
                     src={profilePhoto !}
                   />
                   <div>
-                    <div className="flex justify-between w-[50px] md:w-[100px] lg:w-[180px] items-center">
+                    <div className="flex justify-end w-[50px] md:w-[100px] items-center">
                       <div className="md:flex flex-col justify-between gap-y-1 hidden">
                         <h2 className="text-white">
                           {token ? pf?.name : ""}
