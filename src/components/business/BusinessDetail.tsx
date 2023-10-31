@@ -11,7 +11,7 @@ import { FaFacebookSquare, FaTiktok, FaYoutube } from "react-icons/fa";
 import Skeleton from 'react-loading-skeleton'
 
 
-interface detailsType {
+export interface detailsType {
   boss_name: string;
   business_name: string;
   categories: {

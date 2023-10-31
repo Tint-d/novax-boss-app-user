@@ -1,5 +1,5 @@
 import { SiFacebook, SiTiktok, SiYoutube } from "react-icons/si";
-import { ChangeEvent, RefObject, useMemo, useRef, useState } from "react";
+import { BaseSyntheticEvent, ChangeEvent, RefObject, useCallback, useMemo, useRef, useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImageAlt } from "react-icons/bs";
 import {
@@ -7,9 +7,10 @@ import {
   useGetCategoriesQuery,
   useGetCountryQuery,
 } from "../../redux/api/BusinessAddressApi";
+import { ImCross } from 'react-icons/im';
 import { Button, Select } from "@mantine/core";
 import "./business.css";
-import {BossAddressValidationSchema} from './validations/validation';
+import { BossAddressValidationSchema } from './validations/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import InputField from "./InputField";
 import { useForm } from "react-hook-form";
@@ -17,31 +18,37 @@ import InputError from "../ui/Errors/InputError";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-interface socialLink{
-  type : string,
-  link : string
+interface socialLink {
+  type: string,
+  link: string
 }
 
 export interface BossSubmitData {
-  boss_no : string,
-  boss_name : string,
-  business_name : string,
-  main_product : string,
-  boss_address : string,
-  business_address : string,
-  contact_numbers : string[],
-  business_description : string,
-  vision : string,
-  mission : string,
-  business_suprise : string,
-  social_links : socialLink[],
-  business_logo : File,
-  cover_photo : File,
-  business_photos : File[],
-  business_type : number,
-  city : number,
-  business_category_id : number,
-  business_city_id : number,
+  boss_no: string,
+  boss_name: string,
+  business_name: string,
+  main_product: string,
+  boss_address: string,
+  business_address: string,
+  contact_numbers: string[],
+  business_description: string,
+  vision: string,
+  mission: string,
+  business_suprise: string,
+  social_links: socialLink[],
+  business_logo: File,
+  cover_photo: File,
+  business_photos: File[],
+  business_type: number,
+  city: number,
+  business_category_id: number,
+  business_city_id: number,
+}
+
+interface ImageFile {
+  id: number,
+  file: File,
+  preview : string
 }
 
 
@@ -50,16 +57,18 @@ const BusinessForm = () => {
 
   const [logoPreviewImage, setLogoPreviewImage] = useState<string[]>([]);
   const [profilePreviewImage, setProfilePreviewImage] = useState<string[]>([]);
-  const [businessPhotos, setBusinessPhotos] = useState<string[]>([]);
+  const [businessPhotos, setBusinessPhotos] = useState<ImageFile[]>([]);
+
   const [currentBusinessPhoto, setCurrentBusinessPhoto] = useState<number>(0);
-  const [categoryId , setCategoryId] = useState<number>(1);
-  const [cityId , setCityId] = useState<number>(1);
+  const [categoryId, setCategoryId] = useState<number>(1);
+  const [cityId, setCityId] = useState<number>(1);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError
+    setError,
+    clearErrors,
   } = useForm<BossSubmitData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: yupResolver(BossAddressValidationSchema) as any,
@@ -92,18 +101,61 @@ const BusinessForm = () => {
     }
   };
 
+  const imageChange = useCallback((event: BaseSyntheticEvent) => {
+    const files = event.target.files;
+    if (files) {
+      const filesArray = Array.from(files)  as File[];
+      const filesArrayWithId = filesArray.map((file : File) => {
+        return {
+          id: Math.random() * 1000,
+          file,
+          preview: URL.createObjectURL(file)
+        } as ImageFile
+      })
+      setBusinessPhotos([...filesArrayWithId]);
+    }
+  }, []);
+
   const handleFileClick = (ref: RefObject<HTMLInputElement>) => {
-     ref.current?.click()
+    ref.current?.click()
   }
 
+  const removeImage = useCallback((id: number) => {
+    setBusinessPhotos((prevImages) => prevImages.filter((image) => image.id !== id));
+}, []);
+
   const onSubmit = async (data: BossSubmitData) => {
-    
-    if(businessPhotos.length == 0){
+
+    if (businessPhotos.length == 0) {
       setError('business_photos', {
         type: 'manual',
         message: 'Business photo is required'
       })
+      return ;
     }
+    if(logoPreviewImage.length == 0){
+      setError('business_logo', {
+        type: 'manual',
+        message: 'Business logo is required'
+      })
+      return ;
+    }
+    if(profilePreviewImage.length == 0){
+      setError('cover_photo', {
+        type: 'manual',
+        message: 'Business profile is required'
+      })
+      return ;
+    }
+    if(businessPhotos.length < 4){
+      setError('business_photos', {
+        type: 'manual',
+        message: 'Minimum 4 photos are required'
+      })
+      return ;
+    }
+    clearErrors('business_photos',);
+
     data['business_logo'] = logoInput.current?.files?.[0] as File;
     data['cover_photo'] = profileInput.current?.files?.[0] as File;
     data['business_category_id'] = categoryId;
@@ -117,7 +169,7 @@ const BusinessForm = () => {
     formData.append('business_address', data.business_address);
 
     const contact_numbers = data.contact_numbers;
-    contact_numbers.forEach((number,index)=>{
+    contact_numbers.forEach((number, index) => {
       formData.append(`social_links[${index}][contact_no]`, number);
 
     });
@@ -125,9 +177,10 @@ const BusinessForm = () => {
     formData.append('vision', data.vision);
     formData.append('mission', data.mission);
     formData.append('business_suprise', data.business_suprise);
+
+    
     const social_links = data.social_links;
-    console.log(social_links)
-    social_links.forEach((link,index)=>{
+    social_links.forEach((link, index) => {
       formData.append(`social_links[${index}][type]`, 'facebook');
       formData.append(`social_links[${index}][href]`, link as unknown as string);
     });
@@ -135,23 +188,21 @@ const BusinessForm = () => {
     formData.append('cover_photo', data.cover_photo);
     formData.append('business_category_id', data.business_category_id.toString());
     formData.append('business_city_id', data.business_city_id.toString());
-    const files = Array.from(businessPhotoInput.current?.files || []);
-    files.forEach((file : File) => {
-     formData.append('business_photos[]', file);
+    businessPhotos.forEach((file: ImageFile) => {
+      formData.append('business_photos[]', file.file);
 
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await createBossAddress(formData) as any;
-    if(response.error){
+    if (response.error) {
       toast.error(response.error.data.message, {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
       });
     }
 
-    if(response.data.success)
-    {
+    if (response.data.success) {
       toast.success("Boss Address Created", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
@@ -194,7 +245,7 @@ const BusinessForm = () => {
                   <img src={logoPreviewImage[logoPreviewImage.length - 1]} className="w-[200px] h-[200px] object-cover rounded-lg" />
                 )}
               </div>
-              
+
             </div>
             <InputError errors={errors.business_logo} />
 
@@ -235,27 +286,27 @@ const BusinessForm = () => {
           {/* <div className=" mt-20"></div> */}
           <div className="md:w-full mt-5 w-full gap-y-8  flex flex-wrap justify-between items-center">
             <div className="md:w-4/12  w-[100%]">
-            <InputField type="text" label="Boss Number" register={register} errors={errors.boss_no}
-              placeholder="Boss Number" register_name="boss_no" />
+              <InputField type="text" label="Boss Number" register={register} errors={errors.boss_no}
+                placeholder="Boss Number" register_name="boss_no" />
             </div>
 
             <div className="md:w-7/12 w-[100%]">
-            <InputField type="text" label="Boss Name" register={register} errors={errors.boss_name}
-              placeholder="Boss Name" register_name="boss_name" />
+              <InputField type="text" label="Boss Name" register={register} errors={errors.boss_name}
+                placeholder="Boss Name" register_name="boss_name" />
             </div>
           </div>
 
           <div className="w-full">
-          <InputField type="text" label="Business Name" register={register} errors={errors.business_name}
+            <InputField type="text" label="Business Name" register={register} errors={errors.business_name}
               placeholder="Business Name" register_name="business_name" />
           </div>
 
           <div className="w-full">
-          <InputField type="text" label="Boss Address" register={register} errors={errors.boss_address}
+            <InputField type="text" label="Boss Address" register={register} errors={errors.boss_address}
               placeholder="Boss Address" register_name="boss_address" />
           </div>
           <div className="w-full">
-          <InputField type="text" label="Main Product" register={register} errors={errors.main_product}
+            <InputField type="text" label="Main Product" register={register} errors={errors.main_product}
               placeholder="Main Product" register_name="main_product" />
           </div>
           <div className="w-full">
@@ -353,7 +404,7 @@ const BusinessForm = () => {
             />
           </div>
           <div className="w-full">
-          <InputField type="text" label="Contact Number" register={register} errors={errors.contact_numbers}
+            <InputField type="text" label="Contact Number" register={register} errors={errors.contact_numbers}
               placeholder="Contact Number" register_name="contact_numbers[0]" />
           </div>
           <div className="w-full">
@@ -406,7 +457,7 @@ const BusinessForm = () => {
             <input
               {...register("social_links.0")}
               type="text"
-              className="bg-transparent text-white border-l border-[#4e525a] p-1  outline-none"
+              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full outline-none"
             />
           </div>
         </div>
@@ -418,7 +469,7 @@ const BusinessForm = () => {
             <input
               {...register("social_links.1")}
               type="text"
-              className="bg-transparent text-white border-l border-[#4e525a] p-1  outline-none"
+              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full  outline-none"
             />
           </div>
         </div>
@@ -429,7 +480,7 @@ const BusinessForm = () => {
             <input
               {...register("social_links.2")}
               type="text"
-              className="bg-transparent text-white border-l border-[#4e525a] p-1  outline-none"
+              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full outline-none"
             />
           </div>
         </div>
@@ -443,7 +494,7 @@ const BusinessForm = () => {
                   ref={businessPhotoInput}
                   type="file"
                   name="business_photos[]"
-                  onChange={(e) => fileChanged(e, setBusinessPhotos, businessPhotos)}
+                  onChange={imageChange}
                   accept="image/*"
                   className="hidden"
                   multiple
@@ -455,7 +506,7 @@ const BusinessForm = () => {
                     <AiOutlineCloudUpload className="text-[50px] text-[#A8B3CF33]" />
                   </div>
                 ) : (
-                  <img src={businessPhotos[currentBusinessPhoto]} className="w-[100vw] h-[300px] object-cover rounded-lg " />
+                  <img src={ (businessPhotos[currentBusinessPhoto].preview)} className="w-[100vw] h-[300px] object-cover rounded-lg " />
                 )}
               </div>
             </div>
@@ -463,8 +514,11 @@ const BusinessForm = () => {
             <div className="flex gap-5 w-full overflow-x-scroll  mt-4 px-5 pb-3" >
               {
                 businessPhotos.map((item, index) => (
-                  <div key={index} onClick={() => setCurrentBusinessPhoto(index)} className="min-w-[130px] h-[130px] rounded-lg overflow-hidden" >
-                    <img src={item} className="w-full h-full object-cover" />
+                  <div key={item.id}  className="min-w-[130px] h-[130px] rounded-lg overflow-hidden relative" >
+                    <img src={item.preview} onClick={() => setCurrentBusinessPhoto(index)} className="w-full h-full object-cover" />
+                    <button type="button" onClick={() => removeImage(item.id)} className="bg-red-600 absolute bottom-0 right-0 px-4 py-2 text-gray-100 rounded-md text-[.9em]">
+                        <ImCross />
+                    </button>
                   </div>
                 ))
               }
@@ -473,20 +527,20 @@ const BusinessForm = () => {
         </div>
 
         <div className="flex justify-center w-full mt-0">
-        <Button
-          style={{
-            backgroundColor: "green",
-            color: "white",
-            padding: "10px 80px",
-          }}
-          size="lg"
-          loading={isLoading}
-          type="submit"
-          variant="filled" color="green">Save</Button>
-      </div>
+          <Button
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              padding: "10px 80px",
+            }}
+            size="lg"
+            loading={isLoading}
+            type="submit"
+            variant="filled" color="green">Save</Button>
+        </div>
       </div>
       <ToastContainer />
-     
+
     </form>
   );
 };

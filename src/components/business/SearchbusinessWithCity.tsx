@@ -39,7 +39,7 @@ const SearchbusinessWithCity = () => {
 
   const width = window.innerWidth > 768 ? "w-[270px]" : "w-[280px]";
 
-  const height = window.innerWidth > 768 ? 280 : 250;
+  const height = window.innerWidth > 768 ? 320 : 300;
   if (isLoading) {
     return (
       // <p className=" text-white flex justify-center items-center">Loading...</p>
@@ -50,8 +50,10 @@ const SearchbusinessWithCity = () => {
   }
 
   return (
-    <div className=" mx-auto mt-4 pb-6  bg-[#0e1217] container">
-      <div className="flex justify-center gap-3 h-full  items-center flex-wrap">
+    <div className=" mx-auto mt-12 pb-6  bg-[#0e1217] container">
+      <div className="flex justify-center gap-x-3 gap-y-4 h-full  items-center flex-wrap">
+        {/* <p className="text-white">City</p> */}
+
         {business?.map((item: BossType) => (
              <BusinessCard key={item.id} {...item} />
         ))}

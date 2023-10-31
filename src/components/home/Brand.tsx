@@ -8,6 +8,7 @@ import { Suspense, lazy, useState } from "react";
 const QA = lazy(() => import("./QA"));
 const Brand = () => {
   const [message, setMessage] = useState<boolean>(false);
+
   return (
     <div
       style={{

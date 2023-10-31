@@ -47,7 +47,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (formData: FormStateType) => {
-    console.log(formData, "inside the login");
 
     try {
       const result = await userLogin(formData);

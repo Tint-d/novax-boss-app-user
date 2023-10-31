@@ -89,8 +89,8 @@ const Navbar = () => {
 
       const data = await res.json();
       dispatch(addProfile(data?.data));
-      console.log('give',data)
       setProfile(data?.data);
+      Cookies.set("user", JSON.stringify(data?.data));
    
     } catch (error) {
       console.error("Error fetching profile data:", error);
@@ -270,13 +270,13 @@ const Navbar = () => {
               </div>
               <div className=" h-[60px] p-[1px] bg-white/80"></div>
               {token ? (
-                <div className="relative w-[80px]  flex gap-x-1 md:gap-x-3 justify-start items-center">
+                <div className="relative w-[80px] md:w-[150px] lg:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
                     className=" min-w-[35px] max-w-[36px] h-[35px] rounded-full object-cover"
                     src={profilePhoto !}
                   />
                   <div>
-                    <div className="flex justify-end w-[50px] md:w-[100px] items-center">
+                    <div className="flex justify-between w-[50px] md:w-[100px] lg:w-[180px] items-center">
                       <div className="md:flex flex-col justify-between gap-y-1 hidden">
                         <h2 className="text-white">
                           {token ? pf?.name : ""}
@@ -330,12 +330,14 @@ const Navbar = () => {
                               Edit business information
                             </h2>
                           </button>
+                          <NavLink to ={paths.business_address}>
                           <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
-                            <AiFillEye className="text-[26px]" />
-                            <h2 className="text-[14px]">
-                              လုပ်ငန်းအချက်အလက် ကိုကြည့်ရန်
+                          <AiFillEye className="text-[26px]" />
+                            <h2 className="text-[16px]">
+                            လုပ်ငန်းအချက်အလက် ကိုကြည့်ရန်
                             </h2>
                           </button>
+                          </NavLink>
                           
                           <ProfileNav profile={pf} />
                            <Logout open={open} />

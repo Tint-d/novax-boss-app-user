@@ -5,6 +5,9 @@ import Fallback from "../utils/Fallback";
 import Layout from "../utils/Layout";
 import Authenticated from "@/components/auth/guards/Authenticated";
 import Guest from "@/components/auth/guards/Guest";
+import HadBossAddress from "@/components/auth/guards/HadBossAddress";
+import NoBossAddress from "@/components/auth/guards/NoBossAddress";
+import BossAddressDetail from "@/components/business/UserBossAddress/BossAddressDetail";
 const FacebookLoginAuth = lazy(() => import("../pages/FacebookLoginAuth"));
 const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
@@ -132,12 +135,26 @@ const Routes = () => {
       element: (
         <Suspense fallback={<Fallback />}>
            <Guest>
+          <HadBossAddress>
           <Layout>
             <BusinessAddForm />
           </Layout>
+          </HadBossAddress>
           </Guest>
         </Suspense>
       ),
+    },
+    {
+      path : paths.business_address,
+      element : (
+        <Suspense fallback={<Fallback />}>
+          <NoBossAddress>
+            <Layout>
+              <BossAddressDetail />
+            </Layout>
+          </NoBossAddress>
+        </Suspense>
+      )
     },
     {
       path: paths.business_deatil,

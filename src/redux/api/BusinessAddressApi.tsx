@@ -90,11 +90,11 @@ export const businessAddressApi = createApi({
     }),
     getProfile: builder.query<unknown, unknown>({
       // v1/user/profile/me?withAddress=true
-      query: (token : string) => ({
+      query: () => ({
         url: "/profile/me?withAddress=true",
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       }),
     }),

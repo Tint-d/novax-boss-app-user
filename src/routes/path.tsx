@@ -10,6 +10,7 @@ export const paths = {
   search_business: "/search_business/:id",
   search_city: "/search_city/:id",
   business_information: "/business_information",
+  business_address: "/business_address",
   business_deatil: "/business_card_detail/:id",
   profile: "/profile",
   business_edit: "/edit",
