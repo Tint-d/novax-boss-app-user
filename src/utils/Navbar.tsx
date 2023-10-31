@@ -71,9 +71,8 @@ const Navbar = () => {
   };
 
   const fetchProfile = async () => {
-    const token = Cookies.get("token"); // Replace with your actual authorization token
+    const token = Cookies.get("token");
     const headers = { Authorization: `Bearer ${token}` };
-    console.log("token", Cookies.get("token"));
     const url = window.getUrl('/v1/user/profile/me?withAddress=true');
     try {
       const res = await fetch(
@@ -135,7 +134,7 @@ const Navbar = () => {
     }
 
   return (
-    <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full">
+    <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full px-5">
       <div className="flex md:gap-x-5  lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5">
         <div className="md:hidden block">
           {!change ? (

@@ -15,14 +15,13 @@ const Brand = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className=" min-h-screen container mx-auto lg:px-10 md:px-6 px-4 relative"
-    >
+      className=" min-h-screen container mx-auto lg:px-10 md:px-6 px-4 relative">
       <div className="">
         <h2 className=" text-[#DCA715] pt-5 flex justify-center">
           “ BE A PUPPET MASTER ”
         </h2>
       </div>
-      <div className="flex justify-between flex-wrap h-full items-center">
+      <div className="flex justify-between flex-wrap h-full items-center px-4">
         <div className="md:w-7/12  w-12/12">
           <div className="flex justify-start items-center mb-3">
             <img src={Logo} className=" w-32 h-32" alt="" />
@@ -59,7 +58,7 @@ const Brand = () => {
 
       <div className="fixed bottom-[10%] md:right-20 right-5">
         {message && (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="text-whtie">Loading...</div>}>
               <QA setMessage={setMessage}/>
           </Suspense>
         )}
