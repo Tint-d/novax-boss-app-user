@@ -2,10 +2,8 @@ import { useGetCountryQuery } from "../../redux/api/BusinessAddressApi";
 import { inputDefaultStyle } from "../../constant/defaultStyle";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
 import {
-  InitialBusinessStateType,
   setSearchTerm,
 } from "../../redux/services/businessSlice";
 import { useDispatch } from "react-redux";
@@ -16,32 +14,61 @@ const BusinessSearchBox = () => {
   const [inputValue, setInputValue] = useState("");
   const [selected] = useState("");
   const [open, setOpen] = useState<boolean>(false);
-
+  const [tempInput, setTempInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const { data: cityList } = useGetCountryQuery();
 
   const [town, setTown] = useState<boolean>(true);
   const cityListData = cityList?.cities?.data;
 
-  const searchTerm = useSelector(
-    (state: InitialBusinessStateType) => state.business.searchTerm
-  );
-
   const dispatch = useDispatch();
 
+
+  const handlSearchState = useCallback(()=>{
+    setLoading(true);
+    if(!loading){
+      dispatch(setSearchTerm(tempInput));
+    }
+    setTimeout(()=>{
+      setLoading(false);
+    },1200)
+  },[dispatch, loading, tempInput])
+
+  const handleKeyDown =  useCallback(
+    (e: { key: string; preventDefault: () => void; }) => {
+      if (e.key === 'Enter') {
+        console.log('ke')
+        e.preventDefault(); // Prevent form submission or line break
+        dispatch(setSearchTerm(tempInput));
+      }
+    },
+    [dispatch, tempInput]
+  )
+
+  // Listen for the Enter key press
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
+ 
+
   return (
-    <div className="w-full bg-[#0E1217] mb-3 p-2 h-full">
-      <div className=" mx-auto flex flex-wrap justify-around items-center py-0 md:py-2 container">
+    <div className="w-full bg-[#0E1217] mb-3 p-2 lg:px-10 md:px-5">
+      <div className=" mx-auto flex flex-wrap justify-around md:justify-between  items-center py-0 md:py-2 container">
         <div className="  flex flex-col  justify-between gap-y-2 items-center p-1">
           {/* <h2 className=" text-lg text-[20px] text-[#A8B3CF] mb-2">
             အလှအပနှင့် အလှကုန်
           </h2> */}
-          <div className="flex justify-between items-center gap-5">
+          <div className="flex justify-between items-center gap-5 ">
             <button
               onClick={() => setTown(true)}
               className={
                 town
-                  ? `text-black py-1 text-[14px] w-[120px]  bg-warining rounded`
-                  : ` text-[#A8B3CF] text-[14px] py-1 w-[120px] bg-[#1C1F26] rounded`
+                  ? `text-black text-[14px] w-[130px] md:w-[150px]  bg-warining rounded py-2  md:p-3 `
+                  : ` text-[#A8B3CF] text-[14px] w-[130px] md:w-[150px] bg-[#1C1F26] rounded py-2  md:p-3 `
               }
             >
               Find with Name
@@ -50,8 +77,8 @@ const BusinessSearchBox = () => {
               onClick={() => setTown(false)}
               className={
                 !town
-                  ? `text-black py-1 text-[14px] w-[120px] bg-warining rounded`
-                  : ` text-[#A8B3CF] py-1 text-[14px] w-[120px] bg-[#1C1F26] rounded`
+                  ? `text-black text-[14px] w-[130px] md:w-[150px]  bg-warining rounded py-2  md:p-3 `
+                  : ` text-[#A8B3CF] text-[14px] w-[130px] md:w-[150px] bg-[#1C1F26] rounded py-2  md:p-3 `
               }
             >
               Find with Town
@@ -62,16 +89,16 @@ const BusinessSearchBox = () => {
           <div className="flex h-[130px] justify-center items-center">
             <div className="flex  p-2 bg-[#0E1217] border px-5 border-[#A8B3CF33] rounded-md justify-center items-center gap-x-1">
               <input
-                value={searchTerm}
-                onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+                value={tempInput}
+                onChange={(e) => setTempInput(e.target.value)}
                 type="text"
                 placeholder="လုပ်ငန်းအမျိးအစား ရှာဖွေရန်..."
                 className={inputDefaultStyle + "text-sm"}
               />
               <AiOutlineSearch
-                // onClick={(e: any) => console.log(e)}
-                className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
-              />
+                    onClick={handlSearchState}
+                    className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
+                  />
             </div>
           </div>
         ) : (

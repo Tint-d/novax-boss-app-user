@@ -3,7 +3,7 @@ import HomeBusiness from "../components/business/HomeBusiness";
 
 const Business = () => {
   return (
-    <div className=" bg-[#0e1217] flex justify-center items-center min-h-screen">
+    <div className=" bg-[#0e1217] flex justify-center  min-h-screen">
       <HomeBusiness />
     </div>
   );

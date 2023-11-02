@@ -16,8 +16,9 @@ const Brand = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className=" min-h-screen container mx-auto lg:px-10 md:px-6 px-4 relative pt-4 md:pt-9">
-      <div className="">
+      className=" min-h-screen  mx-auto lg:px-10 md:px-6 px-4 relative pt-4 md:pt-9 md:flex md:justify-center md:items-center">
+        <div className="container">
+        <div className="">
         <h2 className=" text-[#DCA715] pt-5 flex justify-center">
           “ BE A PUPPET MASTER ”
         </h2>
@@ -70,6 +71,7 @@ const Brand = () => {
           <BiMessageRoundedDots className="text-3xl mx-auto text-black" />
         </button>
       </div>
+        </div>
     </div>
   );
 };

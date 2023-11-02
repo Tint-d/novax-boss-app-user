@@ -136,8 +136,8 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-[#0e1217] container mx-auto border-b-[1px] border-[#A8B3CF22] w-full px-5">
-      <div className="flex md:gap-x-5  lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5">
+    <div className="bg-[#0e1217]  border-b-[1px] border-[#A8B3CF22] w-full px-5">
+      <div className="flex md:gap-x-5 container mx-auto py-2 lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5 md:ps-10">
         <div className="md:hidden block">
           {!change ? (
             <AiOutlineMenu
@@ -188,7 +188,7 @@ const Navbar = () => {
               <h2 className={`text-[15px] text-white`}>Business Type</h2>
 
               <MdKeyboardArrowDown
-                className={`text-[24px] cursor-pointer text-[#DCA715] `}
+                className={`text-[24px] cursor-pointer text-white `}
               />
             </div>
           </div>
@@ -268,9 +268,9 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-              <div className=" h-[60px] p-[1px] bg-white/80"></div>
+              <div className=" h-[60px] p-[1px] "></div>
               {token ? (
-                <div className="relative w-[80px] md:w-[150px] lg:w-[300px] flex gap-x-1 md:gap-x-3 justify-start items-center">
+                <div className="relative w-[80px] md:w-[150px] lg:w-[250px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
                     className=" min-w-[35px] max-w-[36px] h-[35px] rounded-full object-cover"
                     src={profilePhoto !}
@@ -327,14 +327,14 @@ const Navbar = () => {
                           <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                             <FiEdit className="text-[24px]" />
                             <h2 className="text-[16px]">
-                              Edit business information
+                              {t('Edit business information')}
                             </h2>
                           </button>
                           <NavLink to ={paths.business_address}>
-                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full whitespace-nowrap overflow-hidden hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                           <AiFillEye className="text-[26px]" />
                             <h2 className="text-[16px]">
-                            လုပ်ငန်းအချက်အလက် ကိုကြည့်ရန်
+                            {t('Check business information')}
                             </h2>
                           </button>
                           </NavLink>

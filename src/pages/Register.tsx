@@ -12,7 +12,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 // import { defaultInputFormStyle } from "../constants/style";
 import { ToastContainer, toast } from "react-toastify";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
-import React from 'react';
+import { AiOutlineMail,AiFillLock } from "react-icons/ai";
+
 interface ApiResponse {
   data: {
     message: string;
@@ -84,13 +85,13 @@ const Register = () => {
               <p className="text-red-500 text-sm">{error.email}</p>
             )}
             <div className="flex">
-              <BiLogoMailchimp className=" text-xl" />
+              <AiOutlineMail className=" text-xl" />
               <input
                 autoComplete="nope"
                 name="email"
                 value={formState.email}
                 onChange={inputChangeHandler}
-                className={defaultInputFormStyle + "text-sm w-full"}
+                className={defaultInputFormStyle + "text-sm w-full ps-2"}
                 placeholder=" Email"
                 type="email"
               />
@@ -102,7 +103,7 @@ const Register = () => {
               <p className="text-red-500 text-sm">{error.password}</p>
             )}
             <div className="flex">
-              <BiLogoMailchimp className=" text-2xl " />
+              <AiFillLock className=" text-2xl " />
               <div className=" flex justify-between w-full">
                 <input
                   autoComplete="nope"
@@ -136,7 +137,7 @@ const Register = () => {
               </p>
             )}
             <div className="flex">
-              <BiLogoMailchimp className=" text-2xl" />
+              <AiFillLock className=" text-2xl" />
               <div className="flex w-full justify-between">
                 <input
                   autoComplete="nope"

@@ -1,4 +1,4 @@
-import { BiLogoMailchimp, BiRightArrow } from "react-icons/bi";
+import { BiRightArrow } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { useUserLoginMutation } from "../redux/api/authApi";
@@ -16,7 +16,7 @@ import { t } from "i18next";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/services/authSlice";
-
+import { AiOutlineMail,AiFillLock } from "react-icons/ai";
 interface ApiResponse {
   data: {
     message: string;
@@ -103,13 +103,13 @@ const Login = () => {
               {error.email && <p className="text-red-500">{error.email}</p>}
 
               <div className="flex bg-transparent">
-                <BiLogoMailchimp className=" text-2xl" />
+                <AiOutlineMail className=" text-2xl" />
                 <input
                   autoComplete="nope"
                   name="email"
                   value={formState.email}
                   onChange={inputChangeHandler}
-                  className={defaultInputFormStyle + "bg-transparent"}
+                  className={defaultInputFormStyle + "bg-transparent ps-2"}
                   placeholder="Email"
                   type="email"
                 />
@@ -120,7 +120,7 @@ const Login = () => {
                 <p className="text-red-500">{error.password}</p>
               )}
               <div className="flex">
-                <BiLogoMailchimp className=" text-2xl" />
+                <AiFillLock className=" text-2xl" />
                 <div className=" flex w-full justify-between">
                   <input
                     autoComplete="nope"

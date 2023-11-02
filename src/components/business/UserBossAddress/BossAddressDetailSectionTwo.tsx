@@ -38,23 +38,44 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : Bossaddress
 
   const [currentImage, setCurrentImage] = React.useState<number>(0);
 
-  const images : BusinessPhoto[] = bossAddress?.images;
+  let images : BusinessPhoto[] = bossAddress?.images;
+
+  if(images.length == 0 )
+  {
+    images = [
+      { id: 0, business_photo: bossAddress?.business_logo, boss_address_id: '' },
+      { id: 1, business_photo: bossAddress?.cover_photo, boss_address_id: '' },
+      { id: 2, business_photo: bossAddress?.business_logo, boss_address_id: '' },
+      { id: 3, business_photo: bossAddress?.cover_photo, boss_address_id: '' },
+    ];
+
+  }
 
   const socialLinks = bossAddress?.social_links;
+
+  console.log(socialLinks);
 
   return (
     <div className='h-full flex justify-center items-start md:items-center'>
         <div className="flex flex-col justify-center items-center gap-7">
             <div className="">
-              <img src={images[currentImage].business_photo} alt="" className=" md:min-w-[250px] md:max-w-[280px] h-[20vh] object-cover rounded-lg"/>
+              {
+                images.length >0 && <img src={images[currentImage].business_photo} alt="" className="min-w-[150px] md:min-w-[250px] md:max-w-[280px] h-[20vh] object-contain rounded-lg"/>
+              }
             </div>
             <div className="w-full">
-            <BossAddressDetailSlider setState={setCurrentImage} state={currentImage}/>
+              {
+                images.length >0 && <BossAddressDetailSlider setState={setCurrentImage} state={currentImage}/>
+              }
 
             </div>
 
             <div className="flex gap-8 text-2xl">
-              <a href={socialLinks[0]?.href} className="bg-blue-700  rounded-lg px-3 py-2">
+             {
+              socialLinks.length > 0 &&
+              (
+                <>
+                 <a href={socialLinks[0]?.href} className="bg-blue-700  rounded-lg px-3 py-2">
                   <SiFacebook clasName="" />
 
               </a>
@@ -63,7 +84,9 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : Bossaddress
               </a>
               <a href={socialLinks[3]?.href} className="bg-zinc-900 rounded-lg px-3 py-2 text-white">
                 <SiTiktok clasName="" />
-              </a>
+              </a></>
+              )
+             }
       </div>
         </div>
 

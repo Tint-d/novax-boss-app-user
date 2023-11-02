@@ -38,14 +38,14 @@ export const businessAddressApi = createApi({
     getBusinessAddress: builder.query<BusinessAddressResponse,{ page: number }>({
       query: ({ page }) => `/boss-address/list?page=${page}`,
     }),
-    getBusinessAddressFilter: builder.query<BusinessAddressResponse,{ type: BossFilterType,id:string, page: number }>({
-      query: ({ page ,type,id }) => {
+    getBusinessAddressFilter: builder.query<BusinessAddressResponse,{ type: BossFilterType,id:string, page: number ,search?: string}>({
+      query: ({ page ,type,id ,search = ""}) => {
         if(type == BossFilterType.CATEGORY){
-          return `/boss-address/list?page=${page}&category_id=${id}`;
+          return `/boss-address/list?page=${page}&category_id=${id}&search=${search}`;
         }else if(type == BossFilterType.CITY){
-          return `/boss-address/list?page=${page}&city_id=${id}`;
+          return `/boss-address/list?page=${page}&city_id=${id}&search=${search}`;
         }else{
-          return `/boss-address/list?page=${page}`;
+          return `/boss-address/list?page=${page}&search=${search}`;
         }
       },
     }),

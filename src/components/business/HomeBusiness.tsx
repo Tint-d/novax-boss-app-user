@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetBusinessAddressQuery } from "../../redux/api/BusinessAddressApi";
+import { BossFilterType, useGetBusinessAddressFilterQuery } from "../../redux/api/BusinessAddressApi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   InitialBusinessStateType,
@@ -15,13 +15,25 @@ import Skeleton from 'react-loading-skeleton'
 
 const HomeBusiness = () => {
   const [activePage, setPage] = useState(1);
-  const { data, isLoading, isFetching } = useGetBusinessAddressQuery({
-    page: activePage,
-  });
+
 
   const searchTerm = useSelector(
     (state: InitialBusinessStateType) => state.business.searchTerm
   );
+
+
+  const { data, isLoading ,isFetching ,refetch } = useGetBusinessAddressFilterQuery({
+    page: activePage,
+    id: "0",
+    type : BossFilterType.DEFAULT,
+    search : searchTerm
+  });
+
+  useEffect(()=>{
+    refetch();
+  },[refetch, searchTerm])
+
+
 
   const dispatch = useDispatch();
   const bossData = data?.bossAddresses?.data;
@@ -65,25 +77,13 @@ const HomeBusiness = () => {
   // );
 
   return (
-    <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container pb-10">
+    <div className=" mx-auto flex flex-col  justify-start items-center  mt-5 bg-[#0e1217] container pb-10">
       <BusinessSearchBox />
 
       {isLoading ? loadingSkeleton : (
         <>
          <div className="flex w-full gap-y-5  justify-around py-5  lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
-        {serachBossName
-          ?.filter((boss: BossType) => {
-            if (searchTerm === "") {
-              return boss;
-            } else if (
-              boss.business_name
-                .toLowerCase()
-                .includes(searchTerm.toLocaleLowerCase())
-            ) {
-              return boss;
-            }
-          })
-          ?.map((item: BossType) => (
+        {serachBossName?.map((item: BossType) => (
             <BusinessCard key={item.id} {...item} />
           ))}
       </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md'
 interface Props {
     state : number,
     setState : React.Dispatch<React.SetStateAction<number>>,
@@ -35,8 +35,8 @@ const handleDecrease = () => {
 
   return (
     <div className='flex justify-center items-center gap-4 max-w-[80vw]'>
-        <button onClick={handleDecrease} className="flex justify-center text-[.8em] items-center bg-[#DCA715] rounded-full h-[30px] w-[30px]">
-            <FaArrowLeft />
+        <button onClick={handleDecrease} className="flex justify-center text-[1.4em] items-center bg-[#DCA715] rounded-full h-[30px] w-[30px]">
+            <MdKeyboardArrowLeft />
         </button>
 
         {
@@ -51,8 +51,8 @@ const handleDecrease = () => {
         ))
     }
 
-        <button onClick={handleIncrease} className="flex justify-center text-[.7em] items-center bg-[#DCA715] rounded-full h-[25px] w-[25px]">
-            <FaArrowRight />
+        <button onClick={handleIncrease} className="flex justify-center text-[1.4em] items-center bg-[#DCA715] rounded-full h-[30px] w-[30px]">
+            <MdKeyboardArrowRight />
         </button>
     </div>
   )

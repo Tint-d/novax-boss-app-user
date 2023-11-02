@@ -3,6 +3,7 @@ import BossAddressSectionOne from './BossAddressSectionOne';
 import BossAddressDetailSlider from './BossAddressDetailSlider';
 import BossAddressDetailSectionTwo from './BossAddressDetailSectionTwo';
 import { useGetProfileQuery } from '@/redux/api/BusinessAddressApi';
+import Skeleton from 'react-loading-skeleton';
 
 const BossAddressDetail = () => {
 
@@ -12,7 +13,10 @@ const BossAddressDetail = () => {
     
     if(isLoading)
     {
-        return <div>Loading...</div>
+        return (
+            <div className="flex justify-center items-center relative mt-12 pb-10 w-full">
+            <Skeleton height={"100vh"} baseColor='#96969613' className={`w-[80vw]`} highlightColor='#6f6e6e13'  count={1}/>
+          </div>)
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const  bossAddress = (data as any)?.data?.boss_address;
@@ -84,7 +88,7 @@ const BossAddressDetail = () => {
         <div className="container bg-[#1C1F26] rounded-lg  w-[80vw] xl:w-[60vw] ">
              <div className="flex flex-col md:flex-row">
                     <div className="md:w-2/4 lg:w-3/5 md:h-[80vh] h-[60vh] md:border-r-2 border-zinc-900 pt-8">
-                        <div className="flex flex-col h-[90%] p-6 overflow-scroll ">
+                        <div className="flex flex-col h-[90%] p-6 overflow-scroll no-scrollbar">
                             <div className="img-container rounded-lg">
                                 <img src={bossAddress?.cover_photo} alt="" className="w-[300px] md:w-[400px] h-[200px] rounded-lg object-cover"/>
                             </div>

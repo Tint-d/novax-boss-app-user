@@ -79,8 +79,8 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catch(res :any){
-
-            toast.error(res?.data.message, {
+            const message = res?.data?.message ?? "Something went wrong";
+            toast.error(message, {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 2000,
               })

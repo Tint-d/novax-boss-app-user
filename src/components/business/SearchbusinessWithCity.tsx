@@ -5,19 +5,31 @@ import { useEffect, useState } from "react";
 import { RiArrowDropLeftFill, RiArrowDropRightFill } from "react-icons/ri";
 import Skeleton from 'react-loading-skeleton'
 import BusinessCard from "./BusinessCard";
+import BusinessSearchBox from "./BusinessSearchBox";
+import { useSelector } from "react-redux";
+import { InitialBusinessStateType } from "@/redux/services/businessSlice";
 
 const SearchbusinessWithCity = () => {
   const { id } = useParams() as { id: string };
   const [business, setBusiness] = useState<BossType[]>([]);
 
   const [activePage,setPage] = useState(1);
-  const { data, isLoading ,isFetching } = useGetBusinessAddressFilterQuery({
+
+  const searchTerm = useSelector(
+    (state: InitialBusinessStateType) => state.business.searchTerm
+  );
+
+  const { data, isLoading ,isFetching ,refetch } = useGetBusinessAddressFilterQuery({
     page: activePage,
     id: id,
     type : BossFilterType.CITY,
+    search : searchTerm
   });
   const bossData = data?.bossAddresses;
 
+  useEffect(()=>{
+    refetch();
+  },[refetch, searchTerm])
 
   useEffect(()=>{
     setBusiness(bossData?.data as BossType[]);
@@ -40,46 +52,48 @@ const SearchbusinessWithCity = () => {
   const width = window.innerWidth > 768 ? "w-[270px]" : "w-[280px]";
 
   const height = window.innerWidth > 768 ? 320 : 300;
-  if (isLoading) {
-    return (
-      // <p className=" text-white flex justify-center items-center">Loading...</p>
-      <div className="flex justify-center items-center relative flex-wrap mt-12  w-full">
-                <Skeleton height={height} baseColor='#96969613' className={`${width}`} highlightColor='#6f6e6e13' inline={inline} count={10} containerClassName="flex justify-center items-center gap-3 flex-wrap w-full h-full container mx-auto gap-y-8"/>
-        </div>
-    );
-  }
+  const loadingSkeleton = (
+    <div className="flex justify-center items-center relative flex-wrap mt-12  w-full">
+    <Skeleton height={height} baseColor='#96969613' className={`${width}`} highlightColor='#6f6e6e13' inline={inline} count={20} containerClassName="flex justify-center sm:justify-around items-center gap-3 lg:gap-8 flex-wrap w-full h-full container mx-auto gap-y-8  py-5  lg:px-10  md:gap-5 "/>
+</div>
+  )
 
   return (
-    <div className=" mx-auto mt-12 pb-6  bg-[#0e1217] container">
-      <div className="flex justify-center gap-x-3 gap-y-4 h-full  items-center flex-wrap">
-        {/* <p className="text-white">City</p> */}
+    <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container pb-10">
+    <BusinessSearchBox />
 
-        {business?.map((item: BossType) => (
-             <BusinessCard key={item.id} {...item} />
+    {isLoading ? loadingSkeleton : (
+      <>
+       <div className="flex w-full gap-y-5  justify-around py-5  lg:px-10 md:px-5 md:gap-5 lg:gap-8 items-center flex-wrap">
+      {business?.map((item: BossType) => (
+          <BusinessCard key={item.id} {...item} />
         ))}
-
-      </div>
-       {/* paginateion */}
-       <div className=" flex items-center justify-center gap-3 mt-4">
-          <button
-            disabled={isFetching && true}
-            onClick={prevHandler}
-            className=" bg-white h-6 w-6 flex justify-center rounded items-center"
-          >
-            <RiArrowDropLeftFill className=" text-xl" />
-          </button>
-          <button className=" bg-white text-black h-6 w-6 rounded-full">
-            {isFetching ? <small className="loader"></small> : activePage}
-          </button>
-          <button
-            disabled={isLoading && true}
-            onClick={nextHandler}
-            className=" bg-white h-6 w-6 rounded flex justify-center items-center"
-          >
-            <RiArrowDropRightFill className=" text-xl" />
-          </button>
-        </div>
     </div>
+      <div className=" flex items-center justify-center gap-3">
+        <button
+          disabled={isFetching && true}
+          onClick={prevHandler}
+          className=" bg-white h-6 w-6 flex justify-center rounded items-center"
+        >
+          <RiArrowDropLeftFill className=" text-xl" />
+        </button>
+        <button className=" bg-white text-black h-6 w-6 rounded-full">
+          {isFetching ? <small className="loader"></small> : activePage}
+        </button>
+        <button
+          disabled={isLoading && true}
+          onClick={nextHandler}
+          className=" bg-white h-6 w-6 rounded flex justify-center items-center"
+        >
+          <RiArrowDropRightFill className=" text-xl" />
+        </button>
+      </div>
+      </>
+   
+      )}
+    
+    {/* {bossData} */}
+  </div>
   );
 };
 
