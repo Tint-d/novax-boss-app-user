@@ -151,8 +151,8 @@ const BusinessSearchBox = () => {
                         selected.toLowerCase()
                       ) {
                         // seletedAndLink(item?.id, item?.city_name);
+                        dispatch(setSearchTerm(""));
                         setOpen(false);
-                        setInputValue("");
                       }
                     }}
                   >

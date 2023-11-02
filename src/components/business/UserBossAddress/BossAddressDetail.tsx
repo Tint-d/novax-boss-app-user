@@ -48,10 +48,6 @@ const BossAddressDetail = () => {
                 content: bossAddress?.city?.city_name
             },
             {
-                title : "Business City",
-                content: bossAddress?.city?.city_name
-            },
-            {
                 title : "Business Description",
                 content: bossAddress?.business_description
             },
