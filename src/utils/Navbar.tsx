@@ -63,6 +63,9 @@ const Navbar = () => {
 
   const [userLogout] = useUserLogoutMutation();
 
+  const localstorageLanguage : string  = localStorage.getItem('language') || 'en';
+
+
   const dispatch = useDispatch();
   const logoutHandler = async () => {
     const data = await userLogout(token);
@@ -159,23 +162,23 @@ const Navbar = () => {
             BOSSNETWORK
           </h2>
         </Link>
-        <div className=" md:flex hidden justify-end w-4/12 md:gap-x-10 lg:gap-x-20 items-center">
+        <div className=" md:flex hidden justify-end min-w-4/12 md:gap-x-8 items-center">
           <NavLink
             to="/"
             className={`${
               wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
-            } text-[15px] `}
+            } text-[15px]  whitespace-nowrap`}
           >
-            Home
+            {t('Home')}
           </NavLink>
 
           <NavLink
             to={"/business"}
             className={`${
               wid === "/business" ? "text-[#dca715] text-[15px]" : "text-white"
-            } text-[15px] `}
+            } text-[15px]  whitespace-nowrap`}
           >
-            Business
+            {t('Business')}
           </NavLink>
           <div className="flex justify-between items-center gap-3">
             <div
@@ -185,7 +188,7 @@ const Navbar = () => {
               }}
               className=" flex gap-2 cursor-pointer"
             >
-              <h2 className={`text-[15px] text-white`}>Business Type</h2>
+              <h2 className={`text-[15px] text-white  whitespace-nowrap`}>{t('Business Type')}</h2>
 
               <MdKeyboardArrowDown
                 className={`text-[24px] cursor-pointer text-white `}
@@ -224,7 +227,9 @@ const Navbar = () => {
                       className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
                      <Link to={`/search_business/${item.id}`}>
-                          <p>{item?.category_name}</p>
+                          <p>{
+                            localstorageLanguage == 'en' ? item.category_name : item.category_mm_name
+                            }</p>
                         </Link>
                     </div>
                   );
@@ -239,12 +244,14 @@ const Navbar = () => {
               <AiOutlineMessage className="md:block hidden text-[30px] text-white " />
             </div> */}
             <div className="flex  justify-between gap-x-4 items-center">
-              <div className="relative flex bg-[#1c1f26] p-1 md:p-2 rounded justify-center items-center gap-x-2">
+              <div 
+               onClick={() => setLanbox(!lanbox)}
+              className="relative flex bg-[#1c1f26] p-1 md:p-2 rounded justify-center items-center gap-x-2">
                 <div>
                   {lg}
                 </div>
                 <BsChevronDown
-                  onClick={() => setLanbox(!lanbox)}
+                 
                   className=" text-lg md:text-2xl text-white cursor-pointer"
                 />
                 {lanbox && (
@@ -255,7 +262,7 @@ const Navbar = () => {
                         src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg"
                         alt=""
                       />
-                      <h2 className="text-sm text-white">Myanmar</h2>
+                      <h2 className="text-sm text-white">{t('Myanmar')}</h2>
                     </div>
                     <div onClick={()=>swithLanuage('en')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                       <img
@@ -263,7 +270,7 @@ const Navbar = () => {
                         src="https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg"
                         alt=""
                       />
-                      <h2 className="text-sm text-white">English</h2>
+                      <h2 className="text-sm text-white">{t("English}")}</h2>
                     </div>
                   </div>
                 )}
@@ -416,9 +423,10 @@ const Navbar = () => {
               to="/"
               className={`${
                 wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
-              } text-[15px] `}
+              } text-[15px]`}
             >
-              Home
+              {t('Home')}
+
             </NavLink>
 
             <NavLink
@@ -427,9 +435,9 @@ const Navbar = () => {
                 wid === "/business"
                   ? "text-[#dca715] text-[15px]"
                   : "text-white"
-              } text-[15px] `}
+              } text-[15px] mt-2`}
             >
-              Business
+              {t('Business')}
             </NavLink>
 
             <div
@@ -442,12 +450,12 @@ const Navbar = () => {
               {wid === "/" ? (
                 ""
               ) : (
-                <span className=" flex items-center ms-1">
+                <span className=" flex items-center ms-1 ">
                   <h2
                     className={`text-[15px] text-center text-white 
                   `}
                   >
-                    Business Type
+              {t('Business Type')}
                   </h2>
                   <MdKeyboardArrowDown
                     className={`text-[26px] cursor-pointer  text-white`}

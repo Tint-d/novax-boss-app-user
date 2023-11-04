@@ -15,8 +15,7 @@ const resources : IResourceType = {
 };
 
 
-  const localstorageLanguage : string  = localStorage.getItem('language') || 'mm';
-  console.log('resources', localstorageLanguage)
+  const localstorageLanguage : string  = localStorage.getItem('language') || 'en';
 
   i18n.use(initReactI18next).init({
     lng: localstorageLanguage, // Default language

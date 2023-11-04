@@ -26,7 +26,7 @@ const Brand = () => {
       <div className="flex justify-between flex-wrap h-full items-center px-4">
         <div className="md:w-7/12  w-12/12">
           <div className="flex justify-start items-center mb-3">
-            <img src={Logo} className=" w-32 h-32" alt="" />
+            <img src={Logo} className=" w-20 h-20" alt="" />
             <h4 className="text-[#DCA715] text-3xl md:text-5xl font-bold">
               <p>BOSS</p> NETWORKS
             </h4>

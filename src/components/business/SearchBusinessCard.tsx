@@ -8,11 +8,12 @@ import BusinessCard from "./BusinessCard";
 import { useSelector } from "react-redux";
 import BusinessSearchBox from "./BusinessSearchBox";
 import { InitialBusinessStateType } from "@/redux/services/businessSlice";
-
+import { useLocation } from 'react-router-dom';
 const SearchBusinessCard = () => {
   const { id } = useParams() as { id: string };
   const [business, setBusiness] = useState<BossType[]>([]);
-
+  const location = useLocation();
+  const cityId = new URLSearchParams(location.search).get('cityId');
   const [activePage,setPage] = useState(1);
 
 
@@ -20,11 +21,14 @@ const SearchBusinessCard = () => {
     (state: InitialBusinessStateType) => state.business.searchTerm
   );
 
+  const type = cityId ? BossFilterType.CATECITY : BossFilterType.CATEGORY;
+
   const { data, isLoading ,isFetching ,refetch } = useGetBusinessAddressFilterQuery({
     page: activePage,
     id: id,
-    type : BossFilterType.CATEGORY,
-    search : searchTerm
+    type : type,
+    search : searchTerm,
+    city_id : cityId !
   });
   const bossData = data?.bossAddresses;
 
@@ -62,7 +66,7 @@ const SearchBusinessCard = () => {
 
   return (
     <div className=" mx-auto  justify-center items-center  mt-5 bg-[#0e1217] container pb-10">
-    <BusinessSearchBox />
+    <BusinessSearchBox withCategory={true} categoryId={id} />
 
     {isLoading ? loadingSkeleton : (
       <>

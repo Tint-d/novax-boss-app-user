@@ -26,6 +26,7 @@ export const enum BossFilterType {
   CATEGORY = "category",
   CITY = "city",
   DEFAULT = "default",
+  CATECITY = "catecity",
 }
 
 const token = Cookies.get("token");
@@ -38,11 +39,16 @@ export const businessAddressApi = createApi({
     getBusinessAddress: builder.query<BusinessAddressResponse,{ page: number }>({
       query: ({ page }) => `/boss-address/list?page=${page}`,
     }),
-    getBusinessAddressFilter: builder.query<BusinessAddressResponse,{ type: BossFilterType,id:string, page: number ,search?: string}>({
-      query: ({ page ,type,id ,search = ""}) => {
+    getBusinessAddressFilter: builder.query<BusinessAddressResponse,{ type: BossFilterType,id:string, page: number ,search?: string,city_id?:string}>({
+      query: ({ page ,type,id ,search = "",city_id = 0}) => {
         if(type == BossFilterType.CATEGORY){
           return `/boss-address/list?page=${page}&category_id=${id}&search=${search}`;
-        }else if(type == BossFilterType.CITY){
+        }
+        else if(type == BossFilterType.CATECITY)
+        {
+          return `/boss-address/list?page=${page}&category_id=${id}&city_id=${city_id}&search=${search}`;
+        }
+          else if(type == BossFilterType.CITY){
           return `/boss-address/list?page=${page}&city_id=${id}&search=${search}`;
         }else{
           return `/boss-address/list?page=${page}&search=${search}`;

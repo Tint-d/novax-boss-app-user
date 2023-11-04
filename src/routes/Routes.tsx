@@ -160,11 +160,11 @@ const Routes = () => {
       path: paths.business_deatil,
       element: (
         <Suspense fallback={<Fallback />}>
-           <Guest>
+           {/* <Guest> */}
           <Layout>
             <BusinessDetail />
           </Layout>
-          </Guest>
+          {/* </Guest> */}
         </Suspense>
       ),
     },

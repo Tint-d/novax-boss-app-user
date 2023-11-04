@@ -9,8 +9,15 @@ import {
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { City } from "../../typings/type";
+import { t } from "i18next";
 
-const BusinessSearchBox = () => {
+interface BusinessSearchBoxProps {
+    withCategory?: boolean;
+    categoryId?: string;
+}
+
+
+const BusinessSearchBox = ({withCategory = false,categoryId = null} : BusinessSearchBoxProps) => {
   const [inputValue, setInputValue] = useState("");
   const [selected] = useState("");
   const [open, setOpen] = useState<boolean>(false);
@@ -20,6 +27,9 @@ const BusinessSearchBox = () => {
 
   const [town, setTown] = useState<boolean>(true);
   const cityListData = cityList?.cities?.data;
+
+  const localstorageLanguage : string  = localStorage.getItem('language') || 'en';
+
 
   const dispatch = useDispatch();
 
@@ -53,7 +63,6 @@ const BusinessSearchBox = () => {
     };
   }, [handleKeyDown]);
 
- 
 
   return (
     <div className="w-full bg-[#0E1217] mb-3 p-2 lg:px-10 md:px-5">
@@ -71,7 +80,7 @@ const BusinessSearchBox = () => {
                   : ` text-[#A8B3CF] text-[14px] w-[130px] md:w-[150px] bg-[#1C1F26] rounded py-2  md:p-3 `
               }
             >
-              Find with Name
+              {t('Find with Name')}
             </button>
             <button
               onClick={() => setTown(false)}
@@ -81,7 +90,7 @@ const BusinessSearchBox = () => {
                   : ` text-[#A8B3CF] text-[14px] w-[130px] md:w-[150px] bg-[#1C1F26] rounded py-2  md:p-3 `
               }
             >
-              Find with Town
+              {t('Find with City')}
             </button>
           </div>
         </div>
@@ -92,7 +101,7 @@ const BusinessSearchBox = () => {
                 value={tempInput}
                 onChange={(e) => setTempInput(e.target.value)}
                 type="text"
-                placeholder="လုပ်ငန်းအမျိးအစား ရှာဖွေရန်..."
+                placeholder={t('Type Business Name')}
                 className={inputDefaultStyle + "text-sm"}
               />
               <AiOutlineSearch
@@ -113,7 +122,7 @@ const BusinessSearchBox = () => {
                 ? selected?.length > 25
                   ? selected?.substring(0, 25) + "..."
                   : selected
-                : "Select City"}
+                : t('Select City')}
               <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
             </div>
             <ul
@@ -127,12 +136,12 @@ const BusinessSearchBox = () => {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-                  placeholder="Enter country name"
+                  placeholder={t('Enter city name')}
                   className="placeholder:text-gray-700 bg-[#1C1F26] p-2 outline-none "
                 />
               </div>
               {cityListData?.map((item: City) => (
-                <Link to={`/search_city/${item.id}`}>
+                withCategory ? <Link to={`/search_business/${categoryId}?cityId=${item?.id}`}>
                   <li
                     key={item?.city_name}
                     className={`p-2 w-[250px] text-sm bg-[#1C1F26] hover:bg-black "
@@ -156,9 +165,36 @@ const BusinessSearchBox = () => {
                       }
                     }}
                   >
-                    <p>{item?.city_name}</p>
+                    <p>{localstorageLanguage == "en" ? item?.city_name : item?.city_mm_name}</p>
                   </li>
-                </Link>
+                </Link> :
+                <Link to={`/search_city/${item.id}`}>
+                <li
+                  key={item?.city_name}
+                  className={`p-2 w-[250px] text-sm bg-[#1C1F26] hover:bg-black "
+                    ${
+                      item?.city_name.toLowerCase() ===
+                        selected?.toLowerCase() && "bg-sky-600 text-white"
+                    }
+                    ${
+                      item?.city_name?.toLowerCase().startsWith(inputValue)
+                        ? "block"
+                        : "hidden" 
+                    }`}
+                  onClick={() => {
+                    if (
+                      item?.city_name?.toLowerCase() !==
+                      selected.toLowerCase()
+                    ) {
+                      // seletedAndLink(item?.id, item?.city_name);
+                      dispatch(setSearchTerm(""));
+                      setOpen(false);
+                    }
+                  }}
+                >
+                  <p>{localstorageLanguage == "en" ? item?.city_name : item?.city_mm_name}</p>
+                </li>
+              </Link>
               ))}
             </ul>
           </div>
