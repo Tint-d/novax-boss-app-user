@@ -40,7 +40,7 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : Bossaddress
 
   let images : BusinessPhoto[] = bossAddress?.images;
 
-  if(images.length == 0 )
+  if(images && images.length == 0 )
   {
     images = [
       { id: 0, business_photo: bossAddress?.business_logo, boss_address_id: '' },
@@ -53,14 +53,24 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : Bossaddress
 
   const socialLinks = bossAddress?.social_links;
 
-  console.log(socialLinks);
-
   return (
     <div className='h-full flex justify-center items-start md:items-center'>
         <div className="flex flex-col justify-center items-center gap-7">
             <div className="">
               {
-                images.length >0 && <img src={images[currentImage].business_photo} alt="" className="min-w-[150px] md:min-w-[250px] md:max-w-[280px] h-[20vh] object-contain rounded-lg"/>
+                images.length >0 && (
+                 <>
+                  <label htmlFor="my_modal_7">
+                    <img src={images[currentImage].business_photo} alt="" className="min-w-[150px] md:min-w-[250px] md:max-w-[280px] h-[20vh] object-contain rounded-lg"/>
+                  </label>
+                  <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                  <div className="modal">
+                    <div className="modal-box flex justify-center">
+                    <img src={images[currentImage].business_photo} alt="" className="w-4/6 object-contain rounded-lg"/>
+                    </div>
+                    <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
+                  </div></>
+                )
               }
             </div>
             <div className="w-full">

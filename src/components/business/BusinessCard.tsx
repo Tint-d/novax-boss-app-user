@@ -14,18 +14,21 @@ const BusinessCard = ({ ...item }) => {
   }
 
   return (
-    <Link to={`/business_card_detail/${item.id}`}>
       <div
         key={item.id}
-        className="w-[280px] md:w-[270px] p-2  gap-y-2 rounded-md bg-[#262a31] flex flex-col justify-around items-center "
+        className="w-[80vw] md:w-[270px] p-2  gap-y-2 rounded-md bg-[#262a31] flex flex-col justify-around items-center "
       >
         <div className="flex  justify-between w-full items-center">
           <img
             className="w-[30px] object-cover h-[30px] rounded-full"
             src={item?.business_logo}
           />
-          <TbClipboardCopy className=" w-[40px] h-[40px] p-2  shadow-black/40 text-white bg-[#262a31] rounded-full" />
+          <TbClipboardCopy
+          onClick={() => {
+            alert('hi')}}
+           className=" w-[40px] h-[40px] p-2  shadow-black/40 text-white bg-[#262a31] rounded-full" />
         </div>
+        <Link to={`/business_card_detail/${item.id}`}>
 
         <h2 className=" w-full  text-[20px] text-warining truncate">
           {item?.business_name}
@@ -38,15 +41,16 @@ const BusinessCard = ({ ...item }) => {
             {cityName}
           </h2>
         </div>
-        <p className=" h-[80px] w-full overflow-hidden leading-5 tracking-wider text-[14px] text-white">
+        <p className=" h-[80px] w-full overflow-hidden leading-5 tracking-wider text-[14px] mb-0 md:mb-4 text-white">
           {item?.business_description.slice(0, 120) + " ...."}
         </p>
         <img
-          className=" w-full rounded-md h-[120px] object-cover"
+          className=" w-full rounded-md h-[180px] object-cover"
           src={item?.cover_photo}
         />
+      </Link>
       </div>
-    </Link>
+
   );
 };
 

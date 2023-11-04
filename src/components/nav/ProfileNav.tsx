@@ -122,7 +122,7 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
                 <div className="pt-4 pb-8 flex flex-col justify-center items-center text-white gap-4">
                     
                     <div className="">
-                        <div className="avatar bg-gray-500 rounded-full">
+                        <div className="bg-gray-500 rounded-full">
                             {
                                 previewImage ? (
                                      <img onClick={imageEdit} src={previewImage} alt="" className="rounded-full w-[150px] h-[150px] object-cover" /> 

@@ -197,7 +197,7 @@ const Navbar = () => {
           </div>
         </div>
         {navhide && (
-          <div className="absolute left-[-10px] top-[20vh] md:top-20 w-screen z-30">
+          <div className="absolute left-[-10px] top-[23vh] md:top-20 w-screen z-30">
             <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
               <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
@@ -207,7 +207,7 @@ const Navbar = () => {
                   <input
                     onChange={(e) => setSearch(e.target.value)}
                     type="text"
-                    placeholder="လုပ်ငန်းအမျိးအစား ရှာဖွေရန်..."
+                    placeholder={t('Type with category name')}
                     className={inputDefaultStyle}
                   />
                   <AiOutlineSearch
@@ -226,7 +226,7 @@ const Navbar = () => {
                       key={item?.id}
                       className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
-                     <Link to={`/search_business/${item.id}`}>
+                     <Link to={`/search_business/${item.id}`} onClick={()=>setNavHide(!navhide)}>
                           <p>{
                             localstorageLanguage == 'en' ? item.category_name : item.category_mm_name
                             }</p>
@@ -270,7 +270,7 @@ const Navbar = () => {
                         src="https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg"
                         alt=""
                       />
-                      <h2 className="text-sm text-white">{t("English}")}</h2>
+                      <h2 className="text-sm text-white">{t("English")}</h2>
                     </div>
                   </div>
                 )}
@@ -418,7 +418,7 @@ const Navbar = () => {
           </button>
         )}
         {change && (
-          <div className=" flex flex-col w-full gap-y-2 py-2  md:hidden bg-[#A8B3CF33] justify-between  items-center">
+          <div className=" flex flex-col w-full gap-y-4 py-2 pb-3  md:hidden justify-between  items-center">
             <NavLink
               to="/"
               className={`${
