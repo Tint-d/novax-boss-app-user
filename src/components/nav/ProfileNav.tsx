@@ -1,6 +1,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal } from '@mantine/core';
-import { CgLock, CgProfile } from 'react-icons/cg';
+import {  CgProfile } from 'react-icons/cg';
+import { AiFillEdit } from 'react-icons/ai';
 import { t } from 'i18next';
 import { ChangeEvent, useRef, useState } from 'react';
 import { Button } from '@mantine/core';
@@ -151,7 +152,7 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
 
 
                                     <button onClick={()=>setEditMode(true)} className='absolute right-6 bg-green-600 px-3 py-2 rounded-lg hover:bg-green-700'>
-                                        <CgLock className="text-md" />
+                                      <AiFillEdit className="text-md" />
                                     </button>
                                 </div>
                             )

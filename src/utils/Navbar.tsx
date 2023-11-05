@@ -197,7 +197,7 @@ const Navbar = () => {
           </div>
         </div>
         {navhide && (
-          <div className="absolute left-[-10px] top-[23vh] md:top-20 w-screen z-30">
+          <div className="absolute left-[-10px] top-[22vh] md:top-20 w-screen z-30">
             <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
               <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
@@ -207,7 +207,7 @@ const Navbar = () => {
                   <input
                     onChange={(e) => setSearch(e.target.value)}
                     type="text"
-                    placeholder={t('Type with category name')}
+                    placeholder={t('Type business category name')}
                     className={inputDefaultStyle}
                   />
                   <AiOutlineSearch
@@ -226,7 +226,7 @@ const Navbar = () => {
                       key={item?.id}
                       className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
-                     <Link to={`/search_business/${item.id}`} onClick={()=>setNavHide(!navhide)}>
+                     <Link to={`/search_business/${item.id}`}>
                           <p>{
                             localstorageLanguage == 'en' ? item.category_name : item.category_mm_name
                             }</p>
@@ -244,8 +244,10 @@ const Navbar = () => {
               <AiOutlineMessage className="md:block hidden text-[30px] text-white " />
             </div> */}
             <div className="flex  justify-between gap-x-4 items-center">
-              <div 
-               onClick={() => setLanbox(!lanbox)}
+             
+              <div className="dropdown">
+              <label 
+              tabIndex={0}
               className="relative flex bg-[#1c1f26] p-1 md:p-2 rounded justify-center items-center gap-x-2">
                 <div>
                   {lg}
@@ -254,8 +256,8 @@ const Navbar = () => {
                  
                   className=" text-lg md:text-2xl text-white cursor-pointer"
                 />
-                {lanbox && (
-                  <div className=" absolute bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-14 right-0 ">
+              </label>
+                  <div tabIndex={0} className="dropdown-content bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-14 right-0 ">
                     <div onClick={()=>swithLanuage('mm')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                     <img
                         className="w-[30px] h-[20px] rounded"
@@ -270,14 +272,15 @@ const Navbar = () => {
                         src="https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg"
                         alt=""
                       />
-                      <h2 className="text-sm text-white">{t("English")}</h2>
+                      <h2 className="text-sm text-white">{t('English')}</h2>
                     </div>
                   </div>
-                )}
               </div>
+
               <div className=" h-[60px] p-[1px] "></div>
               {token ? (
-                <div className="relative w-[80px] md:w-[150px] lg:w-[250px] flex gap-x-1 md:gap-x-3 justify-start items-center">
+               <div className="dropdown">
+                 <label tabIndex={1} className="relative w-[80px] md:w-[150px] lg:w-[250px] flex gap-x-1 md:gap-x-3 justify-start items-center">
                   <img
                     className=" min-w-[35px] max-w-[36px] h-[35px] rounded-full object-cover"
                     src={profilePhoto !}
@@ -302,8 +305,12 @@ const Navbar = () => {
                       </div>
                     </div>
                   </div>
-                  {!hide && (
-                    <div className="flex absolute rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
+                </label>
+                    <div 
+                    tabIndex={1} 
+                    className="
+                    dropdown-content
+                    flex rounded-lg z-10   w-[270px] p-2  mt-[5px] top-14 left-[-200px] md:left-[-120px] lg:left-0 justify-between items-center bg-[#1c1f26] flex-col">
                       {pf?.boss_address == null ? (
                         <div>
                           {pf?.action_codes !== null ? (
@@ -312,7 +319,7 @@ const Navbar = () => {
                                   <button className=" flex justify-start  px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                                     <AiOutlinePlus className="text-[26px] p- border-dotted border border-[#A8B3CF] hover:border-white   hover:text-white" />
                                     <h2 className="text-[16px]">
-                                      Add business information
+                                      {t('Add business information')}
                                     </h2>
                                   </button>
                                 </NavLink>
@@ -331,12 +338,12 @@ const Navbar = () => {
                         </div>
                       ) : (
                         <div>
-                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                          {/* <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                             <FiEdit className="text-[24px]" />
                             <h2 className="text-[16px]">
                               {t('Edit business information')}
                             </h2>
-                          </button>
+                          </button> */}
                           <NavLink to ={paths.business_address}>
                           <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full whitespace-nowrap overflow-hidden hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                           <AiFillEye className="text-[26px]" />
@@ -403,8 +410,7 @@ const Navbar = () => {
                         </Modal>
                       </div>
                     </div>
-                  )}
-                </div>
+               </div>
               ) : (
                 <Link to={"/login"} className=" text-white text-[.8em] sm:text-sm capitalize">
                   {t('login')}
@@ -418,7 +424,7 @@ const Navbar = () => {
           </button>
         )}
         {change && (
-          <div className=" flex flex-col w-full gap-y-2 py-2  md:hidden justify-between  items-center">
+          <div className=" flex flex-col w-full gap-y-3 py-2  md:hidden  justify-between  items-center">
             <NavLink
               to="/"
               className={`${
@@ -435,7 +441,7 @@ const Navbar = () => {
                 wid === "/business"
                   ? "text-[#dca715] text-[15px]"
                   : "text-white"
-              } text-[15px] mt-2`}
+              } text-[15px] `}
             >
               {t('Business')}
             </NavLink>
