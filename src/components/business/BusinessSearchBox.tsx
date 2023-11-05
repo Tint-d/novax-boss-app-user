@@ -13,7 +13,7 @@ import { t } from "i18next";
 
 interface BusinessSearchBoxProps {
     withCategory?: boolean;
-    categoryId?: string;
+    categoryId?: string | null;
 }
 
 

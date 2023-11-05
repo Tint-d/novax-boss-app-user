@@ -8,7 +8,7 @@ import { Suspense, lazy, useState } from "react";
 const QA = lazy(() => import("./QA"));
 const Brand = () => {
   const [message, setMessage] = useState<boolean>(false);
-
+  const lng = localStorage.getItem("language") || "en";
   return (
     <div
       style={{
@@ -32,13 +32,10 @@ const Brand = () => {
             </h4>
           </div>
           <p className=" text-white leading-8  ">
-            Boss Teamသည်မြန်မာပြည်မှာရှိသောSME’sများအားစနစ်တကျလည်ပတ်နိုင်ရန်
-            ရောင်းအားတက်ရန် လုပ်ငန်းတိုုးချဲ့နိုင်ရန်အတွက်စာရိတ်အနည်းဆုံး နှင့်
-            တည်ဆောက်နိုင်ရေးအတွက် ကူညီပေးနေသည့် အဖွဲ့စည်းဖြစ်ပါသည်။ကျွန်တော်တို့
-            Boss Teamမှအသင်းသူ အသင်းသားများ၏ လုပ်ငန်းများကို တစ်နေရာထဲမှာ
-            ဝင်ရောက်လေ့လာနိုင်ရန်ဒီWebsiteလေးကိုတည်ထောင်ဖြစ်တာပါ။ မိမိအတွက်
-            လိုအပ်သောလုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ပြီး
-            လွပ်လပ်စွာဝင်ရောက်လေ့လာနိုင်ပါတယ်ခင်ဗျာ။
+           {
+            lng == "en" ? "The Boss Team is an organization that helps SMEs in Myanmar to operate systematically and expand their business to increase sales and expand their business at the lowest cost. You can choose the types of business you need and study freely." : 
+            "Boss Teamသည်မြန်မာပြည်မှာရှိသောSME’sများအားစနစ်တကျလည်ပတ်နိုင်ရန် ရောင်းအားတက်ရန် လုပ်ငန်းတိုုးချဲ့နိုင်ရန်အတွက်စာရိတ်အနည်းဆုံး နှင့် တည်ဆောက်နိုင်ရေးအတွက် ကူညီပေးနေသည့် အဖွဲ့စည်းဖြစ်ပါသည်။ကျွန်တော်တို့Boss Teamမှအသင်းသူ အသင်းသားများ၏ လုပ်ငန်းများကို တစ်နေရာထဲမှာဝင်ရောက်လေ့လာနိုင်ရန်ဒီWebsiteလေးကိုတည်ထောင်ဖြစ်တာပါ။ မိမိအတွက်လိုအပ်သောလုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ပြီးလွပ်လပ်စွာဝင်ရောက်လေ့လာနိုင်ပါတယ်ခင်ဗျာ။"
+           }
           </p>
           <div className=" flex gap-3 items-center mt-5">
             <button className=" flex items-center gap-2 justify-center bg-[#CB0000B2] rounded text-white w-32 py-2">
