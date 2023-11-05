@@ -9,6 +9,7 @@ import { useAppliedCodeMutation } from '@/redux/api/BusinessAddressApi';
 import { addProfile } from '@/redux/services/businessSlice';
 import { Profile } from '@/utils/Navbar';
 import { useAppDispatch } from '@/redux/hook';
+import { AiFillEdit } from 'react-icons/ai';
 
 interface ApiResponse {
     data: {
@@ -66,7 +67,7 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
                 centered
                 opened={opened}
                 onClose={close}
-                title="Apply Address Code"
+                title={t('Apply Address Code')}
                 transitionProps={{ transition: 'fade', duration: 200 }}
                 styles={{
                     content: {
@@ -95,7 +96,7 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
 
                         <input type="text" className="bg-[#1C1F26] text-white w-[170px] sm:w-[220px] h-[40px] border border-gray-400 rounded-lg px-3"
                             ref={inputRef}
-                            placeholder="Apply code" />
+                            placeholder={t('Type apply code')} />
 
                     </div>
 
@@ -108,15 +109,15 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
                         }}
                         loading={isLoading}
                         onClick={applyCode}
-                        variant="filled" color="green">{t('Apply')}</Button>
+                        variant="filled" color="green">{t('Continue')}</Button>
 
 
                 </div>
             </Modal>
 
             <button onClick={open} className=" flex justify-start gap-2  w-[250px]  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded">
-                <CgProfile className="text-[26px]  " />
-                <h2 className="text-[16px] pt-1">{t('Apply Address Code')}</h2>
+                <AiFillEdit className="text-[26px]  " />
+                <h2 className="text-[16px] pt-1 whitespace-nowrap">{t('Apply Address Code')}</h2>
             </button>
 
             <ToastContainer />

@@ -70,16 +70,13 @@ const BusinessDetail = () => {
       },
       {
         title: t("Business Type"),
-        content: bossAddress?.business_type
+        content: bossAddress?.categories?.category_name
+
       },
       {
         title: t("Business Address"),
         content: bossAddress?.business_address
       },
-      {
-        title: t("Business Category"),
-        content: bossAddress?.categories.category_name
-      }
     ],
     [
       {

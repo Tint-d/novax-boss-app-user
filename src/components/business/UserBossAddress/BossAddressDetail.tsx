@@ -26,21 +26,17 @@ const BossAddressDetail = () => {
     const sidesData = [
         [
           {
-            title: t("Boss Name"),
-            content: bossAddress?.boss_name
-          },
-          {
-            title: t("Business Type"),
-            content: bossAddress?.business_type
-          },
-          {
-            title: t("Business Address"),
-            content: bossAddress?.business_address
-          },
-          {
-            title: t("Business Category"),
-            content: bossAddress?.categories.category_name
-          }
+        title: t("Boss Name"),
+        content: bossAddress?.boss_name
+      },
+      {
+        title: t("Business Type"),
+        content: bossAddress?.categories?.category_name
+      },
+      {
+        title: t("Business Address"),
+        content: bossAddress?.business_address
+      },
         ],
         [
           {

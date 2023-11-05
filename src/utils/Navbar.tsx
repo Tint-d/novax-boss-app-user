@@ -4,7 +4,6 @@ import { RxCross1 } from "react-icons/rx";
 import { BsChevronDown } from "react-icons/bs";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { AiOutlineSearch, AiFillEye } from "react-icons/ai";
-import { FiEdit } from "react-icons/fi";
 import {
   useGetCategoriesQuery,
 } from "../redux/api/BusinessAddressApi";
@@ -50,14 +49,16 @@ const Navbar = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [hide, setHide] = useState<boolean>(true);
   const [change, setChange] = useState<boolean>(false);
-  const [lanbox, setLanbox] = useState<boolean>(false);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const { data } = useGetCategoriesQuery();
   const [profile, setProfile] = useState<Profile | null>(null);
   const categories: undefined | CategoryType[] = data?.categories;
   const filteredCategories = categories?.filter((category) =>
-    category.category_name.toLowerCase().includes(search)
+   {
+   return category.category_name.toLowerCase().includes(search)
+   || category.category_mm_name.toLowerCase().includes(search)
+   }
   );
   const token = Cookies.get("token");
 
@@ -118,6 +119,15 @@ const Navbar = () => {
   useEffect(() => {
     fetchProfile();
   }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const searchFilter = (inputText:any, searchTerm : string)=> {
+    // Create a regular expression pattern with the 'u' flag for full Unicode support
+    const pattern = new RegExp(searchTerm, 'u');
+    const eng = new RegExp(searchTerm, 'iu');
+
+    return pattern.test(inputText.city_mm_name) || eng.test(inputText.city_name);
+  }
 
   const wid = window.location.pathname;
 
@@ -197,22 +207,22 @@ const Navbar = () => {
           </div>
         </div>
         {navhide && (
-          <div className="absolute left-[-10px] top-[22vh] md:top-20 w-screen z-30">
+          <div className="absolute left-[-1px] top-[22vh] md:top-20 w-screen z-30">
             <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
               <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
                   <img className="h-[150px] mx-auto" src={SearchPhoto} alt="" />
                 </div>
-                <div className="flex  w-full p-2 bg-[#0e1217] rounded-md justify-center items-center gap-x-1">
+                <div className="flex  w-full p-2 bg-[#0e1217] rounded-md justify-between items-center gap-x-1">
                   <input
                     onChange={(e) => setSearch(e.target.value)}
                     type="text"
                     placeholder={t('Type business category name')}
-                    className={inputDefaultStyle}
+                    className={inputDefaultStyle + ' w-5/6 outline-none'}
                   />
                   <AiOutlineSearch
                     onClick={() => navigate("/search", { state: search })}
-                    className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
+                    className=" text-[30px] p-1 w-1/6 text-[#A8B3CF]  rounded bg-[#a8b3cf1a] hover:bg-[#a8b3cf5a] cursor-pointer"
                   />
                 </div>
                 <h2 className="text-center text-[15px] text-[#A8B3CF]">
@@ -226,7 +236,11 @@ const Navbar = () => {
                       key={item?.id}
                       className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
                     >
-                     <Link to={`/search_business/${item.id}`}>
+                     <Link
+                     onClick={()=>{
+                      setChange(false)
+                      setNavHide(false)}}
+                     to={`/search_business/${item.id}`}>
                           <p>{
                             localstorageLanguage == 'en' ? item.category_name : item.category_mm_name
                             }</p>
@@ -257,7 +271,7 @@ const Navbar = () => {
                   className=" text-lg md:text-2xl text-white cursor-pointer"
                 />
               </label>
-                  <div tabIndex={0} className="dropdown-content bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-14 right-0 ">
+                  <div tabIndex={0} className="dropdown-content bg-[#1c1f26] rounded-lg w-[160px]  z-[1000000] top-[60px] right-0 ">
                     <div onClick={()=>swithLanuage('mm')} className="flex py-3  justify-start items-center px-6 gap-x-3 hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s]">
                     <img
                         className="w-[30px] h-[20px] rounded"
@@ -292,7 +306,7 @@ const Navbar = () => {
                           {token ? pf?.name : ""}
                         </h2>
                         <div className="">
-                          <h2 className="px-3  text-[16px] text-center rounded-xl text-[#484848] bg-warining">
+                          <h2 className="w-[50px] text-[12px] text-center rounded-xl text-[#484848] bg-warining">
                             User
                           </h2>
                         </div>
@@ -376,7 +390,7 @@ const Navbar = () => {
                             },
                             body: {
                               background: "#1C1F26",
-                              height: "180px",
+                              height: "200px",
                             },
                             close: {
                               color: "white",
@@ -388,22 +402,24 @@ const Navbar = () => {
                           }}
                         >
                           <div className="flex flex-col gap-7 justify-center h-full items-center pb-5">
-                            <p className="text-white">
-                              Are you sure to logout?
+                            <p className="text-white mt-2">
+                              {t('Are you sure to logout?')}
                             </p>
-                            <BsExclamationTriangle className="text-[#DCA715] text-6xl" />
+                            <span className="text-[#DCA715] text-[35px]">
+                            <BsExclamationTriangle  />
+                            </span>
                             <div className="flex gap-24">
                               <button
                                 onClick={close}
-                                className=" rounded bg-[#cf0303] w-24  text-white font-bold"
+                                className=" rounded bg-[#cf0303] w-28  text-white font-bold"
                               >
-                                Cancel
+                                {t('Cancel')}
                               </button>
                               <button
                                 onClick={logoutHandler}
-                                className=" rounded bg-[#06c53c] w-24 h-10 text-white font-bold"
+                                className=" rounded bg-[#06c53c] w-28 h-10 text-white font-bold"
                               >
-                                Confirm
+                                {t('Confirm')}
                               </button>
                             </div>
                           </div>
@@ -430,6 +446,7 @@ const Navbar = () => {
               className={`${
                 wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
               } text-[15px]`}
+              onClick={() => setChange(false)}
             >
               {t('Home')}
 
@@ -442,6 +459,7 @@ const Navbar = () => {
                   ? "text-[#dca715] text-[15px]"
                   : "text-white"
               } text-[15px] `}
+              onClick={() => setChange(false)}
             >
               {t('Business')}
             </NavLink>
@@ -450,6 +468,7 @@ const Navbar = () => {
               onClick={() => {
                 setSearch("");
                 setNavHide(!navhide);
+                // setChange(false)
               }}
               className="flex  w-[300px]  py-1     justify-center items-center gap-x-5"
             >

@@ -16,17 +16,22 @@ const Brand = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className=" min-h-screen  mx-auto lg:px-10 md:px-6 px-4 relative pt-4 md:pt-9 md:flex md:justify-center md:items-center">
+      className=" min-h-screen  mx-auto lg:px-10 md:px-6 px-4 relative pt-20  md:flex md:justify-center md:items-start md:pt-12">
+        
         <div className="container">
         <div className="">
-        <h2 className=" text-[#DCA715] pt-5 flex justify-center">
+        <div className="w-full flex justify-center  mb-1">
+        <img src={Logo} className=" w-28 h-28" alt="" />
+
+        </div>
+        <h2 className=" text-[#DCA715] pt-1 flex justify-center">
           “ BE A PUPPET MASTER ”
         </h2>
+
       </div>
-      <div className="flex justify-between flex-wrap h-full items-center px-4">
+      <div className="flex justify-between flex-wrap h-full items-center px-4 mt-12 md:mt-0">
         <div className="md:w-7/12  w-12/12">
           <div className="flex justify-start items-center mb-3">
-            <img src={Logo} className=" w-20 h-20" alt="" />
             <h4 className="text-[#DCA715] text-3xl md:text-5xl font-bold">
               <p>BOSS</p> NETWORKS
             </h4>
@@ -37,7 +42,7 @@ const Brand = () => {
             "Boss Teamသည်မြန်မာပြည်မှာရှိသောSME’sများအားစနစ်တကျလည်ပတ်နိုင်ရန် ရောင်းအားတက်ရန် လုပ်ငန်းတိုုးချဲ့နိုင်ရန်အတွက်စာရိတ်အနည်းဆုံး နှင့် တည်ဆောက်နိုင်ရေးအတွက် ကူညီပေးနေသည့် အဖွဲ့စည်းဖြစ်ပါသည်။ကျွန်တော်တို့Boss Teamမှအသင်းသူ အသင်းသားများ၏ လုပ်ငန်းများကို တစ်နေရာထဲမှာဝင်ရောက်လေ့လာနိုင်ရန်ဒီWebsiteလေးကိုတည်ထောင်ဖြစ်တာပါ။ မိမိအတွက်လိုအပ်သောလုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ပြီးလွပ်လပ်စွာဝင်ရောက်လေ့လာနိုင်ပါတယ်ခင်ဗျာ။"
            }
           </p>
-          <div className=" flex gap-3 items-center mt-5">
+          <div className=" flex gap-3 items-center mb-6 mt-5">
             <button className=" flex items-center gap-2 justify-center bg-[#CB0000B2] rounded text-white w-32 py-2">
               <AiFillYoutube className=" text-xl" />
               YouTube

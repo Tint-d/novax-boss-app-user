@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import InputError from "../ui/Errors/InputError";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { t } from "i18next";
 
 interface socialLink {
   type: string,
@@ -213,6 +214,9 @@ const BusinessForm = () => {
 
   }
 
+  const localstorageLanguage : string  = localStorage.getItem('language') || 'en';
+
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -222,7 +226,7 @@ const BusinessForm = () => {
       <div className="md:w-7/12 w-12/12 px-3 py-2  h-screen overflow-y-scroll no-scrollbar">
         <div className=" flex flex-col justify-around items-center gap-y-8 md:gap-y-5">
           <div className=" w-full">
-            <h2 className="  text-center text-[#A8B3CF] pb-3">Business Logo</h2>
+            <h2 className="  text-center text-[#A8B3CF] pb-3">{t('Business Logo')}</h2>
             <div onClick={() => handleFileClick(logoInput)} className="w-[200px] mx-auto flex justify-center items-center h-[200px] bg-[#1C1F26] border border-[#A8B3CF33] rounded-lg">
               <div
 
@@ -255,7 +259,7 @@ const BusinessForm = () => {
 
           <div className=" w-full">
             <h2 className="  text-center text-[#A8B3CF] pb-3">
-              Business Profile <span className="text-[.9em] text-gray-600">( Recommand 1280px x 540px )</span>
+              {t('Business Cover Photo')} <span className="text-[.9em] text-gray-600">( Recommand 1280px x 540px )</span>
             </h2>
 
             <div onClick={() => handleFileClick(profileInput)} className="w-[100%] mx-auto flex justify-center items-center h-[300px] bg-[#1C1F26] border border-[#A8B3CF33] rounded-lg">
@@ -310,7 +314,7 @@ const BusinessForm = () => {
               placeholder="Main Product" register_name="main_product" />
           </div>
           <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">Business Type ...</h2>
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Type')} ...</h2>
             <Select
               styles={{
                 dropdown: {
@@ -345,7 +349,7 @@ const BusinessForm = () => {
                   ? categories?.map((item: any) => {
                     return {
                       value: item?.id,
-                      label: item?.category_name,
+                      label: localstorageLanguage == "en" ? item?.category_name : item?.category_mm_name,
                     };
                   })
                   : []
@@ -357,7 +361,7 @@ const BusinessForm = () => {
             />
           </div>
           <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">City</h2>
+            <h2 className=" text-[#A8B3CF] pb-2">{t('City')}</h2>
             <Select
               styles={{
                 dropdown: {
@@ -392,7 +396,8 @@ const BusinessForm = () => {
                   ? citiesList?.map((item: any) => {
                     return {
                       value: item?.id,
-                      label: item?.city_name,
+                      label: localstorageLanguage == "en" ? item?.city_name : item?.city_mm_name,
+
                     };
                   })
                   : []
@@ -408,7 +413,7 @@ const BusinessForm = () => {
               placeholder="Contact Number" register_name="contact_numbers[0]" />
           </div>
           <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">Business Address</h2>
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Address')}</h2>
             <textarea
               {...register("business_address")}
               className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
@@ -416,7 +421,7 @@ const BusinessForm = () => {
             <InputError errors={errors.business_address} />
           </div>
           <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">Business Description</h2>
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Description')}</h2>
             <textarea
               {...register("business_description")}
               className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
@@ -425,14 +430,14 @@ const BusinessForm = () => {
 
           </div>
           <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">Vision</h2>
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Vision')}</h2>
             <textarea
               {...register("vision")}
               className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
             />
           </div>
           <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">Mission</h2>
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Mission')}</h2>
             <textarea
               {...register("mission")}
               className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
@@ -440,7 +445,7 @@ const BusinessForm = () => {
           </div>
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">
-              What boss teams surprise you?
+              {t('What boss teams surprise you?')}
             </h2>
             <textarea
               {...register("business_suprise")}
@@ -451,7 +456,7 @@ const BusinessForm = () => {
       </div>
       <div className="md:w-4/12 w-[100%]  border-0 p-3  md:border-l-[3px]  border-[#A8B3CF33] flex flex-col justify-between gap-y-10 items-center">
         <div className="w-[100%]">
-          <h2 className=" text-[#A8B3CF] pb-2 text-sm">FaceBook Url</h2>
+          <h2 className=" text-[#A8B3CF] pb-2 text-sm">{t('Facebook link')}</h2>
           <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
             <SiFacebook className="text-blue-600  text-[26px]" />
             <input
@@ -463,7 +468,7 @@ const BusinessForm = () => {
         </div>
 
         <div className="w-[100%]">
-          <h2 className="text-sm text-[#A8B3CF] pb-2">YouTube Url</h2>
+          <h2 className="text-sm text-[#A8B3CF] pb-2">{t('Youtube link')}</h2>
           <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
             <SiYoutube className="text-red-600  text-[28px]" />
             <input
@@ -474,7 +479,7 @@ const BusinessForm = () => {
           </div>
         </div>
         <div className="w-[100%]">
-          <h2 className="text-sm text-[#A8B3CF] pb-2">Titok Url</h2>
+          <h2 className="text-sm text-[#A8B3CF] pb-2">{t('Tiktok link')}</h2>
           <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
             <SiTiktok className="text-white/70  text-[26px]" />
             <input
@@ -486,7 +491,7 @@ const BusinessForm = () => {
         </div>
         <div className="w-[100%]">
           <div className=" w-[100%]">
-            <h2 className="text-sm text-[#A8B3CF] pb-5">Business Photo</h2>
+            <h2 className="text-sm text-[#A8B3CF] pb-5">{t('Business Photo')}</h2>
             <InputError errors={errors.business_photos} />
             <div onClick={() => handleFileClick(businessPhotoInput)} className="w-[100%] mx-auto flex justify-center items-center h-[300px] bg-[#1C1F26] border border-[#A8B3CF33] rounded-lg">
               <div className=" flex justify-center items-center flex-col">
@@ -536,7 +541,7 @@ const BusinessForm = () => {
             size="lg"
             loading={isLoading}
             type="submit"
-            variant="filled" color="green">Save</Button>
+            variant="filled" color="green">{t('Save')}</Button>
         </div>
       </div>
       <ToastContainer />

@@ -3,7 +3,7 @@
   "Don't have an account?": "Don't have an account?",
   "Create account": "အကောင့်အသစ်ဖွင့်မည်",
   "Log out": "အကောင့်ထွက်မည်",
-  "Profile": "မိမိအကောင့်",
+  "Profile": "ကိုယ်ရေးအကျဉ်း",
   "Home": "ပင်မစာမျက်နာ",
   "Business": "စီးပွားရေးလုပ်ငန်းများ",
   "Business Type": "လုပ်ငန်းအမျိုးအစား",
@@ -34,7 +34,7 @@
   "Tiktok link": "Tiktok လင့်ခ်",
   "Business Photo": "လုပ်ငန်း ဓာတ်ပုံ",
   "Save": "သိမ်းရန်",
-  "Apply Address Code": "Address Code ကိုအသုံးပြုပါ",
+  "Apply Address Code": "Address Code ဖြည့်ရန်",
   "Add Business Information": "လုပ်ငန်းအချက်အလက် ကိုဖြည့်ရန်",
   "Edit Business Information": "လုပ်ငန်းအချက်အလက် ကိုပြုပြင်ရန်",
   "See Business Information": "လုပ်ငန်းအချက်အလက် ကိုကြည့်ရန်",
@@ -42,7 +42,7 @@
   "Continue": "ဆက်သွားရန်",
   "You can click on the questions you want to ask and get the answers.": "သင်မေးလိုသောမေးခွန်းများကို နှိပ်၍ အဖြေများကို ရယူနိုင်ပါသည်။",
   "Are you sure to logout?": "အကောင့်မှထွက်ရန် သေချာပါသလား?",
-  "Cancel": "မလုပ်တော့",
+  "Cancel": "မလုပ်တော့ပါ",
   "Confirm": "အတည်ပြုရန်",
   "Search by business name": "လုပ်ငန်းအမည်ဖြင့် ရှာဖွေရန်",
   "Search by city": "မြို့အလိုက်ရှာရန်",
@@ -64,5 +64,6 @@
   "Search...": "ရှာရန်...",
   "Type business category name": "လုပ်ငန်းအမျိးအစား ရှာဖွေရန်...",
   "Entrepreneurs want to know Select business types and search for business Each one can be accessed and studied.": "လုပ်ငန်းရှင်များ သိလိုသော လုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ပြီး လုပ်ငန်းတစ်ခုစီကို ဝင်ရောက်ကြည့်ရှု လေ့လာနိုင်ပါသည်။",
-  "Add business information": "လုပ်ငန်းအသစ်ထည့်ရန်"
+  "Add business information": "လုပ်ငန်းအသစ်ထည့်ရန်",
+  "Check business information": "မိမိလုပ်ငန်းကြည့်ရန်"
 }

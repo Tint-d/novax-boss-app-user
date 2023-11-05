@@ -63,6 +63,16 @@ const BusinessSearchBox = ({withCategory = false,categoryId = null} : BusinessSe
     };
   }, [handleKeyDown]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const searchFilter = (inputText:any, searchTerm : string)=> {
+    // Create a regular expression pattern with the 'u' flag for full Unicode support
+    const pattern = new RegExp(searchTerm, 'u');
+    const eng = new RegExp(searchTerm, 'iu');
+
+    return pattern.test(inputText.city_mm_name) || eng.test(inputText.city_name);
+  }
+
+ 
 
   return (
     <div className="w-full bg-[#0E1217] mb-3 p-2 lg:px-10 md:px-5">
@@ -102,11 +112,11 @@ const BusinessSearchBox = ({withCategory = false,categoryId = null} : BusinessSe
                 onChange={(e) => setTempInput(e.target.value)}
                 type="text"
                 placeholder={t('Type Business Name')}
-                className={inputDefaultStyle + "text-sm"}
+                className={inputDefaultStyle + "text-sm outline-none"}
               />
               <AiOutlineSearch
                     onClick={handlSearchState}
-                    className=" text-[30px] p-1 text-white rounded bg-[#A8B3CF]"
+                    className=" text-[40px] p-1 px-2 text-white rounded  bg-[#a8b3cf1a] hover:bg-[#a8b3cf5a] cursor-pointer"
                   />
             </div>
           </div>
@@ -150,7 +160,7 @@ const BusinessSearchBox = ({withCategory = false,categoryId = null} : BusinessSe
                           selected?.toLowerCase() && "bg-sky-600 text-white"
                       }
                       ${
-                        item?.city_name?.toLowerCase().startsWith(inputValue)
+                        searchFilter(item, inputValue)
                           ? "block"
                           : "hidden"
                       }`}
@@ -177,9 +187,9 @@ const BusinessSearchBox = ({withCategory = false,categoryId = null} : BusinessSe
                         selected?.toLowerCase() && "bg-sky-600 text-white"
                     }
                     ${
-                      item?.city_name?.toLowerCase().startsWith(inputValue)
-                        ? "block"
-                        : "hidden" 
+                      searchFilter(item, inputValue)
+                      ? "block"
+                      : "hidden"
                     }`}
                   onClick={() => {
                     if (

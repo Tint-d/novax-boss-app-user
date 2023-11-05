@@ -96,7 +96,7 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
                 onClose={close}
                 centered
                 //   fullScreen={isMobile}
-                title="Profile"
+                title={t('Profile')}
                 transitionProps={{ transition: 'fade', duration: 200 }}
                 styles={{
                     content: {
@@ -169,7 +169,7 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
                                 }}
                                 loading={isLoading || uploadLoading}
                                 onClick={saveProfile}
-                                variant="filled" color="green">Save</Button>
+                                variant="filled" color="green">{t('Save')}</Button>
                         )
                     }
 
