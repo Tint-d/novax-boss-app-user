@@ -418,7 +418,7 @@ const Navbar = () => {
           </button>
         )}
         {change && (
-          <div className=" flex flex-col w-full gap-y-4 py-2 pb-3  md:hidden justify-between  items-center">
+          <div className=" flex flex-col w-full gap-y-2 py-2  md:hidden justify-between  items-center">
             <NavLink
               to="/"
               className={`${
