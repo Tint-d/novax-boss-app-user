@@ -72,7 +72,7 @@ const Navbar = () => {
     const data = await userLogout(token);
     close();
     dispatch(removeUser());
-    console.log(data);
+    navigate("/");
   };
 
   const fetchProfile = async () => {
@@ -94,15 +94,17 @@ const Navbar = () => {
       const data = await res.json();
       dispatch(addProfile(data?.data));
       setProfile(data?.data);
-      Cookies.set("user", JSON.stringify(data?.data));
+      Cookies.set("users", JSON.stringify(data?.data));
    
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }
   };
 
+
   const pf = useAppSelector(selectProfile);
 
+  console.log(pf)
 
   const currentLanguate = useSelector((state: RootState) => state.setting.language);
    let lg ;

@@ -120,7 +120,6 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
                 <h2 className="text-[16px] pt-1 whitespace-nowrap">{t('Apply Address Code')}</h2>
             </button>
 
-            <ToastContainer />
         </>
     )
 }

@@ -57,3 +57,9 @@
   display: block;
   color: red!important;
 }
+
+@media only screen and (max-width: 720px) {
+  .Toastify__toast-container{
+    width: 80vw!important;
+  }
+}

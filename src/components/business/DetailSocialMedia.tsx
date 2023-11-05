@@ -16,20 +16,20 @@ const DetailSocialMedia = ({social_links} : DetailSocialMediaProps) => {
             social_links.length == 0 && "No social media"
         }
 
-            <div className="flex gap-8 text-2xl">
+            <div className="flex gap-8 text-2xl mt-4">
              {
               social_links.length > 0 &&
               (
                 <>
                  <a href={social_links[0]?.href} className="bg-blue-700  rounded-lg px-3 py-2">
-                  <SiFacebook clasName="" />
+                  <SiFacebook className="" />
 
               </a>
               <a href={social_links[1]?.href} className="bg-red-700 rounded-lg px-3 py-2">
-                 <SiYoutube clasName="" />
+                 <SiYoutube className="" />
               </a>
               <a href={social_links[3]?.href} className="bg-zinc-900 rounded-lg px-3 py-2 text-white">
-                <SiTiktok clasName="" />
+                <SiTiktok className="" />
               </a></>
               )
              }

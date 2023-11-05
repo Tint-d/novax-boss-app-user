@@ -6,7 +6,7 @@ import { t } from 'i18next';
 import { ChangeEvent, useRef, useState } from 'react';
 import { Button } from '@mantine/core';
 import { useUpdateProfileInfoMutation, useUpdateProfilePhotoMutation } from '@/redux/api/profile';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Profile } from '@/utils/Navbar';
 import { useAppDispatch } from '@/redux/hook';
 import { addProfile } from '@/redux/services/businessSlice';
@@ -181,7 +181,6 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
                 <h2 className="text-[16px] pt-1">{t('Profile')}</h2>
             </button>
 
-      <ToastContainer />
         </>
     )
 }

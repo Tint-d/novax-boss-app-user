@@ -1,7 +1,8 @@
 import { Profile } from "@/utils/Navbar";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
-
+import { selectProfile } from "@/redux/services/businessSlice";
+import { useAppSelector } from "@/redux/hook";
 interface  HadBossAddressProps {
     children : React.ReactNode
 }
@@ -9,15 +10,9 @@ interface  HadBossAddressProps {
 const NoBossAddress = ({ children } : HadBossAddressProps) => {
 
   const token = Cookies.get("token");
+  const user  = useAppSelector(selectProfile);
 
-  const user  =  Cookies.get("user") as string 
-
-  let userObj = {}
-  if(user !== "undefined")
-  {
-     userObj = JSON.parse(user)
-  }
-    if (token && (userObj as unknown as Profile)?.boss_address == null) {
+    if (token && (user as unknown as Profile)?.boss_address == null) {
         return <Navigate to="/" />;
     }
     else  if(!token)

@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import InputField from "./InputField";
 import { useForm } from "react-hook-form";
 import InputError from "../ui/Errors/InputError";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 
@@ -544,8 +544,6 @@ const BusinessForm = () => {
             variant="filled" color="green">{t('Save')}</Button>
         </div>
       </div>
-      <ToastContainer />
-
     </form>
   );
 };

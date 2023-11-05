@@ -1,5 +1,6 @@
 import { TbClipboardCopy } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import CopyToClipBoard from "../ui/CopyToClipboard/CopyToClipBoard";
 
 const BusinessCard = ({ ...item }) => {
 
@@ -13,6 +14,8 @@ const BusinessCard = ({ ...item }) => {
     cityName = item?.city?.city_mm_name;
   }
 
+
+
   return (
       <div
         key={item.id}
@@ -23,10 +26,8 @@ const BusinessCard = ({ ...item }) => {
             className="w-[45px] object-cover h-[45px] rounded-full"
             src={item?.business_logo}
           />
-          <TbClipboardCopy
-          onClick={() => {
-            alert('hi')}}
-           className=" w-[45px] h-[45px] p-2  shadow-black/40 text-white bg-[#262a31] rounded-full" />
+        <CopyToClipBoard url={'/business_card_detail/'+item.id} />
+         
         </div>
         <Link to={`/business_card_detail/${item.id}`}>
 

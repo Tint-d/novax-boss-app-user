@@ -24,18 +24,18 @@ const BusinessPhotos = ({ photos,logo,cover }: BusinessPhotosProps) => {
 
   }
   return (
-    <div className="flex justify-center items-start flex-wrap gap-6">
+    <div className="flex justify-between px-6 items-start flex-wrap gap-y-6 mt-6">
       {
         photos.length > 0 && (
           photos.map((image, index) => (
             <div key={image.id}>
               <label htmlFor={`modal-${index}`} className="">
-                <img src={image.business_photo} alt="" className="min-w-[100px] max-w-[140px] h-[20vh] object-contain rounded-lg" />
+                <img src={image.business_photo} alt="" className="min-w-[160px] h-[150px] object-cover rounded-lg" />
               </label>
               <input type="checkbox" id={`modal-${index}`} className="modal-toggle" />
               <div className="modal">
                 <div className="modal-box flex justify-center">
-                  <img src={image.business_photo} alt="" className="w-[50%] h-full object-contain rounded-lg" />
+                  <img src={image.business_photo} alt="" className="w-[50%] h-[full] object-contain rounded-lg" />
                 </div>
                 <label className="modal-backdrop" htmlFor={`modal-${index}`}>Close</label>
               </div>

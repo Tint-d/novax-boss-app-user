@@ -60,7 +60,7 @@ const Login = () => {
 
         if (apiResponse.data.message) {
           toast.success("Successfull login!", {
-            position: toast.POSITION.BOTTOM_CENTER,
+            position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
           return;
@@ -81,7 +81,7 @@ const Login = () => {
   useEffect(() => {
     if ((valid as ApiResponse)?.data?.message) {
       toast.error("Invalid Credentials!", {
-        position: toast.POSITION.BOTTOM_CENTER,
+        position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
       });
     }

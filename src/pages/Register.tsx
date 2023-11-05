@@ -13,6 +13,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
 import { AiOutlineMail,AiFillLock } from "react-icons/ai";
+import { useEffect, useState } from "react";
 
 interface ApiResponse {
   data: {
@@ -21,6 +22,13 @@ interface ApiResponse {
     token: string;
   };
 }
+
+interface CustomError {
+  status: number;
+  data?: unknown;
+  error?: string | undefined;
+}
+
 
 const initialState = {
   name: "",
@@ -32,16 +40,25 @@ const initialState = {
 const Register = () => {
   const { state, dispatch } = useStateContext();
   const [userRegister, { isLoading }] = useUserRegisterMutation();
+  const [valid, setValid] = useState<unknown>(undefined);
 
   const isCheckLogin = true as boolean;
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if ((valid as ApiResponse)?.data?.message) {
+      toast.error("Invalid Credentials!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    }
+  },[valid])
+
   const onSubmit = async (formData: FormStateType) => {
     const data = await userRegister(formData);
     if ("data" in data) {
       const apiResponse = data as ApiResponse;
-      console.log(data, "data in register");
       if (apiResponse.data.status === "success") {
         navigate("/login");
         toast.success("Successful registration!", {
@@ -49,14 +66,23 @@ const Register = () => {
           autoClose: 2000,
         });
       }
+    }else if ("error" in data) {
+        const errorResponse = data as CustomError;
+        if (errorResponse.data) {
+          setValid(errorResponse.data);
+        } else {
+          setValid(errorResponse.error);
+        }
+      }
     }
-  };
 
   const { error, handleSubmit, inputChangeHandler, formState } = useForm(
     initialState,
     onSubmit,
     isCheckLogin
   );
+
+  
 
   return (
     <div className=" h-[100vh] flex justify-center items-center bg-[rgb(14,18,23)] relative">
