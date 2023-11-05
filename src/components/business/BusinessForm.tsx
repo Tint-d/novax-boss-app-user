@@ -420,7 +420,7 @@ const BusinessForm = () => {
             <textarea
               {...register("business_description")}
               className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
-            />business_description
+            />
             <InputError errors={errors.business_address} />
 
           </div>
