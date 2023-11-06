@@ -439,7 +439,7 @@ const BusinessForm = () => {
           </div>
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">
-              {t('What boss teams surprise you?')}
+              {t('What boss team surprised you?')}
             </h2>
             <textarea
               {...register("business_suprise")}

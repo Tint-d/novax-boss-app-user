@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
 import { AiOutlineMail,AiFillLock } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import { t } from "i18next";
 
 interface ApiResponse {
   data: {
@@ -48,7 +49,7 @@ const Register = () => {
 
   useEffect(() => {
     if ((valid as ApiResponse)?.data?.message) {
-      toast.error("Invalid Credentials!", {
+      toast.error(t((valid as ApiResponse)?.data?.message), {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
       });
@@ -61,7 +62,7 @@ const Register = () => {
       const apiResponse = data as ApiResponse;
       if (apiResponse.data.status === "success") {
         navigate("/login");
-        toast.success("Successful registration!", {
+        toast.success(t('Successful registration!'), {
           position: toast.POSITION.BOTTOM_CENTER,
           autoClose: 2000,
         });
@@ -100,7 +101,7 @@ const Register = () => {
                 name="name"
                 onChange={inputChangeHandler}
                 className={defaultInputFormStyle + " w-full"}
-                placeholder=" Username"
+                placeholder={t("Name")}
                 type="text"
               />
             </div>
@@ -118,7 +119,7 @@ const Register = () => {
                 value={formState.email}
                 onChange={inputChangeHandler}
                 className={defaultInputFormStyle + "text-sm w-full ps-2"}
-                placeholder=" Email"
+                placeholder={t("Email")}
                 type="email"
               />
             </div>
@@ -137,7 +138,7 @@ const Register = () => {
                   value={formState.password}
                   onChange={inputChangeHandler}
                   className="bg-transparent outline-none px-2"
-                  placeholder="Password"
+                  placeholder={t("Password")}
                   type={state.textToggle ? "text" : "password"}
                 />
                 <div
@@ -171,7 +172,7 @@ const Register = () => {
                   value={formState.password_confirmation}
                   onChange={inputChangeHandler}
                   className="bg-transparent outline-none px-2"
-                  placeholder="Confirm Password"
+                  placeholder={t("Password Confirmation")}
                   type={state.textToggle2 ? "text" : "password"}
                 />
                 <div
@@ -203,13 +204,13 @@ const Register = () => {
           </button>
 
           <div className="flex items-center gap-5">
-            <p className="text-gray-400">Already have an account? </p>
+            <p className="text-gray-400">{t('Already have an account?')} </p>
             <Link
               to={"/login"}
               className="text-[rgb(255,205,41)] flex items-center"
             >
               <BiLeftArrow />
-              <span>Login </span>
+              <span className="capitalize">{t('login')} </span>
             </Link>
           </div>
         </form>

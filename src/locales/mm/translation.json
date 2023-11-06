@@ -1,6 +1,6 @@
 {
   "login": "အကောင့်၀င်မည်",
-  "Don't have an account?": "Don't have an account?",
+  "Don't have an account?": "အကောင့်မရှိပါ",
   "Create account": "အကောင့်အသစ်ဖွင့်မည်",
   "Log out": "အကောင့်ထွက်မည်",
   "Profile": "ကိုယ်ရေးအကျဉ်း",
@@ -65,5 +65,16 @@
   "Type business category name": "လုပ်ငန်းအမျိးအစား ရှာဖွေရန်...",
   "Entrepreneurs want to know Select business types and search for business Each one can be accessed and studied.": "လုပ်ငန်းရှင်များ သိလိုသော လုပ်ငန်းအမျိုးအစားများကို ရွေးချယ်ပြီး လုပ်ငန်းတစ်ခုစီကို ဝင်ရောက်ကြည့်ရှု လေ့လာနိုင်ပါသည်။",
   "Add business information": "လုပ်ငန်းအသစ်ထည့်ရန်",
-  "Check business information": "မိမိလုပ်ငန်းကြည့်ရန်"
+  "Check business information": "မိမိလုပ်ငန်းကြည့်ရန်",
+  "Type apply code": "code ကိုရိုက်ထည့်ပါ",
+  "Invalid Credentials!": "အချက်အလက်မမှန်ကန်ပါ",
+  "Successfull login!": "အောင်မြင်ပါသည်",
+  "Forget password?": "စကား၀ှက်မေ့သွားသည်",
+  "Login with Facebook": "Facebook ဖြင့်အကောင့်၀င်မည်",
+  "Enter the email address associated with your account and we\\'ll send you a link to reset your password.": "သင့်အကောင့်နှင့် ဆက်စပ်နေသည့် အီးမေးလ်လိပ်စာကို ထည့်သွင်းပြီး သင့်စကားဝှက်ကို ပြန်လည်သတ်မှတ်ရန် လင့်ခ်တစ်ခု ပို့ပေးပါမည်။",
+  "Send": "ပေးပို့ပါ",
+  "Failed Registration!": "မအောင်မြင်ပါ",
+  "Successful registration!": "အောင်မြင်ပါသည်",
+  "Password Confirmation": "စကား၀ှက်အတည်ပြုပါ",
+  "Name": "အမည််"
 }

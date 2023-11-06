@@ -65,5 +65,16 @@
   "Type business category name": "Type business category name",
   "Entrepreneurs want to know Select business types and search for business Each one can be accessed and studied.": "Entrepreneurs want to know Select business types and search for business Each one can be accessed and studied.",
   "Add business information": "Add business information",
-  "Check business information": "Check business information"
+  "Check business information": "Check business information",
+  "Type apply code": "Type apply code",
+  "Invalid Credentials!": "Invalid Credentials!",
+  "Successfull login!": "Successfull login!",
+  "Forget password?": "Forget password?",
+  "Login with Facebook": "Login with Facebook",
+  "Enter the email address associated with your account and we\\'ll send you a link to reset your password.": "Enter the email address associated with your account and we\\'ll send you a link to reset your password.",
+  "Send": "Send",
+  "Failed Registration!": "Failed Registration",
+  "Successful registration!": "Successful registration!",
+  "Password Confirmation": "Password Confirmation",
+  "Name": "Name"
 }

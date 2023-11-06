@@ -59,7 +59,7 @@ const Login = () => {
         }
 
         if (apiResponse.data.message) {
-          toast.success("Successfull login!", {
+          toast.success(t('Successfull login!'), {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
@@ -80,8 +80,8 @@ const Login = () => {
 
   useEffect(() => {
     if ((valid as ApiResponse)?.data?.message) {
-      toast.error("Invalid Credentials!", {
-        position: toast.POSITION.TOP_CENTER,
+      toast.error(t('Invalid Credentials!'), {
+        position: toast.POSITION.TOP_LEFT,
         autoClose: 2000,
       });
     }
@@ -110,7 +110,7 @@ const Login = () => {
                   value={formState.email}
                   onChange={inputChangeHandler}
                   className={defaultInputFormStyle + "bg-transparent ps-2"}
-                  placeholder="Email"
+                  placeholder={t("Email")}
                   type="email"
                 />
               </div>
@@ -128,7 +128,7 @@ const Login = () => {
                     value={formState.password}
                     onChange={inputChangeHandler}
                     className={defaultInputFormStyle}
-                    placeholder="password"
+                    placeholder={t("Password")}
                     type={state.textToggle ? "text" : "password"}
                   />
                   <div
@@ -149,7 +149,7 @@ const Login = () => {
           </div>
           <div className="flex gap-10 my-3 items-center">
             <Link to={"/forget_password"} className="text-[rgb(255,205,41)] text-[.8em]">
-              Forget your password?
+              {t("Forget password?")}
             </Link>
             <button
               disabled={isLoading && true}
