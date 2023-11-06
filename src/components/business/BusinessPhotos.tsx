@@ -30,12 +30,12 @@ const BusinessPhotos = ({ photos,logo,cover }: BusinessPhotosProps) => {
           photos.map((image, index) => (
             <div key={image.id}>
               <label htmlFor={`modal-${index}`} className="">
-                <img src={image.business_photo} alt="" className="min-w-[160px] h-[150px] object-cover rounded-lg" />
+                <img src={image.business_photo} alt="" className="w-[165px] h-[140px] object-cover rounded-lg" />
               </label>
               <input type="checkbox" id={`modal-${index}`} className="modal-toggle" />
               <div className="modal">
                 <div className="modal-box flex justify-center">
-                  <img src={image.business_photo} alt="" className="w-[50%] h-[full] object-contain rounded-lg" />
+                  <img src={image.business_photo} alt="" className="w-[90%] h-[full] object-contain rounded-lg" />
                 </div>
                 <label className="modal-backdrop" htmlFor={`modal-${index}`}>Close</label>
               </div>

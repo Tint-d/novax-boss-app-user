@@ -11,16 +11,21 @@ import Detail from "./Detail";
 
 export interface detailsType {
   id: number;
+  boss_no : string,
   boss_name: string;
   business_name: string;
   categories: {
+    id: number;
     category_name: string;
+    category_mm_name : string;
   };
   main_product: string;
   business_address: string;
   contact_numbers: string[];
   city: {
+    id: number;
     city_name: string;
+    city_mm_name : string;
   };
   business_description: string;
   vision: string;
@@ -51,6 +56,7 @@ interface Social {
 const BusinessDetail = () => {
   const { id } = useParams() as { id: string };
   const { data: items, isLoading } = useGetBusinessAddressDetailQuery(id);
+    const language = localStorage.getItem("language") || "en";
 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,7 +70,8 @@ const BusinessDetail = () => {
       },
       {
         title: t("Business Type"),
-        content: bossAddress?.categories?.category_name
+        content:  language == "en" ? bossAddress?.categories?.category_name : bossAddress?.categories?.category_mm_name
+
 
       },
       {
@@ -79,7 +86,8 @@ const BusinessDetail = () => {
     [
       {
         title: t("Business City"),
-        content: bossAddress?.city?.city_name
+        content: language == "en" ?  bossAddress?.city?.city_name :   bossAddress?.city?.city_mm_name
+
       },
       {
         title: t("Business Description"),

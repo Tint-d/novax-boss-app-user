@@ -8,6 +8,7 @@ import Guest from "@/components/auth/guards/Guest";
 import HadBossAddress from "@/components/auth/guards/HadBossAddress";
 import NoBossAddress from "@/components/auth/guards/NoBossAddress";
 import BossAddressDetail from "@/components/business/UserBossAddress/BossAddressDetail";
+import EditBossAddress from "@/components/business/Edit/EditBossAddress";
 const FacebookLoginAuth = lazy(() => import("../pages/FacebookLoginAuth"));
 const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
@@ -184,7 +185,7 @@ const Routes = () => {
         <Suspense fallback={<Fallback />}>
            <Guest>
           <Layout>
-            <BusinessEdit />
+            <EditBossAddress />
           </Layout>
           </Guest>
         </Suspense>

@@ -8,12 +8,12 @@ interface InputFieldProps {
     errors: any,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: UseFormRegister<any>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    register_name: any,
+    register_name: string,
     label: string,
     placeholder?: string,
     disabled?: boolean,
-    initialValue?: string | number
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    initialValue?: string | number | any
 }
 
 const InputField = ({ type, errors, register, register_name, label, placeholder, disabled, initialValue }: InputFieldProps) => {
@@ -26,7 +26,7 @@ const InputField = ({ type, errors, register, register_name, label, placeholder,
                 className="bg-[#1C1F26] w-full p-2 outline-none border rounded text-white border-[#4e525a]"
                 type={type}
                 {...register(register_name)} disabled={disabled}
-                value={initialValue}
+                defaultValue={initialValue}
                 placeholder={t(placeholder!)}
                 
             />

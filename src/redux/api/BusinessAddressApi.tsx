@@ -76,6 +76,15 @@ export const businessAddressApi = createApi({
       }),
       invalidatesTags: ["businessAddress"],
     }),
+    updateBossAddressMain: builder.mutation({
+      query: ({ data,id }) =>({
+        url : `/boss-address/update/${id}/main`,
+        method : "POST",
+        body : data,
+        headers : { authorization : `Bearer ${token}` }
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
     createSocialLink: builder.mutation({
       query: ({ data, token, id }) => ({
         url: `/boss-address/update/${id}/add/social-links`,
@@ -118,4 +127,5 @@ export const {
   useAppliedCodeMutation,
   useGetProfileQuery,
   useGetBusinessAddressFilterQuery,
+  useUpdateBossAddressMainMutation,
 } = businessAddressApi;

@@ -77,7 +77,7 @@ const MobileDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) =
                 <input type="checkbox" id="my_modal_8" className="modal-toggle" />
                 <div className="modal">
                   <div className="modal-box flex justify-center">
-                    <img src={bossAddress?.cover_photo} alt="" className="w-4/6 object-contain rounded-lg" />
+                    <img src={bossAddress?.cover_photo} alt="" className="w-5/6 object-contain rounded-lg" />
                   </div>
                   <label className="modal-backdrop" htmlFor="my_modal_8">Close</label>
                 </div>

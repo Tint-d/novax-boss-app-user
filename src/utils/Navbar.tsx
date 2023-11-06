@@ -7,6 +7,7 @@ import { AiOutlineSearch, AiFillEye } from "react-icons/ai";
 import {
   useGetCategoriesQuery,
 } from "../redux/api/BusinessAddressApi";
+import { FiEdit } from "react-icons/fi";
 import { CategoryType } from "../typings/type";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { inputDefaultStyle } from "../constant/defaultStyle";
@@ -354,12 +355,14 @@ const Navbar = () => {
                         </div>
                       ) : (
                         <div>
-                          {/* <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                          <NavLink to={paths.business_edit}>
+                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                             <FiEdit className="text-[24px]" />
                             <h2 className="text-[16px]">
                               {t('Edit business information')}
                             </h2>
-                          </button> */}
+                          </button>
+                          </NavLink>
                           <NavLink to ={paths.business_address}>
                           <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full whitespace-nowrap overflow-hidden hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                           <AiFillEye className="text-[26px]" />

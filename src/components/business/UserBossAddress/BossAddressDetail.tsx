@@ -7,8 +7,6 @@ import { useAppSelector } from '@/redux/hook';
 import { selectProfile } from '@/redux/services/businessSlice';
 import { detailsType } from '../BusinessDetail';
 
-
-
 const BossAddressDetail = () => {
 
     // const { data, isLoading } = useGetProfileQuery({});
@@ -17,6 +15,7 @@ const BossAddressDetail = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bossAddress = user?.boss_address as detailsType;
 
+    const language = localStorage.getItem("language") || "en";
 
     const sidesData = [
         [
@@ -26,7 +25,7 @@ const BossAddressDetail = () => {
       },
       {
         title: t("Business Type"),
-        content: bossAddress?.categories?.category_name
+        content:  language == "en" ? bossAddress?.categories?.category_name : bossAddress?.categories?.category_mm_name
       },
       {
         title: t("Business Address"),
@@ -40,7 +39,7 @@ const BossAddressDetail = () => {
         [
           {
             title: t("Business City"),
-            content: bossAddress?.city?.city_name
+            content: language == "en" ?  bossAddress?.city?.city_name :   bossAddress?.city?.city_mm_name
           },
           {
             title: t("Business Description"),
