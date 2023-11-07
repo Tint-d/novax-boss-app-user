@@ -1,9 +1,11 @@
 import Skeleton from 'react-loading-skeleton'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BossAddressDetailSectionTwo from "../UserBossAddress/BossAddressDetailSectionTwo";
 import BossAddressDetailSlider from "../UserBossAddress/BossAddressDetailSlider";
 import BossAddressSectionOne from "../UserBossAddress/BossAddressSectionOne";
+import ImageModal from '@/components/ui/ImageModal/ImageModal';
+import convertImageUrlToBase64 from '@/global/helpers/helper';
 
 
 export interface detailsType {
@@ -55,8 +57,17 @@ type SideData = {
   }
 
 
-const OgDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) => {
+const OgDetail =  ({sideData,bossAddress,isLoading} : BusinesssDetailProps) => {
   const [show, setShow] = useState<number>(0);
+  const [coverPhoto,setCoverPhoto] = useState<string >(bossAddress?.cover_photo);
+  useEffect(()=>{
+  convertImageUrlToBase64(bossAddress?.cover_photo)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  .then((url : any)=>{
+    setCoverPhoto(url !);    
+  })
+
+  },[bossAddress?.cover_photo])
 
   const loadingSkeleton = (
     <div className="flex justify-center items-center relative mt-12 pb-10 w-full">
@@ -78,21 +89,18 @@ const OgDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) => {
             <div className="flex flex-col  h-[85%] py-6 overflow-scroll no-scrollbar">
               <div className="img-container rounded-lg px-6">
                 <label htmlFor="my_modal_8">
-                  <img src={bossAddress?.cover_photo} alt="" className="w-[300px] md:w-[400px] h-[200px] rounded-lg object-cover" />
+                  <img src={coverPhoto} alt="" className="w-[300px] md:w-[400px] h-[200px] rounded-lg object-cover" />
                 </label>
+                <ImageModal url={bossAddress?.cover_photo} modal={"my_modal_8"} />
 
-                <input type="checkbox" id="my_modal_8" className="modal-toggle" />
-                <div className="modal">
-                  <div className="modal-box flex justify-center">
-                    <img src={bossAddress?.cover_photo} alt="" className="w-4/6 object-contain rounded-lg" />
-                  </div>
-                  <label className="modal-backdrop" htmlFor="my_modal_8">Close</label>
-                </div>
               </div>
-
               <div className="profile flex gap-4 mt-3 items-center px-6">
                 <div className="profile-image">
+                  <label htmlFor="my_modal_9">
                   <img src={bossAddress?.business_logo} alt="" className="w-[40px] h-[40px] rounded-full object-cover" />
+                </label>
+                <ImageModal url={bossAddress?.business_logo} modal={"my_modal_9"} />
+
                 </div>
 
                 <p className='text-[#DCA715] text-md font-medium'>

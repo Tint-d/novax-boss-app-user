@@ -43,6 +43,8 @@ export interface BossSubmitData {
   city: number,
   business_category_id: number,
   business_city_id: number,
+  business_goal : string,
+  core_value : string,
 }
 
 interface ImageFile {
@@ -174,9 +176,11 @@ const BusinessForm = () => {
 
     });
     formData.append('business_description', data.business_description);
+    formData.append('business_goal', data.business_goal);
     formData.append('vision', data.vision);
     formData.append('mission', data.mission);
     formData.append('business_suprise', data.business_suprise);
+    formData.append('core_value', data.core_value);
 
     
     const social_links = data.social_links;
@@ -424,12 +428,28 @@ const BusinessForm = () => {
 
           </div>
           <div className="w-full">
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Goal')}</h2>
+            <textarea
+              {...register("business_goal")}
+              className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
+            />
+          </div>
+
+          <div className="w-full">
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Core Value')}</h2>
+            <textarea
+              {...register("core_value")}
+              className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
+            />
+          </div>
+          <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">{t('Vision')}</h2>
             <textarea
               {...register("vision")}
               className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
             />
-          </div>
+          </div> 
+          
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">{t('Mission')}</h2>
             <textarea

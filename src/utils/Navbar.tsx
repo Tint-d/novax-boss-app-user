@@ -111,7 +111,7 @@ const Navbar = () => {
    let lg ;
   if(currentLanguate == 'mm'){
     lg = (
-      <img className="w-[35px] h-[25px] rounded" src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg" alt="" />
+      <img className="w-[30px] h-[20px] rounded" src="https://cdn.britannica.com/34/4034-004-B478631E/Flag-Myanmar.jpg" alt="" />
     )
   }else{
     lg = (
@@ -356,17 +356,17 @@ const Navbar = () => {
                       ) : (
                         <div>
                           <NavLink to={paths.business_edit}>
-                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
+                          <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full whitespace-nowrap hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                             <FiEdit className="text-[24px]" />
-                            <h2 className="text-[16px]">
-                              {t('Edit business information')}
+                            <h2 className="text-[14px]">
+                              {t('Edit Business Information')}
                             </h2>
                           </button>
                           </NavLink>
                           <NavLink to ={paths.business_address}>
                           <button className=" flex justify-start   px-3 gap-2 items-center py-3  w-full whitespace-nowrap overflow-hidden hover:text-white text-[#A8B3CF] hover:bg-black duration-[0.5s] rounded">
                           <AiFillEye className="text-[26px]" />
-                            <h2 className="text-[16px]">
+                            <h2 className="text-[14px]">
                             {t('Check business information')}
                             </h2>
                           </button>

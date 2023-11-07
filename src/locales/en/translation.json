@@ -76,5 +76,7 @@
   "Failed Registration!": "Failed Registration",
   "Successful registration!": "Successful registration!",
   "Password Confirmation": "Password Confirmation",
-  "Name": "Name"
+  "Name": "Name",
+  "The email has already been taken.": "The email has already been taken.",
+  "Business Goal": "Business Goal"
 }

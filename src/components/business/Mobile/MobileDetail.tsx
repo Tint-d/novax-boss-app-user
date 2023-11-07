@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 //import cross logo from react-icons
 import { MdClose } from 'react-icons/md';
 import { detailsType } from '../BusinessDetail';
+import ImageModal from '@/components/ui/ImageModal/ImageModal';
 
 
 
@@ -41,6 +42,7 @@ const MobileDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) =
   const [show, setShow] = useState<number>(0);
 
   const [activeSection,setActiveSection] = useState<number>(0);
+  const navigate = useNavigate();
 
   const loadingSkeleton = (
     <div className="flex justify-center items-center relative mt-12 pb-10 w-full">
@@ -52,7 +54,6 @@ const MobileDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) =
       loadingSkeleton
     );
   }
-  const navigate = useNavigate();
 
   return (
     <div className='w-full py-6'>
@@ -74,18 +75,17 @@ const MobileDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) =
                   <img src={bossAddress?.cover_photo} alt="" className="w-[90vw] h-[200px] rounded-lg object-cover" />
                 </label>
 
-                <input type="checkbox" id="my_modal_8" className="modal-toggle" />
-                <div className="modal">
-                  <div className="modal-box flex justify-center">
-                    <img src={bossAddress?.cover_photo} alt="" className="w-5/6 object-contain rounded-lg" />
-                  </div>
-                  <label className="modal-backdrop" htmlFor="my_modal_8">Close</label>
-                </div>
+                <ImageModal url={bossAddress?.cover_photo} modal={"my_modal_8"} />
               </div>
 
               <div className="profile flex gap-4 mt-4 items-center px-6">
                 <div className="profile-image">
+                  <label htmlFor="my_modal_10">
                   <img src={bossAddress?.business_logo} alt="" className="w-[40px] h-[40px] rounded-full object-cover" />
+                </label>
+
+                <ImageModal url={bossAddress?.business_logo} modal={"my_modal_10"} />
+
                 </div>
 
                 <p className='text-[#DCA715] text-md font-medium'>

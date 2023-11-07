@@ -16,7 +16,7 @@ const DetailSocialMedia = ({social_links} : DetailSocialMediaProps) => {
             social_links.length == 0 && "No social media"
         }
 
-            <div className="flex gap-8 text-2xl mt-4">
+            <div className="flex gap-8 text-2xl mt-16">
              {
               social_links.length > 0 &&
               (

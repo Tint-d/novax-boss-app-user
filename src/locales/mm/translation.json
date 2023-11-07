@@ -54,7 +54,7 @@
   "Login with facebook": "Facebook ဖြင့်အကောင့်ဝင်ရန်",
   "Username": "အသုံးပြုသူအမည်",
   "Confirm password": "စကားဝှက်အတည်ပြုခြင်း",
-  "Already have an account?": "အကောင့်ရှိပြီးသားလား?",
+  "Already have an account?": "အကောင့်ရှိပြီးသားပါ",
   "Forgot Password": "စကားဝှက်မေ့နေပါသလား?",
   "\"Enter the email address associated with your account and\nwe'll send you a link to reset your password.\"": "\"သင့်အကောင့်နှင့် ဆက်စပ်နေသော အီးမေးလ်လိပ်စာကို ထည့်သွင်းပါ။\nသင့်စကားဝှက်ကို ပြန်လည်သတ်မှတ်ရန် လင့်ခ်တစ်ခု သင့်ထံ ပေးပို့ပါမည်။\"",
   "Reset Password": "စကားဝှက်ကို ပြန်လည်သတ်မှတ်ပါ",
@@ -76,5 +76,7 @@
   "Failed Registration!": "မအောင်မြင်ပါ",
   "Successful registration!": "အောင်မြင်ပါသည်",
   "Password Confirmation": "စကား၀ှက်အတည်ပြုပါ",
-  "Name": "အမည််"
+  "Name": "အမည််",
+  "The email has already been taken.": "ယခုအီးမေးဖြင့်အကောင့်ရှိပြီးသားဖြစ်နေပါသည်",
+  "Business Goal": "စီးပွားရေးဦးတည်ချက်"
 }

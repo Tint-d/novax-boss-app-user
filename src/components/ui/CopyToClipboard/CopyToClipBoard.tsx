@@ -23,7 +23,7 @@ const CopyToClipBoard = ({url} : CopyToClipBoardProps) => {
   return (
     <TbClipboardCopy
     onClick={()=>copyToClipBoard()}
-     className=" w-[45px] h-[45px] p-2   shadow-black/40 text-white bg-[#5b626d] hover:bg-[#4c5158] transition-all rounded-full" />
+     className=" w-[40px] h-[40px] p-2   shadow-black/40 text-white bg-[#2728299a] hover:bg-[#4c5158] transition-all rounded-full" />
   )
 }
 

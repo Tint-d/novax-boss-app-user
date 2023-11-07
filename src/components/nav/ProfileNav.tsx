@@ -178,7 +178,7 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
 
             <button onClick={open} className=" flex justify-start gap-2  w-[250px]  px-3 items-center py-3 text-[#A8B3CF] hover:text-white hover:bg-black duration-[0.5s] rounded">
                 <CgProfile className="text-[26px]  " />
-                <h2 className="text-[16px] pt-1">{t('Profile')}</h2>
+                <h2 className="text-[14px] pt-1">{t('Profile')}</h2>
             </button>
 
         </>

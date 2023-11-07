@@ -15,7 +15,6 @@ import InputField from "../InputField";
 import { useForm } from "react-hook-form";
 import InputError from "../../ui/Errors/InputError";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { useAppSelector } from "@/redux/hook";
 import { selectProfile } from "@/redux/services/businessSlice";
@@ -26,7 +25,7 @@ interface socialLink {
   href: string
 }
 
-export interface BossSubmitMainData {
+export interface BossEditMainData {
   boss_no: string,
   boss_name: string,
   business_name: string,
@@ -45,6 +44,8 @@ export interface BossSubmitMainData {
   city: number,
   business_category_id: number,
   business_city_id: number,
+  business_goal : string,
+  core_value : string,
 }
 
 interface ImageFile {
@@ -62,8 +63,6 @@ const EditBossAddress = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bossAddress = user?.boss_address as detailsType;
 
-  console.log(bossAddress);
-
   const [logoPreviewImage, setLogoPreviewImage] = useState<string[]>([]);
   const [profilePreviewImage, setProfilePreviewImage] = useState<string[]>([]);
   const [businessPhotos, setBusinessPhotos] = useState<ImageFile[]>([]);
@@ -71,7 +70,6 @@ const EditBossAddress = () => {
   const [currentBusinessPhoto, setCurrentBusinessPhoto] = useState<number>(0);
   const [categoryId, setCategoryId] = useState<number>(1);
   const [cityId, setCityId] = useState<number>(1);
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -79,7 +77,7 @@ const EditBossAddress = () => {
     setError,
     clearErrors,
     setValue,
-  } = useForm<BossSubmitMainData>({
+  } = useForm<BossEditMainData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: yupResolver(BossAddressValidationSchema) as any,
     defaultValues : { 
@@ -144,7 +142,7 @@ const EditBossAddress = () => {
     setBusinessPhotos((prevImages) => prevImages.filter((image) => image.id !== id));
   }, []);
 
-  const onSubmit = async (data: BossSubmitMainData) => {
+  const onSubmit = async (data: BossEditMainData) => {
     const formData = new FormData();
 
     if (logoPreviewImage.length > 0) {
@@ -175,11 +173,13 @@ const EditBossAddress = () => {
 
     // });
     formData.append('business_description', data.business_description);
+    formData.append('business_goal', data.business_goal);
+    formData.append('core_value', data.core_value);
     formData.append('vision', data.vision);
     formData.append('mission', data.mission);
     formData.append('business_suprise', data.business_suprise);
-    formData.append('business_category_id', data.business_category_id.toString());
-    formData.append('business_city_id', data.business_city_id.toString());
+    formData.append('business_category_id', categoryId.toString());
+    formData.append('business_city_id', cityId.toString());
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = await updateBossAddressMain({data :  formData,id : bossAddress?.id}) as any;
     if (response.error) {
@@ -204,7 +204,8 @@ const EditBossAddress = () => {
 
 
   return (
-    <form
+    bossAddress && (
+      <form
       onSubmit={handleSubmit(onSubmit)}
       className=" text-sm md:w-[700px] w-[355px] pb-10  sm:w-[400px] md:p-0  p-19  lg:w-[975px] mt-[20px] h-full my-auto bg-[#0E1217] flex flex-wrap justify-between items-center  mx-auto  rounded"
     >
@@ -287,7 +288,9 @@ const EditBossAddress = () => {
             <InputField type="text" label="Main Product" register={register} errors={errors.main_product}
               placeholder="Main Product" register_name="main_product" initialValue={bossAddress?.main_product} />
           </div>
-          <div className="w-full">
+          {
+           ( !isLoading && bossAddress?.categories?.id )&& 
+            <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">{t('Business Type')} ...</h2>
             <Select
               styles={{
@@ -328,13 +331,15 @@ const EditBossAddress = () => {
                   })
                   : []
               }
-              defaultValue={categoryId as unknown as string}
+              defaultValue={bossAddress?.categories?.id as unknown as string}
               onChange={(e) => setCategoryId(e as unknown as number)}
               dropdownPosition="bottom"
               searchable
             />
           </div>
-          <div className="w-full">
+          }
+          {
+            (!isLoading && bossAddress?.city?.id) &&     <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">{t('City')}</h2>
             <Select
               styles={{
@@ -371,17 +376,20 @@ const EditBossAddress = () => {
                     return {
                       value: item?.id,
                       label: localstorageLanguage == "en" ? item?.city_name : item?.city_mm_name,
-
+                      selected: item?.id == bossAddress?.city?.id
                     };
                   })
                   : []
               }
               dropdownPosition="bottom"
-              defaultValue={cityId as unknown as string}
               onChange={(e) => setCityId(e as unknown as number)}
               searchable
+              defaultValue={bossAddress?.city?.id as unknown as string}
             />
           </div>
+          }
+         
+      
           <div className="w-full">
             <InputField type="text" label="Contact Number" register={register} errors={errors.contact_numbers} initialValue={bossAddress?.business_address}
               placeholder="Contact Number" register_name="contact_numbers[0]" />
@@ -403,6 +411,27 @@ const EditBossAddress = () => {
             <InputError errors={errors.business_address} />
 
           </div>
+
+          <div className="w-full">
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Goal')}</h2>
+            <textarea
+              {...register("business_goal")}
+              className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
+              defaultValue={bossAddress?.business_goal}
+
+            />
+          </div>
+
+          <div className="w-full">
+            <h2 className=" text-[#A8B3CF] pb-2">{t('Core Value')}</h2>
+            <textarea
+              {...register("core_value")}
+              className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
+              defaultValue={bossAddress?.core_value}
+            />
+          </div>
+
+
           <div className="w-full">
             <h2 className=" text-[#A8B3CF] pb-2">{t('Vision')}</h2>
             <textarea
@@ -522,6 +551,8 @@ const EditBossAddress = () => {
         </div>
       </div>
     </form>
+    )
+    
   );
 };
 
