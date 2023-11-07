@@ -53,16 +53,14 @@ const Login = () => {
       if ("data" in result) {
         const apiResponse = result as ApiResponse;
         if (apiResponse.data.message) {
-          navigate("/");
-          dispatchAction(addUser(apiResponse));
-        }
-
-        if (apiResponse.data.message) {
           toast.success(t('Successfull login!'), {
-            position: toast.POSITION.TOP_CENTER,
+            position: toast.POSITION.TOP_LEFT,
             autoClose: 2000,
           });
-          return;
+          setTimeout(() => {
+            navigate("/");
+          },1000)
+          dispatchAction(addUser(apiResponse));
         }
       } else if ("error" in result) {
         const errorResponse = result as CustomError;

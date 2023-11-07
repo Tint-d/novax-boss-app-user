@@ -14,7 +14,7 @@ const Home = lazy(() => import("../pages/Home"));
 const Business = lazy(() => import("../pages/Business"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
-const BusinessForm = lazy(() => import("../pages/BusinessForm"));
+const BusinessForm = lazy(() => import("../components/business/BusinessForm"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"));
 const Search = lazy(() => import("../components/business/BusinessSearchBox"));
 const SearchBusinessCard = lazy(

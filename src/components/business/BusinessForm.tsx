@@ -369,6 +369,7 @@ const BusinessForm = () => {
               onChange={(e) => setCategoryId(e as unknown as number)}
               dropdownPosition="bottom"
               searchable
+              allowDeselect={false}
             />
           </div>
           <div className="w-full">

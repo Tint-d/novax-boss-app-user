@@ -1,9 +1,6 @@
 import  Cookies  from 'js-cookie';
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
-const token = Cookies.get('token');
-
 export const profileApi = createApi({
   reducerPath: "profileApi",
   tagTypes: ["profile"],
@@ -16,7 +13,7 @@ export const profileApi = createApi({
         url: `/profile/update`,
         method: "POST",
         body,
-        headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${ Cookies.get('token')}` },
       }),
       invalidatesTags: ["profile"],
     }),
@@ -25,7 +22,7 @@ export const profileApi = createApi({
         url: `/profile/upload/photo`,
         method: "POST",
         body,
-        headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${ Cookies.get('token')}` },
       }),
       invalidatesTags: ["profile"],
     }),

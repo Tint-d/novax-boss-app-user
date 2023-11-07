@@ -47,7 +47,7 @@ const Register = () => {
   useEffect(() => {
     if ((valid as ApiResponse)?.data?.message) {
       toast.error(t((valid as ApiResponse)?.data?.message), {
-        position: toast.POSITION.TOP_CENTER,
+        position: toast.POSITION.TOP_LEFT,
         autoClose: 2000,
       });
     }
@@ -60,7 +60,7 @@ const Register = () => {
       if (apiResponse.data.status === "success") {
         navigate("/login");
         toast.success(t('Successful registration!'), {
-          position: toast.POSITION.BOTTOM_CENTER,
+          position: toast.POSITION.TOP_LEFT,
           autoClose: 2000,
         });
       }

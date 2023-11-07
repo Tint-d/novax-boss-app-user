@@ -22,13 +22,18 @@ interface socialLink {
   href: string
 }
 
+interface contactType {
+  contact_no: string
+
+}
+
 export interface BossEditMainData {
   boss_no: string,
   boss_name: string,
   business_name: string,
   main_product: string,
   business_address: string,
-  contact_numbers: string[],
+  contact_numbers: contactType[],
   business_description: string,
   vision: string,
   mission: string,
@@ -356,7 +361,7 @@ const EditBossAddress = () => {
          
       
           <div className="w-full">
-            <InputField type="text" label="Contact Number" register={register} errors={errors.contact_numbers} initialValue={bossAddress?.business_address}
+            <InputField type="text" label="Contact Number" register={register} errors={errors.contact_numbers} initialValue={bossAddress?.contact_numbers[0]?.contact_no}
               placeholder="Contact Number" register_name="contact_numbers[0]" />
           </div>
           <div className="w-full">
