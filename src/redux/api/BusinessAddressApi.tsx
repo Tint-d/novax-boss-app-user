@@ -29,8 +29,6 @@ export const enum BossFilterType {
   CATECITY = "catecity",
 }
 
-const token = Cookies.get("token");
-
 export const businessAddressApi = createApi({
   reducerPath: "businessAddress",
   tagTypes: ["businessAddress"],
@@ -72,7 +70,7 @@ export const businessAddressApi = createApi({
         url: "/boss-address/create",
         method: "POST",
         body: data,
-        headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
       }),
       invalidatesTags: ["businessAddress"],
     }),
@@ -81,16 +79,16 @@ export const businessAddressApi = createApi({
         url : `/boss-address/update/${id}/main`,
         method : "POST",
         body : data,
-        headers : { authorization : `Bearer ${token}` }
+        headers : { authorization : `Bearer ${Cookies.get("token")}` }
       }),
       invalidatesTags: ["businessAddress"],
     }),
-    createSocialLink: builder.mutation({
-      query: ({ data, token, id }) => ({
-        url: `/boss-address/update/${id}/add/social-links`,
-        method: "POST",
+    updateSocialLink: builder.mutation({
+      query: ({ data, id ,socialId}) => ({
+        url: `/boss-address/update/${id}/social-links/${socialId}`,
+        method: "PUT",
         body: data,
-        headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
       }),
       invalidatesTags: ["businessAddress"],
     }),
@@ -99,7 +97,7 @@ export const businessAddressApi = createApi({
         url: "action-code/apply",
         method: "POST",
         body: data,
-        headers: { authorization: `Bearer ${token}` },
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
       }),
       invalidatesTags: ["businessAddress"],
     }),
@@ -109,7 +107,7 @@ export const businessAddressApi = createApi({
         url: "/profile/me?withAddress=true",
         method: "GET",
         headers: {
-          authorization: `Bearer ${token}`,
+          authorization: `Bearer ${Cookies.get("token")}`,
         },
       }),
     }),
@@ -122,7 +120,7 @@ export const {
   useSearchCategoriesQuery,
   useGetCountryQuery,
   useCreateBossAddressMutation,
-  useCreateSocialLinkMutation,
+  useUpdateSocialLinkMutation,
   useGetBusinessAddressDetailQuery,
   useAppliedCodeMutation,
   useGetProfileQuery,

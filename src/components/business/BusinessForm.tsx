@@ -185,8 +185,21 @@ const BusinessForm = () => {
     
     const social_links = data.social_links;
     social_links.forEach((link, index) => {
-      formData.append(`social_links[${index}][type]`, 'facebook');
-      formData.append(`social_links[${index}][href]`, link as unknown as string);
+      if(index == 0)
+      {
+        formData.append(`social_links[${index}][type]`, 'facebook');
+        formData.append(`social_links[${index}][href]`, link as unknown as string);
+      }
+      else if(index == 1)
+      {
+        formData.append(`social_links[${index}][type]`, 'youtube');
+        formData.append(`social_links[${index}][href]`, link as unknown as string);
+      }
+      else if(index == 2) 
+      {
+        formData.append(`social_links[${index}][type]`, 'tiktok');
+        formData.append(`social_links[${index}][href]`, link as unknown as string);
+      }
     });
     formData.append('business_logo', data.business_logo);
     formData.append('cover_photo', data.cover_photo);

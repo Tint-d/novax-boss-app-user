@@ -48,6 +48,7 @@ interface BusinessPhoto {
 }
 
 interface Social {
+  id : string;
   href: string;
   type: string;
 }

@@ -76,8 +76,7 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const fetchProfile = async () => {
-    const token = Cookies.get("token");
+  const fetchProfile = useCallback(async () => {
     const headers = { Authorization: `Bearer ${token}` };
     const url = window.getUrl('/v1/user/profile/me?withAddress=true');
     try {
@@ -100,7 +99,7 @@ const Navbar = () => {
     } catch (error) {
       console.error("Error fetching profile data:", error);
     }
-  };
+  },[dispatch, token])
 
 
   const pf = useAppSelector(selectProfile);
@@ -121,7 +120,7 @@ const Navbar = () => {
  
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [fetchProfile]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const searchFilter = (inputText:any, searchTerm : string)=> {
@@ -152,8 +151,8 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-[#0e1217]  border-b-[1px] border-[#A8B3CF22] w-full px-5">
-      <div className="flex md:gap-x-5 container mx-auto py-2 lg:gap-x-10 flex-wrap  gap-1 justify-between items-center px-2 md:px-5 md:ps-10">
+    <div className="bg-[#0e1217]  border-b-[1px] border-[#A8B3CF22] w-full px-5  fixed top-0  z-[999]">
+      <div className="flex md:gap-x-5 container mx-auto py-2 lg:gap-x-10 flex-wrap gap-1 justify-between items-center px-2 md:px-5 md:ps-10">
         <div className="md:hidden block">
           {!change ? (
             <AiOutlineMenu

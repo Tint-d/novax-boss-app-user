@@ -6,6 +6,8 @@ const Layout = ({ children }: ChildrenType) => {
   return (
     <div className=" bg-[#0E1217] w-full">
       <Navbar />
+
+      <div className="h-16"></div>
       {children}
 
       <ToastContainer />

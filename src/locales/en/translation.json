@@ -36,7 +36,7 @@
   "Save": "Save",
   "Apply Address Code": "Apply Address Code",
   "Add Business Information": "Add Business Information",
-  "Edit Business Information": "Edit Business Information",
+  "Edit Business Information": "Edit business information",
   "See Business Information": "See Business Information",
   "Type address code...": "Type address code...",
   "Continue": "Continue",
@@ -78,5 +78,7 @@
   "Password Confirmation": "Password Confirmation",
   "Name": "Name",
   "The email has already been taken.": "The email has already been taken.",
-  "Business Goal": "Business Goal"
+  "Business Goal": "Business Goal",
+  "Core Value": "Core Value ",
+  "Social Medias": "Social Medias"
 }

@@ -1,14 +1,9 @@
-import { SiFacebook, SiTiktok, SiYoutube } from "react-icons/si";
-import { BaseSyntheticEvent, ChangeEvent, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AiOutlineCloudUpload } from "react-icons/ai";
-import { BsImageAlt } from "react-icons/bs";
+import {  ChangeEvent, RefObject, useEffect, useMemo, useRef, useState } from "react";
 import {
   useGetCategoriesQuery,
   useGetCountryQuery,
   useUpdateBossAddressMainMutation,
 } from "../../../redux/api/BusinessAddressApi";
-import { ImCross } from 'react-icons/im';
-import { Button, Select } from "@mantine/core";
 import { BossAddressValidationSchema } from '../validations/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import InputField from "../InputField";
@@ -19,6 +14,8 @@ import { t } from "i18next";
 import { useAppSelector } from "@/redux/hook";
 import { selectProfile } from "@/redux/services/businessSlice";
 import { detailsType } from "../BusinessDetail";
+import { Button, Select } from "@mantine/core";
+import EditSecondSide from "./EditSecondSide";
 
 interface socialLink {
   type: string, 
@@ -48,11 +45,6 @@ export interface BossEditMainData {
   core_value : string,
 }
 
-interface ImageFile {
-  id: number,
-  file: File,
-  preview: string
-}
 
 
 const EditBossAddress = () => {
@@ -64,18 +56,13 @@ const EditBossAddress = () => {
   const bossAddress = user?.boss_address as detailsType;
 
   const [logoPreviewImage, setLogoPreviewImage] = useState<string[]>([]);
-  const [profilePreviewImage, setProfilePreviewImage] = useState<string[]>([]);
-  const [businessPhotos, setBusinessPhotos] = useState<ImageFile[]>([]);
-
-  const [currentBusinessPhoto, setCurrentBusinessPhoto] = useState<number>(0);
+  const [profilePreviewImage, setProfilePreviewImage] = useState<string[]>([])
   const [categoryId, setCategoryId] = useState<number>(1);
   const [cityId, setCityId] = useState<number>(1);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    clearErrors,
     setValue,
   } = useForm<BossEditMainData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -85,11 +72,8 @@ const EditBossAddress = () => {
     }
   });
 
-
-
   const logoInput = useRef<HTMLInputElement>(null);
   const profileInput = useRef<HTMLInputElement>(null);
-  const businessPhotoInput = useRef<HTMLInputElement>(null);
 
   const cities = useGetCountryQuery();
   const citiesList = useMemo(() => cities.data?.cities?.data, [cities.data])
@@ -119,28 +103,9 @@ const EditBossAddress = () => {
     }
   };
 
-  const imageChange = useCallback((event: BaseSyntheticEvent) => {
-    const files = event.target.files;
-    if (files) {
-      const filesArray = Array.from(files) as File[];
-      const filesArrayWithId = filesArray.map((file: File) => {
-        return {
-          id: Math.random() * 1000,
-          file,
-          preview: URL.createObjectURL(file)
-        } as ImageFile
-      })
-      setBusinessPhotos([...filesArrayWithId]);
-    }
-  }, []);
-
   const handleFileClick = (ref: RefObject<HTMLInputElement>) => {
     ref.current?.click()
   }
-
-  const removeImage = useCallback((id: number) => {
-    setBusinessPhotos((prevImages) => prevImages.filter((image) => image.id !== id));
-  }, []);
 
   const onSubmit = async (data: BossEditMainData) => {
     const formData = new FormData();
@@ -456,86 +421,6 @@ const EditBossAddress = () => {
             />
           </div>
         </div>
-      </div>
-      <div className="md:w-4/12 w-[100%]  border-0 p-3  md:border-l-[3px]  border-[#A8B3CF33] flex flex-col justify-between gap-y-10 items-center">
-        <div className="w-[100%]">
-          <h2 className=" text-[#A8B3CF] pb-2 text-sm">{t('Facebook link')}</h2>
-          <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiFacebook className="text-blue-600  text-[26px]" />
-            <input
-              {...register("social_links.0")}
-              type="text"
-              value={bossAddress?.social_links[0].href}
-              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full outline-none"
-            />
-          </div>
-        </div>
-
-        <div className="w-[100%]">
-          <h2 className="text-sm text-[#A8B3CF] pb-2">{t('Youtube link')}</h2>
-          <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiYoutube className="text-red-600  text-[28px]" />
-            <input
-              {...register("social_links.1")}
-              type="text"
-              value={bossAddress?.social_links[1].href}
-              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full  outline-none"
-            />
-          </div>
-        </div>
-        <div className="w-[100%]">
-          <h2 className="text-sm text-[#A8B3CF] pb-2">{t('Tiktok link')}</h2>
-          <div className=" w-[100%] ps-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiTiktok className="text-white/70  text-[26px]" />
-            <input
-              {...register("social_links.2")}
-              type="text"
-              value={bossAddress?.social_links[2].href}
-              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full outline-none"
-            />
-          </div>
-        </div>
-        <div className="w-[100%]">
-          <div className=" w-[100%]">
-            <h2 className="text-sm text-[#A8B3CF] pb-5">{t('Business Photo')}</h2>
-            <InputError errors={errors.business_photos} />
-            <div onClick={() => handleFileClick(businessPhotoInput)} className="w-[100%] mx-auto flex justify-center items-center h-[200px] bg-[#1C1F26] border border-[#A8B3CF33] rounded-lg">
-              <div className=" flex justify-center items-center flex-col">
-                <input
-                  ref={businessPhotoInput}
-                  type="file"
-                  name="business_photos[]"
-                  onChange={imageChange}
-                  accept="image/*"
-                  className="hidden"
-                  multiple
-                  max={4}
-                />
-                {businessPhotos.length == 0 ? (
-                  <div onClick={() => console.log('hi')} className="flex flex-col justify-center items-center gap-y-3" >
-                    <BsImageAlt className="text-[60px] text-[#A8B3CF33]" />
-                    <AiOutlineCloudUpload className="text-[50px] text-[#A8B3CF33]" />
-                  </div>
-                ) : (
-                  <img src={(businessPhotos[currentBusinessPhoto].preview)} className="w-[100vw] h-[300px] object-cover rounded-lg " />
-                )}
-              </div>
-            </div>
-            {/*  */}
-            <div className="flex gap-5 w-full overflow-x-scroll  mt-4 px-5 pb-3" >
-              {
-                businessPhotos.map((item, index) => (
-                  <div key={item.id} className="min-w-[130px] h-[130px] rounded-lg overflow-hidden relative" >
-                    <img src={item.preview} onClick={() => setCurrentBusinessPhoto(index)} className="w-full h-full object-cover" />
-                    <button type="button" onClick={() => removeImage(item.id)} className="bg-red-600 absolute bottom-0 right-0 px-4 py-2 text-gray-100 rounded-md text-[.9em]">
-                      <ImCross />
-                    </button>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-        </div>
 
         <div className="flex justify-center w-full mt-0">
           <Button
@@ -550,6 +435,7 @@ const EditBossAddress = () => {
             variant="filled" color="green">{t('Save')}</Button>
         </div>
       </div>
+      <EditSecondSide bossAddress={bossAddress}/>
     </form>
     )
     
