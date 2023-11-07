@@ -5,7 +5,6 @@ import { useUserLoginMutation } from "../redux/api/authApi";
 import FacebookLogin from "../components/auth/FacebookLogin";
 import "../App.css";
 import { ChangeAction, FormStateType } from "../typings/type";
-// import { defaultInputFormStyle } from "../constants/style";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useStateContext } from "../context/StateContext";
 import { useEffect, useState } from "react";
@@ -13,10 +12,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
 import { t } from "i18next";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/services/authSlice";
 import { AiOutlineMail,AiFillLock } from "react-icons/ai";
+import logo from "../assets/logo.png";
 interface ApiResponse {
   data: {
     message: string;
@@ -96,7 +95,7 @@ const Login = () => {
   return (
     <div className="w-[100vw] h-[100vh] flex justify-center items-center bg-[rgb(14,18,23)] ">
       <div className="flex flex-col gap-10 items-center px-10">
-        {/* <img src={logo} className="w-[150px]" alt="" /> */}
+        <img src={logo} className="w-[150px]" alt="" />
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col  gap-10">
             <div className="flex flex-col gap-5 border-b-2 py-1 text-gray-400 outline-none border-gray-400 w-full">

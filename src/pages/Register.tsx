@@ -1,7 +1,4 @@
 import { BiLogoMailchimp, BiLeftArrow } from "react-icons/bi";
-// import logo from "../assets/logo.png";
-// import decoration1 from "../assets/left-bg-image.png";
-// import decoration2 from "../assets/right-bg-image.png";
 import { Link, useNavigate } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { useUserRegisterMutation } from "../redux/api/authApi";
@@ -9,12 +6,12 @@ import "../App.css";
 import { ChangeAction, FormStateType } from "../typings/type";
 import { useStateContext } from "../context/StateContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import { defaultInputFormStyle } from "../constants/style";
 import { ToastContainer, toast } from "react-toastify";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
 import { AiOutlineMail,AiFillLock } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { t } from "i18next";
+import logo from "../assets/logo.png";
 
 interface ApiResponse {
   data: {
@@ -88,7 +85,7 @@ const Register = () => {
   return (
     <div className=" h-[100vh] flex justify-center items-center bg-[rgb(14,18,23)] relative">
       <div className="flex flex-col gap-7 items-center">
-        {/* <img className="w-[150px]" src={logo} alt="" /> */}
+        <img className="w-[150px]" src={logo} alt="" />
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-10 w-full ">
           <div className="flex flex-col gap-2 border-b-2 py-1 text-gray-400 border-gray-400">
@@ -200,7 +197,7 @@ const Register = () => {
             type="submit"
             className="bg-[rgb(55,65,81)]/30 py-2 px-10 rounded-lg text-gray-400 border-gray-400 border-2"
           >
-            {isLoading ? <small className="loader"></small> : "Register"}
+            {isLoading ? <small className="loader"></small> : t('Register')}
           </button>
 
           <div className="flex items-center gap-5">

@@ -5,6 +5,7 @@ import { useUserFotgetPasswordQuery } from "../redux/api/authApi";
 import { defaultInputFormStyle } from "../constant/defaultStyle";
 import React from "react";
 import { t } from "i18next";
+import logo from "../assets/logo.png";
 
 
 const initialState = {
@@ -22,24 +23,24 @@ const ForgetPassword = () => {
 
   return (
     <div className=" h-[100vh] flex justify-center items-center bg-[rgb(14,18,23)] relative">
-      <div className="flex flex-col gap-10 items-center object-cover px-10 sm:px-5">
-        {/* <img src={logo} className="w-[150px]" alt="" /> */}
+      <div className="flex flex-col gap-10 items-center object-cover px-10 sm:px-5 container">
+        <img src={logo} className="w-[150px]" alt="" />
 
         <div className="flex flex-col items-center gap-10">
-          <div className="text-gray-400">
+          <div className="text-gray-400 w-full  md:w-4/6">
             <h1 className="text-xl pb-5">{t('Forgot Password')}</h1>
             <p className="text-sm flex flex-col line">
-              <span className="w-[400px]">
+              <span className="min-w-[300px] ">
                 {t('Enter the email address associated with your account and we\'ll send you a link to reset your password.')}</span>
             </p>
           </div>
-          <div className="flex w-full gap-5 border-b-2 py-1 text-gray-400 border-gray-400">
+          <div className="flex w-full md:w-4/6 gap-5 border-b-2 py-1 text-gray-400 border-gray-400">
             <BiLogoMailchimp className=" text-2xl" />
             <input
               name="email"
               value={input.email}
               onChange={changeInputHandler}
-              className={defaultInputFormStyle + "text-sm w-full"}
+              className={defaultInputFormStyle + "text-sm "}
               placeholder={t("Email")}
               type="email"
             />
@@ -47,7 +48,7 @@ const ForgetPassword = () => {
           <button
             onClick={fetchData}
             type="submit"
-            className="bg-[rgb(55,65,81)]/30 py-2 w-[80%] px-10 rounded-lg text-gray-400 border-gray-400 border-2"
+            className="bg-[rgb(55,65,81)]/30 py-2 w-[80%] md:w-4/6 px-10 rounded-lg text-gray-400 border-gray-400 border-2"
           >
             {t('Send')}
           </button>

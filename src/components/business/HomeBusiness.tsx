@@ -60,7 +60,7 @@ const HomeBusiness = () => {
 
   const inline = window.innerWidth > 768 ? true : false;
 
-  const width = window.innerWidth > 768 ? "w-[330px]" : "w-[330px]";
+  const width = window.innerWidth > 768 ? "w-[330px]" : "min-w-[420px]";
 
   const height = window.innerWidth > 768 ? 320 : 300;
 
