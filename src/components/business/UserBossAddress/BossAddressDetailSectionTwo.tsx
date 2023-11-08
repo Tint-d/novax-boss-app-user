@@ -3,6 +3,14 @@ import BossAddressDetailSlider from './BossAddressDetailSlider';
 import { SiFacebook, SiTiktok, SiYoutube } from 'react-icons/si';
 import { detailsType } from '../BusinessDetail';
 
+interface BusinessPhoto {
+  
+  id: number,
+  business_photo : string
+  boss_address_id: string
+
+}
+
 const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType}) => {
 
   const [currentImage, setCurrentImage] = React.useState<number>(0);
