@@ -8,6 +8,9 @@ import "../../App.css";
 import { t } from "i18next";
 import Detail from "./Detail";
 
+interface contactType {
+  contact_no: string
+}
 
 export interface detailsType {
   id: number;
@@ -21,7 +24,7 @@ export interface detailsType {
   };
   main_product: string;
   business_address: string;
-  contact_numbers: string[];
+  contact_numbers: contactType[];
   city: {
     id: number;
     city_name: string;

@@ -6,42 +6,8 @@ import BossAddressDetailSlider from "../UserBossAddress/BossAddressDetailSlider"
 import BossAddressSectionOne from "../UserBossAddress/BossAddressSectionOne";
 import ImageModal from '@/components/ui/ImageModal/ImageModal';
 import convertImageUrlToBase64 from '@/global/helpers/helper';
+import { detailsType } from '../BusinessDetail';
 
-
-export interface detailsType {
-  boss_name: string;
-  business_name: string;
-  categories: {
-    category_name: string;
-  };
-  main_product: string;
-  business_address: string;
-  contact_numbers: string[];
-  city: {
-    city_name: string;
-  };
-  business_description: string;
-  vision: string;
-  mission: string;
-  cover_photo: string;
-  business_logo: string;
-  social_links: Social[];
-  images : BusinessPhoto[];
-
-}
-
-interface BusinessPhoto {
-  
-  id: number,
-  business_photo : string
-  boss_address_id: string
-
-}
-
-interface Social {
-  href: string;
-  type: string;
-}
 
 type SideData = {
     title: string;

@@ -24,7 +24,7 @@ interface socialLink {
 
 interface contactType {
   contact_no: string
-
+ 
 }
 
 export interface BossEditMainData {
