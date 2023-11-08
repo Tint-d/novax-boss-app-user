@@ -3,6 +3,8 @@ import {
   useGetCategoriesQuery,
   useGetCountryQuery,
   useUpdateBossAddressMainMutation,
+  useUpdateContactNoMutation,
+  useCreateContactNoMutation,
 } from "../../../redux/api/BusinessAddressApi";
 import { BossAddressValidationSchema } from '../validations/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -54,7 +56,9 @@ export interface BossEditMainData {
 
 const EditBossAddress = () => {
   const [updateBossAddressMain, { isLoading }] = useUpdateBossAddressMainMutation();
-
+  const [updateContactNo] = useUpdateContactNoMutation();
+  const [createContactNo] = useCreateContactNoMutation();
+  const [contactId,setContactId] = useState<string|null>(null);
   const user = useAppSelector(selectProfile);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,6 +93,10 @@ const EditBossAddress = () => {
     setCityId(bossAddress?.city?.id as number)
     setCategoryId(bossAddress?.categories?.id as number)
     setValue('boss_no', bossAddress?.boss_no)
+    if(bossAddress?.contact_numbers.length > 0 )
+    {
+      setContactId(bossAddress?.contact_numbers[0].id)
+    }
   }, [bossAddress, setValue])
 
   const fileChanged = (e: ChangeEvent<HTMLInputElement>, setFiles: React.Dispatch<React.SetStateAction<string[]>>, state: string[]) => {
@@ -111,10 +119,22 @@ const EditBossAddress = () => {
   const handleFileClick = (ref: RefObject<HTMLInputElement>) => {
     ref.current?.click()
   }
+  const bossId = bossAddress?.id;
+  
 
   const onSubmit = async (data: BossEditMainData) => {
     const formData = new FormData();
-
+    const contactBody = {
+      contact_no : data.contact_numbers[0]
+    }
+    if(bossAddress?.contact_numbers.length > 0  && data.contact_numbers[0] as unknown as string !== "" && bossAddress?.contact_numbers[0].contact_no !== data.contact_numbers[0] as unknown as string )
+    {
+      await updateContactNo({data : contactBody,id:bossId,contactId : contactId})
+    }
+    else if(bossAddress?.contact_numbers.length <= 0 && data.contact_numbers[0] as unknown as string !== "")
+    {
+      await createContactNo({data : contactBody,id: bossId})
+    }
     if (logoPreviewImage.length > 0) {
     data['business_logo'] = logoInput.current?.files?.[0] as File;
     formData.append('business_logo', data.business_logo);
@@ -427,14 +447,15 @@ const EditBossAddress = () => {
           </div>
         </div>
 
-        <div className="flex justify-center w-full mt-0">
+        <div className="flex justify-end w-full mt-3">
           <Button
             style={{
               backgroundColor: "green",
               color: "white",
-              padding: "10px 80px",
+              padding: "0px 40px",
+  
             }}
-            size="lg"
+            size="md"
             loading={isLoading}
             type="submit"
             variant="filled" color="green">{t('Save')}</Button>

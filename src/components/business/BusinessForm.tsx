@@ -172,7 +172,7 @@ const BusinessForm = () => {
 
     const contact_numbers = data.contact_numbers;
     contact_numbers.forEach((number, index) => {
-      formData.append(`social_links[${index}][contact_no]`, number);
+      formData.append(`contact_numbers[${index}][contact_no]`, number);
 
     });
     formData.append('business_description', data.business_description);

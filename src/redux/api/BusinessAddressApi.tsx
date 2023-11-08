@@ -92,6 +92,24 @@ export const businessAddressApi = createApi({
       }),
       invalidatesTags: ["businessAddress"],
     }),
+    createContactNo: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/boss-address/update/${id}/add/contact-numbers`,
+        method: "POST",
+        body: data,
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
+    updateContactNo: builder.mutation({
+      query: ({ data, id ,contactId}) => ({
+        url: `/boss-address/update/${id}/contact-numbers/${contactId}`,
+        method: "PUT",
+        body: data,
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
     appliedCode: builder.mutation({
       query: ( data ) => ({
         url: "action-code/apply",
@@ -126,4 +144,6 @@ export const {
   useGetProfileQuery,
   useGetBusinessAddressFilterQuery,
   useUpdateBossAddressMainMutation,
+  useUpdateContactNoMutation,
+  useCreateContactNoMutation,
 } = businessAddressApi;

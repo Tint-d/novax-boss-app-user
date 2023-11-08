@@ -41,8 +41,8 @@ const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<bo
             return (
 
                 <div className="chat chat-start">
-                <div className="chat-bubble text-white font-medium chat-bubble-warning">   {message.message}</div>
-            </div>
+                    <div className="chat-bubble text-white font-medium chat-bubble-warning">   {message.message}</div>
+                </div>
             )
         }
     })
@@ -71,7 +71,15 @@ const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<bo
                     extra_link: data.question.extra_link
                 }
                 setMessageHistory((prev) => [...prev, answer])
-                if (messageContainer) messageContainer.scrollTop = messageContainer.scrollHeight;
+                setTimeout(() => {
+                    if (messageContainer) {
+                        messageContainer.scrollTo({
+                            top: messageContainer.scrollHeight,
+                            behavior: 'smooth',
+                        })  
+                    }
+
+                }, 200)
             }
             catch (error) {
                 console.log('here');

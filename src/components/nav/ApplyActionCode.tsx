@@ -1,9 +1,8 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal } from '@mantine/core';
-import { CgProfile } from 'react-icons/cg';
 import { t } from 'i18next';
 import { Button } from '@mantine/core';
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import { useRef } from 'react';
 import { useAppliedCodeMutation } from '@/redux/api/BusinessAddressApi';
 import { addProfile } from '@/redux/services/businessSlice';
@@ -37,7 +36,7 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
                 const res = await appliedCode(body) as unknown as ApiResponse;
                 if (res.data.success) {
 
-                    toast.success("Applied code successfully");
+                    toast.success(t("Applied code successfully"));
                     const user: Profile = {
                         ...profile,
                         action_codes: res.data.code
@@ -46,7 +45,7 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
                     close();
                 }
                 else {
-                    toast.error(res?.data.message, {
+                    toast.error(t(res?.data.message), {
                         position: toast.POSITION.TOP_LEFT,
                         autoClose: 2000,
                     })
@@ -54,7 +53,7 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
             }
         } catch (error) {
             console.log(error)
-            toast.error("Applied code failed", {
+            toast.error(t("Applied code failed"), {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 2000,
             })

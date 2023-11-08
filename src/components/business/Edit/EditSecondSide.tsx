@@ -1,15 +1,13 @@
-import { SiFacebook, SiTiktok, SiYoutube } from "react-icons/si";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsImageAlt } from "react-icons/bs";
 import { ImCross } from 'react-icons/im';
-import { Button } from "@mantine/core";
 import { BaseSyntheticEvent, RefObject, useCallback, useRef, useState } from "react";
 import { detailsType } from "../BusinessDetail";
-import InputError from "@/components/ui/Errors/InputError";
-import useForm from "@/hooks/useForm";
+import { Button } from "@mantine/core";
+
 import { t } from "i18next";
-import { useUpdateSocialLinkMutation } from "@/redux/api/BusinessAddressApi";
 import { toast } from "react-toastify";
+import SocailUpdate from "./SocailUpdate";
 interface ImageFile {
   id: number,
   file: File,
@@ -20,22 +18,13 @@ interface EditSecondSideProps {
     bossAddress : detailsType
 }
 
-type SocialLinkType = {
-    id : string;
-    href: string;
-    type: string;
-}
-
 
 const EditSecondSide = ({bossAddress}  : EditSecondSideProps) => {
 
   const [businessPhotos, setBusinessPhotos] = useState<ImageFile[]>([]);
-  const facebookRef = useRef<HTMLInputElement>(null);
-  const youtubeRef = useRef<HTMLInputElement>(null);
-  const tiktokRef = useRef<HTMLInputElement>(null);
+  
   const [currentBusinessPhoto, setCurrentBusinessPhoto] = useState<number>(0)
   const businessPhotoInput = useRef<HTMLInputElement>(null);
-  const [updateSocialLink,{isLoading}] = useUpdateSocialLinkMutation();
 
   const imageChange = useCallback((event: BaseSyntheticEvent) => {
     const files = event.target.files;
@@ -59,97 +48,12 @@ const EditSecondSide = ({bossAddress}  : EditSecondSideProps) => {
   const removeImage = useCallback((id: number) => {
     setBusinessPhotos((prevImages) => prevImages.filter((image) => image.id !== id));
   }, []);
-  const bossId = bossAddress?.id;
-
-  const socialUpdate = async (id:string,type:string,ref:  RefObject<HTMLInputElement>) => {
-    const data = {
-            href:ref.current?.value,
-            type:type
-    }
-    console.log(bossId);
-   const response = await updateSocialLink({data,id: bossId,socialId :id}) as any;
-   if (response.error) {
-    toast.error(response.error.data.message, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 2000,
-    });
-  }
-
-  if (response.data.success) {
-    toast.success("social link updated", {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 2000,
-    });
-
-    // navigate('/')
-  }
-  }
+  
 
   return (
     <div className="md:w-4/12 w-[100%]  border-0 p-3  md:border-l-[3px]  border-[#A8B3CF33] flex flex-col justify-between gap-y-10 items-center">
-        <div className="w-[100%]">
-          <h2 className=" text-[#A8B3CF] pb-2 text-sm">{t('Facebook link')}</h2>
+        <SocailUpdate bossAddress={bossAddress}/>
 
-          <div className="flex">
-          <div className=" w-[100%] px-2 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiFacebook className="text-blue-600  text-[26px]" />
-            <input
-              ref={facebookRef}
-              type="text"
-              defaultValue={bossAddress?.social_links[0].href}
-              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full outline-none"
-            />
-             <button
-            type="button"
-            onClick={() => socialUpdate(bossAddress?.social_links[0].id as string,"facebook",facebookRef)}
-            className="px-2 py-2 rounded-lg bg-green-800 hover:bg-green-700 disabled:bg-green-900 text-white" disabled={isLoading}
-            >
-                <AiOutlineCloudUpload />
-            </button>
-          </div>
-         
-          </div>
-         
-        </div>
-
-        <div className="w-[100%]">
-          <h2 className="text-sm text-[#A8B3CF] pb-2">{t('Youtube link')}</h2>
-          <div className=" w-[100%] px-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiYoutube className="text-red-600  text-[28px]" />
-            <input
-              ref={youtubeRef}
-              type="text"
-              defaultValue={bossAddress?.social_links[1].href}
-              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full  outline-none"
-            />
-            <button
-            type="button"
-            onClick={() => socialUpdate(bossAddress?.social_links[1].id as string,"youtube",youtubeRef)}
-            className="px-2 py-2 rounded-lg bg-green-800 hover:bg-green-700 disabled:bg-green-900 text-white"  disabled={isLoading}
-            >
-                <AiOutlineCloudUpload />
-            </button>
-          </div>
-        </div>
-        <div className="w-[100%]">
-          <h2 className="text-sm text-[#A8B3CF] pb-2">{t('Tiktok link')}</h2>
-          <div className=" w-[100%] px-1 py-1 rounded flex justify-start items-center gap-x-2 border border-[#4e525a]">
-            <SiTiktok className="text-white/70  text-[26px]" />
-            <input
-              ref={tiktokRef}
-              type="text"
-              defaultValue={bossAddress?.social_links[2].href}
-              className="bg-transparent text-white border-l border-[#4e525a] p-1 w-full outline-none"
-            />
-            <button
-            type="button"
-            onClick={() => socialUpdate(bossAddress?.social_links[2].id as string,"tiktok",tiktokRef)}
-            className="px-2 py-2 rounded-lg bg-green-800 hover:bg-green-700 disabled:bg-green-900 text-white"  disabled={isLoading}
-            >
-                <AiOutlineCloudUpload />
-            </button>
-          </div>
-        </div>
         <div className="w-[100%]">
           <div className=" w-[100%]">
             <h2 className="text-sm text-[#A8B3CF] pb-5">{t('Business Photo')}</h2>

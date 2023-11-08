@@ -80,5 +80,11 @@
   "The email has already been taken.": "ယခုအီးမေးဖြင့်အကောင့်ရှိပြီးသားဖြစ်နေပါသည်",
   "Business Goal": "စီးပွားရေးဦးတည်ချက်",
   "Core Value": "Core Value",
-  "Social Medias": "လူမှုမီဒီယာများ "
+  "Social Medias": "လူမှုမီဒီယာများ ",
+  "Register": "အကောင့်ဖွင့်မည်",
+  "To be a puppet master": "မိမိလုပ်ငန်းကို နောက်ကွယ်မှ ထိမ်းချုပ်နိုင်တဲ့ လုပ်ငန်းရှင်ဖြစ်ရန်",
+  "To systemize Boss and Boss’ Business.": "လုပ်ငန်းရှင် နဲ့ လုပ်ငန်းရှင် ရဲ့ လုပ်ငန်းတစ်ခုလုံးကို စနစ်တကျ တည်ဆောက်ရန်",
+  "Applied code successfully": "code ဖြည့်စွက်မှုအောင်မြင်ပါသည်",
+  "Applied code failed": "code ဖြည့်စွက်မှုမအောင်မြင်ပါ",
+  "Invalid code": "Code မမှန်ကန်ပါ"
 }

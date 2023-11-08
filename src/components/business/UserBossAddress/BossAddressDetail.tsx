@@ -38,6 +38,10 @@ const BossAddressDetail = () => {
         ],
         [
           {
+            title: t("Contact Number"),
+            content: bossAddress?.contact_numbers[0]?.contact_no ?? ''
+          },
+          {
             title: t("Business City"),
             content: language == "en" ?  bossAddress?.city?.city_name :   bossAddress?.city?.city_mm_name
           },
@@ -49,12 +53,13 @@ const BossAddressDetail = () => {
             title: t("Business Goal"),
             content: bossAddress?.business_goal
           },
+          
+        ],
+        [
           {
             title: t("Business Vision"),
             content: bossAddress?.vision
-          }
-        ],
-        [
+          },
           {
             title: t("Business Mission"),
             content: bossAddress?.mission

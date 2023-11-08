@@ -9,6 +9,7 @@ import { t } from "i18next";
 import Detail from "./Detail";
 
 interface contactType {
+  id : string,
   contact_no: string
 }
 
@@ -75,8 +76,6 @@ const BusinessDetail = () => {
       {
         title: t("Business Type"),
         content:  language == "en" ? bossAddress?.categories?.category_name : bossAddress?.categories?.category_mm_name
-
-
       },
       {
         title: t("Business Address"),
@@ -88,6 +87,10 @@ const BusinessDetail = () => {
       },
     ],
     [
+      {
+        title: t("Contact Number"),
+        content: bossAddress?.contact_numbers[0]?.contact_no ?? ''
+      },
       {
         title: t("Business City"),
         content: language == "en" ?  bossAddress?.city?.city_name :   bossAddress?.city?.city_mm_name
@@ -101,12 +104,13 @@ const BusinessDetail = () => {
         title: t("Business Goal"),
         content: bossAddress?.business_goal
       },
+     
+    ],
+    [
       {
         title: t("Business Vision"),
         content: bossAddress?.vision
-      }
-    ],
-    [
+      },
       {
         title: t("Business Mission"),
         content: bossAddress?.mission

@@ -28,7 +28,7 @@ const Brand = () => {
   };
 
   const toggleVisibility = () => {
-    if (window.pageYOffset > 100) {
+    if (window.pageYOffset > 900) {
       setIsVisible(true);
     } else {
       setIsVisible(false);
@@ -52,7 +52,7 @@ const Brand = () => {
         }}
         className=" min-h-screen  mx-auto md:px-24  gap-9 px-4 relative pt-16  md:pt-12">
 
-        <div className=" w-full">
+        <div className=" w-full container flex flex-col mx-auto justify-center items-center my-auto">
         {isVisible && (
         <button
           className="bg-[#DCA715] hover:bg-[#DCA715] text-[2em] text-[#000] font-semibold py-2 px-2 rounded-full fixed bottom-20 left-1/2 transition-all"
@@ -76,17 +76,17 @@ const Brand = () => {
             lng={lng} boxContainerClass=" md:w-6/12" textClass="text-3xl md:text-5xl "  imageContainerClass="justify-center " container="justify-between flex-col-reverse md:flex-row" imageClass="mx-auto w-12/12 md:w-[400px]" formatList={true}
           />
 
-          <div className="flex items-center flex-col md:flex-row-reverse gap-y-10 ">
+          <div className="flex items-center flex-col md:flex-row-reverse gap-y-10 pb-10 md:pb-20 2xl:pb-0">
           <BodyHero title={body['vision'].title} content={body['vision'].content} mmContent={body['vision'].mmContent} image={Vision}
             lng={lng} container="flex-col-reverse w-fulls md:w-1/2 md:items-end " 
             textClass="text-2xl "
-            imageClass="mx-auto w-8/12 md:w-[250px] md:h-[250px]"  imageContainerClass=""
+            imageClass="mx-auto w-8/12 md:w-[150px] md:h-[250px]"  imageContainerClass="flex w-full justify-center items-center"
           />
 
           <BodyHero title={body['mission'].title} content={body['mission'].content} mmContent={body['mission'].mmContent} image={Eyes}
             lng={lng} container="flex-col-reverse w-fulls md:w-1/2 md:items-start"
             textClass="text-2xl "
-            imageClass="mx-auto w-8/12 md:w-[300px] md:h-[250px]" imageContainerClass=""
+            imageClass="mx-auto w-8/12 md:w-[200px] md:h-[250px]" imageContainerClass="flex w-full justify-center items-center"
 
           />
           </div>
@@ -102,9 +102,9 @@ const Brand = () => {
             )}
             <button
               onClick={() => setMessage(!message)}
-              className="w-[50px] absolute bottom-[-55px] right-[10px] h-[50px] rounded-full  bg-[#DCA715]"
+              className="w-[50px] absolute bottom-[-55px] right-[10px] h-[50px] xl:h-[100px] xl:w-[100px] rounded-full  bg-[#DCA715]"
             >
-              <BiMessageRoundedDots className="text-3xl mx-auto text-black" />
+              <BiMessageRoundedDots className="text-3xl mx-auto text-black xl:text-5xl" />
             </button>
           </div>
         </div>
@@ -115,8 +115,8 @@ const Brand = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
-        className=" flex gap-3 mb-6 md:h-[400px] md:px-24 mt-20 md:mt-80 pb-10 md:pb-20 ">
-        <div className="w-full flex flex-col  gap-y-20 ">
+        className=" flex gap-3 mb-6 md:max-h-[400px] md:px-24 mt-20 md:mt-20 pb-10 md:pb-20 ">
+        <div className="w-full  container flex flex-col mx-auto gap-y-20 ">
 
           <div className="w-full flex flex-col md:flex-row items-end justify-between gap-y-20 ">
           <div className="flex items-center gap-x-4 w-full justify-center md:w-fit" >
