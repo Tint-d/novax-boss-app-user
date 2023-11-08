@@ -34,14 +34,14 @@ const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<bo
         if (message.type === "question") {
             return (
                 <div className="chat chat-end">
-                    <div className="chat-bubble  font-bold ">   {message.message}</div>
+                    <div className="chat-bubble   font-bold ">   {message.message}</div>
                 </div>
             )
         } else {
             return (
 
                 <div className="chat chat-start">
-                <div className="chat-bubble ">   {message.message}</div>
+                <div className="chat-bubble text-white font-medium chat-bubble-warning">   {message.message}</div>
             </div>
             )
         }

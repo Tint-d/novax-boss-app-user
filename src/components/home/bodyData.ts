@@ -16,12 +16,12 @@ export const bodyData = {
     },
     vision: {
       title: 'VISION',
-      content: "Tesla's vision is ambitious and forward-looking. It aims to position the company as a leader in the automotive industry by not just making cars, but becoming the most attractive and influential car maker of the 21st century. The vision is focused on driving the global transition to electric vehicles and indicates Tesla's commitment to sustainability and innovation.",
-      mmContent: 'Tesla ၏ မျှော်မှန်းချက်သည် ရည်မှန်းချက်ကြီးပြီး ရှေ့သို့မျှော်နေသည်။ ၎င်းသည် ကားထုတ်လုပ်ရုံသာမက 21 ရာစု၏ ဆွဲဆောင်မှုအရှိဆုံးနှင့် သြဇာအရှိဆုံး ကားထုတ်လုပ်သူဖြစ်လာခြင်းဖြင့် ကုမ္ပဏီအား မော်တော်ကားလုပ်ငန်းတွင် ဦးဆောင်သူအဖြစ် ရပ်တည်နိုင်ရန် ရည်ရွယ်ထားသည်။ အဆိုပါ မျှော်မှန်းချက်သည် ကမ္ဘာလုံးဆိုင်ရာ လျှပ်စစ်ကားများဆီသို့ အကူးအပြောင်းကို မောင်းနှင်ရန် အာရုံစိုက်ထားပြီး Tesla ၏ ရေရှည်တည်တံ့မှုနှင့် ဆန်းသစ်တီထွင်မှုဆိုင်ရာ ကတိကဝတ်ကို ညွှန်ပြသည်။'
+      content: "To be a puppet master",
+      mmContent: 'မိမိလုပ်ငန်းကို နောက်ကွယ်မှ ထိမ်းချုပ်နိုင်တဲ့ လုပ်ငန်းရှင်ဖြစ်ရန်'
     },
     mission: {
       title: "MISSION",
-      content: "Tesla's vision is ambitious and forward-looking. It aims to position the company as a leader in the automotive industry by not just making cars, but becoming the most attractive and influential car maker of the 21st century. The vision is focused on driving the global transition to electric vehicles and indicates Tesla's commitment to sustainability and innovation.",
-      mmContent: "Tesla ၏ မျှော်မှန်းချက်သည် ရည်မှန်းချက်ကြီးပြီး ရှေ့သို့မျှော်နေသည်။ ၎င်းသည် ကားထုတ်လုပ်ရုံသာမက 21 ရာစု၏ ဆွဲဆောင်မှုအရှိဆုံးနှင့် သြဇာအရှိဆုံး ကားထုတ်လုပ်သူဖြစ်လာခြင်းဖြင့် ကုမ္ပဏီအား မော်တော်ကားလုပ်ငန်းတွင် ဦးဆောင်သူအဖြစ် ရပ်တည်နိုင်ရန် ရည်ရွယ်ထားသည်။ အဆိုပါ မျှော်မှန်းချက်သည် ကမ္ဘာလုံးဆိုင်ရာ လျှပ်စစ်ကားများဆီသို့ အကူးအပြောင်းကို မောင်းနှင်ရန် အာရုံစိုက်ထားပြီး Tesla ၏ ရေရှည်တည်တံ့မှုနှင့် ဆန်းသစ်တီထွင်မှုဆိုင်ရာ ကတိကဝတ်ကို ညွှန်ပြသည်။"
+      content: "To systemize Boss and Boss’ Business.",
+      mmContent: "လုပ်ငန်းရှင် နဲ့ လုပ်ငန်းရှင် ရဲ့ လုပ်ငန်းတစ်ခုလုံးကို စနစ်တကျ တည်ဆောက်ရန်"
     }
   };
