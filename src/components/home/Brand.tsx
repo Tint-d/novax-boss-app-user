@@ -80,13 +80,13 @@ const Brand = () => {
           <BodyHero title={body['vision'].title} content={body['vision'].content} mmContent={body['vision'].mmContent} image={Vision}
             lng={lng} container="flex-col-reverse w-fulls md:w-1/2 md:items-end " 
             textClass="text-2xl "
-            imageClass="mx-auto w-8/12 md:w-[150px] md:h-[250px]"  imageContainerClass="flex w-full justify-center items-center"
+            imageClass="mx-auto w-8/12 md:w-[150px] md:h-[250px]"  imageContainerClass=""
           />
 
           <BodyHero title={body['mission'].title} content={body['mission'].content} mmContent={body['mission'].mmContent} image={Eyes}
             lng={lng} container="flex-col-reverse w-fulls md:w-1/2 md:items-start"
             textClass="text-2xl "
-            imageClass="mx-auto w-8/12 md:w-[200px] md:h-[250px]" imageContainerClass="flex w-full justify-center items-center"
+            imageClass="mx-auto w-8/12 md:w-[200px] md:h-[250px]" imageContainerClass=""
 
           />
           </div>
