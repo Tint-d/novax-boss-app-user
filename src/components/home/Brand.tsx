@@ -102,9 +102,9 @@ const Brand = () => {
             )}
             <button
               onClick={() => setMessage(!message)}
-              className="w-[50px] absolute bottom-[-55px] right-[10px] h-[50px] xl:h-[100px] xl:w-[100px] rounded-full  bg-[#DCA715]"
+              className="w-[50px] absolute bottom-[-55px] right-[10px] h-[50px] 2xl:h-[100px] 2xl:w-[100px] rounded-full  bg-[#DCA715]"
             >
-              <BiMessageRoundedDots className="text-3xl mx-auto text-black xl:text-5xl" />
+              <BiMessageRoundedDots className="text-3xl mx-auto text-black 2xl:text-5xl" />
             </button>
           </div>
         </div>
