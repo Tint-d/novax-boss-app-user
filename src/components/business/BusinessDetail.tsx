@@ -92,7 +92,7 @@ const BusinessDetail = () => {
         content: bossAddress?.contact_numbers[0]?.contact_no ?? ''
       },
       {
-        title: t("Business City"),
+        title: t("City"),
         content: language == "en" ?  bossAddress?.city?.city_name :   bossAddress?.city?.city_mm_name
 
       },
@@ -101,16 +101,12 @@ const BusinessDetail = () => {
         content: bossAddress?.business_description
       },
       {
-        title: t("Business Goal"),
-        content: bossAddress?.business_goal
-      },
-     
-    ],
-    [
-      {
         title: t("Business Vision"),
         content: bossAddress?.vision
       },
+    ],
+    [
+     
       {
         title: t("Business Mission"),
         content: bossAddress?.mission

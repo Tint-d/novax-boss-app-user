@@ -41,7 +41,7 @@ const QA = ({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<bo
             return (
 
                 <div className="chat chat-start">
-                    <div className="chat-bubble text-white font-medium chat-bubble-warning">   {message.message}</div>
+                    <div className="chat-bubble text-black font-medium chat-bubble-warning">   {message.message}</div>
                 </div>
             )
         }

@@ -110,6 +110,24 @@ export const businessAddressApi = createApi({
       }),
       invalidatesTags: ["businessAddress"],
     }),
+    deleteBusinessPhoto: builder.mutation({
+      query: ({ data, id ,pid}) => ({
+        url: `/boss-address/update/${id}/remove/business-photos/${pid}`,
+        method: "delete",
+        body: data,
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
+    addBusinessPhoto: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/boss-address/update/${id}/add/business-photos`,
+        method: "POST",
+        body: data,
+        headers: { authorization: `Bearer ${Cookies.get("token")}` },
+      }),
+      invalidatesTags: ["businessAddress"],
+    }),
     appliedCode: builder.mutation({
       query: ( data ) => ({
         url: "action-code/apply",
@@ -146,4 +164,6 @@ export const {
   useUpdateBossAddressMainMutation,
   useUpdateContactNoMutation,
   useCreateContactNoMutation,
+  useDeleteBusinessPhotoMutation,
+  useAddBusinessPhotoMutation
 } = businessAddressApi;

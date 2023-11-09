@@ -163,7 +163,6 @@ const EditBossAddress = () => {
 
     // });
     formData.append('business_description', data.business_description);
-    formData.append('business_goal', data.business_goal);
     formData.append('core_value', data.core_value);
     formData.append('vision', data.vision);
     formData.append('mission', data.mission);
@@ -180,7 +179,7 @@ const EditBossAddress = () => {
     }
 
     if (response.data.success) {
-      toast.success("Boss Address Updated", {
+      toast.success(t("Boss Address Updated"), {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
       });
@@ -400,16 +399,6 @@ const EditBossAddress = () => {
             />
             <InputError errors={errors.business_address} />
 
-          </div>
-
-          <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Goal')}</h2>
-            <textarea
-              {...register("business_goal")}
-              className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
-              defaultValue={bossAddress?.business_goal}
-
-            />
           </div>
 
           <div className="w-full">

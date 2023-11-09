@@ -86,5 +86,9 @@
   "To systemize Boss and Boss’ Business.": "လုပ်ငန်းရှင် နဲ့ လုပ်ငန်းရှင် ရဲ့ လုပ်ငန်းတစ်ခုလုံးကို စနစ်တကျ တည်ဆောက်ရန်",
   "Applied code successfully": "code ဖြည့်စွက်မှုအောင်မြင်ပါသည်",
   "Applied code failed": "code ဖြည့်စွက်မှုမအောင်မြင်ပါ",
-  "Invalid code": "Code မမှန်ကန်ပါ"
+  "Invalid code": "Code မမှန်ကန်ပါ",
+  "Business City": "မြို့တော်",
+  "Business Vision": "Business Vision",
+  "Boss Address Updated": "ပြင်ဆင်မှုအောင်မြင်ပါသည်",
+  "photos updated successfull": "ပုံများပြုပြင်ခြင်းအောင်မြင်ပါသည်"
 }

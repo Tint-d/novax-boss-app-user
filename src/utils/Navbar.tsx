@@ -170,7 +170,7 @@ const Navbar = () => {
           )}
         </div>
         <Link to={"/"}>
-          <h2 className="lg:text-[15px] text-[15px]  text-white font-[800]">
+          <h2 className="lg:text-[20px] text-[14px]  text-white font-[800]">
             BOSSNETWORK
           </h2>
         </Link>
@@ -308,7 +308,7 @@ const Navbar = () => {
                           {token ? pf?.name : ""}
                         </h2>
                         <div className="">
-                          <h2 className="w-[50px] text-[12px] text-center rounded-xl text-[#484848] bg-warining">
+                          <h2 className="w-[50px] text-[12px] text-center rounded-xl text-[#fff] bg-[#1c1f26]">
                             User
                           </h2>
                         </div>

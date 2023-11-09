@@ -2,6 +2,9 @@ import React from 'react'
 import BossAddressDetailSlider from './BossAddressDetailSlider';
 import { SiFacebook, SiTiktok, SiYoutube } from 'react-icons/si';
 import { detailsType } from '../BusinessDetail';
+import CopyToClipBoard from '@/components/ui/CopyToClipboard/CopyToClipBoard';
+import { MdClose } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 interface BusinessPhoto {
   
@@ -14,7 +17,7 @@ interface BusinessPhoto {
 const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType}) => {
 
   const [currentImage, setCurrentImage] = React.useState<number>(0);
-
+  const navigate = useNavigate();
   let images : BusinessPhoto[] = bossAddress?.images;
 
   if(images && images.length == 0 )
@@ -31,19 +34,26 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType
   const socialLinks = bossAddress?.social_links;
 
   return (
-    <div className='h-full flex justify-center items-start md:items-center'>
-        <div className="flex flex-col justify-center items-center gap-7">
+    <div className='h-full flex flex-col justify-start items-start md:items-center'>
+        <div className="w-full flex justify-between items-center ">
+            <CopyToClipBoard  url={'/business_card_detail/'+bossAddress?.id} />
+
+            <button onClick={()=>navigate(-1)} className='text-3xl'>
+             <MdClose/>
+            </button>
+          </div>
+        <div className="flex my-auto flex-col justify-center items-center gap-7">
             <div className="">
               {
                 images.length >0 && (
                  <>
                   <label htmlFor="my_modal_7">
-                    <img src={images[currentImage].business_photo} alt="" className="min-w-[150px] md:min-w-[250px] md:max-w-[280px] h-[20vh] object-contain rounded-lg"/>
+                    <img src={images[currentImage].business_photo} alt="" className="min-w-[250px] md:min-w-[250px] md:max-w-[300px] h-[20vh] object-cover rounded-lg !cursor-pointer"/>
                   </label>
                   <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                   <div className="modal">
                     <div className="modal-box flex justify-center">
-                    <img src={images[currentImage].business_photo} alt="" className="w-4/6 object-contain rounded-lg"/>
+                    <img src={images[currentImage].business_photo} alt="" className="w-5/6 object-contain rounded-lg"/>
                     </div>
                     <label className="modal-backdrop" htmlFor="my_modal_7">Close</label>
                   </div></>
@@ -77,7 +87,7 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType
       </div>
         </div>
 
-      
+
     </div>
   )
 }

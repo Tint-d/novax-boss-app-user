@@ -49,13 +49,13 @@ const OgDetail =  ({sideData,bossAddress,isLoading} : BusinesssDetailProps) => {
 
   return (
     <div className='w-full py-10 flex justify-center items-center'>
-      <div className="container bg-[#1C1F26] rounded-lg  w-[80vw] xl:w-[60vw] ">
+      <div className="container bg-[#1C1F26] rounded-lg  w-[80vw] xl:w-[70vw] ">
         <div className="flex flex-col md:flex-row">
-          <div className="md:w-2/4 lg:w-3/5 md:h-[80vh] h-full flex flex-col justify-between md:border-r-2 border-zinc-900 pt-8">
+          <div className="md:w-2/4 lg:w-3/5 md:h-[80vh] h-full flex flex-col justify-between md:border-r-2 border-zinc-900 ">
             <div className="flex flex-col  h-[85%] py-6 overflow-scroll no-scrollbar">
-              <div className="img-container rounded-lg px-6">
+              <div className="img-container rounded-lg px-6 ">
                 <label htmlFor="my_modal_8">
-                  <img src={coverPhoto} alt="" className="w-[300px] md:w-[400px] h-[200px] rounded-lg object-cover" />
+                  <img src={coverPhoto} alt="" className="w-[300px] md:w-[400px] h-[200px] rounded-lg object-cover !cursor-pointer" />
                 </label>
                 <ImageModal url={bossAddress?.cover_photo} modal={"my_modal_8"} />
 
@@ -63,7 +63,7 @@ const OgDetail =  ({sideData,bossAddress,isLoading} : BusinesssDetailProps) => {
               <div className="profile flex gap-4 mt-3 items-center px-6">
                 <div className="profile-image">
                   <label htmlFor="my_modal_9">
-                  <img src={bossAddress?.business_logo} alt="" className="w-[40px] h-[40px] rounded-full object-cover" />
+                  <img src={bossAddress?.business_logo} alt="" className="w-[40px] h-[40px] rounded-full object-cover !cursor-pointer" />
                 </label>
                 <ImageModal url={bossAddress?.business_logo} modal={"my_modal_9"} />
 

@@ -176,7 +176,6 @@ const BusinessForm = () => {
 
     });
     formData.append('business_description', data.business_description);
-    formData.append('business_goal', data.business_goal);
     formData.append('vision', data.vision);
     formData.append('mission', data.mission);
     formData.append('business_suprise', data.business_suprise);
@@ -440,13 +439,6 @@ const BusinessForm = () => {
             />
             <InputError errors={errors.business_address} />
 
-          </div>
-          <div className="w-full">
-            <h2 className=" text-[#A8B3CF] pb-2">{t('Business Goal')}</h2>
-            <textarea
-              {...register("business_goal")}
-              className="bg-[#1C1F26] text-white h-[150px] w-full p-2 outline-none border rounded border-[#4e525a]"
-            />
           </div>
 
           <div className="w-full">
