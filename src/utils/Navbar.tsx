@@ -190,7 +190,7 @@ const Navbar = () => {
               wid === "/business" ? "text-[#dca715] text-[15px]" : "text-white"
             } text-[15px]  whitespace-nowrap`}
           >
-            {t('Business')}
+            {t('All Businesses')}
           </NavLink>
           <div className="flex justify-between items-center gap-3">
             <div

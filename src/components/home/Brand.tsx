@@ -81,7 +81,7 @@ const Brand = () => {
               <BodyHero title={body['vision'].title} content={body['vision'].content} mmContent={body['vision'].mmContent} image={Vision}
                 lng={lng} container="flex-col-reverse w-fulls md:w-1/2 md:items-end "
                 textClass="text-2xl "
-                imageClass="mx-auto w-7/12 md:w-[150px] md:h-[250px]" imageContainerClass=""
+                imageClass="mx-auto w-7/12 md:w-[140px] md:h-[250px]" imageContainerClass=""
               />
 
               <BodyHero title={body['mission'].title} content={body['mission'].content} mmContent={body['mission'].mmContent} image={Eyes}
@@ -103,9 +103,9 @@ const Brand = () => {
             )}
             <button
               onClick={() => setMessage(!message)}
-              className="w-[50px] absolute bottom-[-55px] right-[10px] h-[50px] 2xl:h-[100px] 2xl:w-[100px] rounded-full  bg-[#DCA715]"
+              className="w-[45px] h-[45px]  absolute bottom-[-55px] right-[10px] 2xl:h-[100px] 2xl:w-[100px] rounded-full  bg-[#DCA715]"
             >
-              <BiMessageRoundedDots className="text-3xl mx-auto text-black 2xl:text-5xl" />
+              <BiMessageRoundedDots className="text-2xl 2xl:text-3xl mx-auto text-black 2xl:text-5xl" />
             </button>
           </div>
         </div>
@@ -130,14 +130,14 @@ const Brand = () => {
               </div>
             </div>
             <div className="flex flex-col gap-y-6 px-10 md:px-0 text-[.8em] md:text-[1em]">
-              <h4 className="text-xl md:text-lg 2xl:text-2xl text-[#DCA715]">{t('Follow On Social Media')}</h4>
-
-              <SocialLinkBtn href="https://www.facebook.com/myanmarfuturecoach?mibextid=LQQJ4d" iconText="Facebook" icon={<FaFacebookF className="text-lg 2x:text-xl" />}
-                bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင်" />
+              <h4 className="text-xl md:text-[.8em] 2xl:text-2xl text-[#DCA715]">{t('Follow On Social Media')}</h4>
 
               <SocialLinkBtn href="https://www.facebook.com/profile.php?id=100088077374499&mibextid=LQQJ4d" iconText="Facebook" icon={<FaFacebookF className="text-lg 2x:text-xl" />}
-                bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင် - Unlock Your Future" />
+                bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင် " />
 
+              <SocialLinkBtn href="https://www.facebook.com/myanmarfuturecoach?mibextid=LQQJ4d" iconText="Facebook" icon={<FaFacebookF className="text-lg 2x:text-xl" />}
+                bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင် - Unlock Your Future" />
+             
               <SocialLinkBtn href="https://youtube.com/@nyanlinaung-unlockyourfutu8764?si=-EGbpQYqZALdLodx" iconText="Youtube" icon={<AiFillYoutube className="text-lg 2x:text-xl" />}
                 bgColor="bg-[#CB0000B2]" label="ဉာဏ်လင်းအောင် - Unlock Your Future" />
 
@@ -172,11 +172,11 @@ const SocialLinkBtn = ({ href, iconText, label, icon, bgColor }: { href: string,
     <a href={href}
       target="_blank" rel="noreferrer"
       className="flex gap-3 items-center">
-      <button className={`flex items-center gap-2 justify-center rounded text-white min-w-[120px] md:min-w-[90px] text-md md:text-[.5em] 2xl:text-sm py-2 ${bgColor}`}>
+      <button className={`flex items-center gap-2 justify-center rounded text-white min-w-[120px] md:min-w-[90px] text-md md:text-[.7em] 2xl:text-sm py-2 ${bgColor}`}>
         {icon}
         {iconText}
       </button>
-      <h4 className="text-white text-md md:text-[.5em]">{label}</h4>
+      <h4 className="text-white text-md md:text-[.7em]">{label}</h4>
     </a>
   )
 }
