@@ -46,7 +46,7 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType
         <div className="flex my-auto flex-col justify-center  gap-10">
 
           <div className="flex flex-col gap-9 mb-10 ">
-          <p className='text-[#DCA715] text-lg'>{t('Follow On Social Media')}</p>
+          {socialLinks?.length > 0 && <p className='text-[#DCA715] text-lg'>{t('Follow On Social Media')}</p>}
 
           <div className="flex justify-between  items-center ">
              {
