@@ -99,19 +99,19 @@ const MobileDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) =
                   <div className="flex justify-between h-[65px] items-center  bg-[#2e3036] my-3 mt-6 px-8 text-sm">
                       <button
                       onClick={() => setActiveSection(0)}
-                      className={`${activeSection == 0 ? "bg-[#DCA715] border-none" : "bg-[#A8B3CF12]"} text-[#fff] px-3 whitespace-nowrap h-9 flex justify-center rounded-md items-center border-2 border-[#a8b3cf6a]`}>
+                      className={`${activeSection == 0 ? "bg-[#DCA715] border-none text-[#000]" : "bg-[#A8B3CF12] text-[#fff]"}  px-3 whitespace-nowrap h-9 flex justify-center rounded-md items-center border-2 border-[#a8b3cf6a]`}>
                         Info
                       </button>
 
                       <button
                       onClick={() => setActiveSection(1)}
-                      className={`${activeSection == 1 ?"bg-[#DCA715] border-none" : "bg-[#A8B3CF12]"} text-[#fff] px-3 whitespace-nowrap h-9 flex justify-center rounded-md items-center border-2 border-[#a8b3cf6a]`}>
+                      className={`${activeSection == 1 ?"bg-[#DCA715] border-none text-[#000]" : "bg-[#A8B3CF12] text-[#fff]"}  px-3 whitespace-nowrap h-9 flex justify-center rounded-md items-center border-2 border-[#a8b3cf6a]`}>
                         Social Media
                       </button>
 
                       <button
                       onClick={() => setActiveSection(2)}
-                      className={`${activeSection == 2 ? "bg-[#DCA715] border-none" : "bg-[#A8B3CF12]"} text-[#fff] px-3 whitespace-nowrap h-9 flex justify-center rounded-md items-center border-2 border-[#a8b3cf6a]`}>
+                      className={`${activeSection == 2 ? "bg-[#DCA715] border-none text-[#000]" : "bg-[#A8B3CF12] text-[#fff]"}  px-3 whitespace-nowrap h-9 flex justify-center rounded-md items-center border-2 border-[#a8b3cf6a]`}>
                         Photos
                       </button>
                   </div>

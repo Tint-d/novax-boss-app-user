@@ -209,9 +209,9 @@ const Navbar = () => {
           </div>
         </div>
         {navhide && (
-          <div className="absolute left-[-1px] top-[22vh] md:top-20 w-screen z-30">
+          <div className="absolute left-[-1px] top-[190px]  md:top-[80px] w-screen z-30 transition-all">
             <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
-              <div className="md:w-4/12 pb-5 w-12/12 px-5 border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
+              <div className="md:w-4/12 pb-5 w-12/12 px-5  border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
                   <img className="h-[150px] mx-auto" src={SearchPhoto} alt="" />
                 </div>
@@ -231,12 +231,12 @@ const Navbar = () => {
                   {t("Entrepreneurs want to know Select business types and search for business Each one can be accessed and studied.")}
                 </h2>
               </div>
-              <div className="md:w-8/12 w-12/12  flex md:h-auto h-[300px] no-scrollbar  overflow-y-scroll justify-around md:justify-center flex-wrap gap-5  md:gap-10  items-center">
+              <div className="md:w-8/12 w-12/12  border-t-2 border-[#a8b3cf7c] md:border-none mt-2 pt-4 md:mt-0 md:pt-0  flex md:h-auto h-[300px] no-scrollbar overflow-y-scroll justify-around md:justify-center flex-wrap gap-5  md:gap-10  items-center">
                 {filteredCategories?.map((item: CategoryType) => {
                   return (
                     <div
                       key={item?.id}
-                      className=" text-[#A8B3CF] gap-10 hover:text-white w-[100px] md:w-[130px] truncate text-[15px] cursor-pointer"
+                      className=" text-[#A8B3CF] gap-10 hover:text-white w-[170px] md:w-[150px] ps-3  text-[15px] cursor-pointer"
                     >
                      <Link
                      onClick={()=>{
@@ -465,7 +465,7 @@ const Navbar = () => {
               } text-[15px] `}
               onClick={() => setChange(false)}
             >
-              {t('Business')}
+              {t('All Businesses')}
             </NavLink>
 
             <div

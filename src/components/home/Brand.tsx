@@ -51,7 +51,7 @@ const Brand = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
-        className=" md:min-h-[90vh]  mx-auto md:px-24  gap-9 px-4 relative pt-16  md:pt-12">
+        className=" md:min-h-[90vh]  mx-auto md:px-24  gap-9 px-4 relative pt-16  md:pt-12 md:pb-40">
 
         <div className=" w-full container flex flex-col mx-auto justify-center items-center my-auto">
           {isVisible && (
@@ -103,9 +103,9 @@ const Brand = () => {
             )}
             <button
               onClick={() => setMessage(!message)}
-              className="w-[45px] h-[45px]  absolute bottom-[-55px] right-[10px] 2xl:h-[100px] 2xl:w-[100px] rounded-full  bg-[#DCA715]"
+              className="w-[45px] h-[45px]  absolute bottom-[-55px] right-[10px] 2xl:h-[60px] 2xl:w-[60px] rounded-full  bg-[#DCA715]"
             >
-              <BiMessageRoundedDots className="text-2xl 2xl:text-3xl mx-auto text-black 2xl:text-5xl" />
+              <BiMessageRoundedDots className="text-2xl 2xl:text-3xl mx-auto text-black " />
             </button>
           </div>
         </div>
@@ -130,7 +130,7 @@ const Brand = () => {
               </div>
             </div>
             <div className="flex flex-col gap-y-6 px-10 md:px-0 text-[.8em] md:text-[1em]">
-              <h4 className="text-xl md:text-[.8em] 2xl:text-2xl text-[#DCA715]">{t('Follow On Social Media')}</h4>
+              <h4 className="text-[1em] md:text-lg  text-[#DCA715]">{t('Follow On Social Media')}</h4>
 
               <SocialLinkBtn href="https://www.facebook.com/profile.php?id=100088077374499&mibextid=LQQJ4d" iconText="Facebook" icon={<FaFacebookF className="text-lg 2x:text-xl" />}
                 bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင် " />
@@ -139,7 +139,7 @@ const Brand = () => {
                 bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင် - Unlock Your Future" />
              
               <SocialLinkBtn href="https://youtube.com/@nyanlinaung-unlockyourfutu8764?si=-EGbpQYqZALdLodx" iconText="Youtube" icon={<AiFillYoutube className="text-lg 2x:text-xl" />}
-                bgColor="bg-[#CB0000B2]" label="ဉာဏ်လင်းအောင် - Unlock Your Future" />
+                bgColor="bg-[#CB0000B2]" label="Nyan Lin Aung - Unlock Your Future" />
 
             </div>
           </div>
@@ -172,11 +172,11 @@ const SocialLinkBtn = ({ href, iconText, label, icon, bgColor }: { href: string,
     <a href={href}
       target="_blank" rel="noreferrer"
       className="flex gap-3 items-center">
-      <button className={`flex items-center gap-2 justify-center rounded text-white min-w-[120px] md:min-w-[90px] text-md md:text-[.7em] 2xl:text-sm py-2 ${bgColor}`}>
+      <button className={`flex items-center gap-2 justify-center rounded text-white min-w-[120px] md:min-w-[90px] 2xl:min-w-[120px] text-md md:text-[.7em] 2xl:text-sm py-2 ${bgColor}`}>
         {icon}
         {iconText}
       </button>
-      <h4 className="text-white text-md md:text-[.7em]">{label}</h4>
+      <h4 className="text-white text-md md:sm">{label}</h4>
     </a>
   )
 }

@@ -5,6 +5,7 @@ import { detailsType } from '../BusinessDetail';
 import CopyToClipBoard from '@/components/ui/CopyToClipboard/CopyToClipBoard';
 import { MdClose } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { t } from 'i18next';
 
 interface BusinessPhoto {
   
@@ -20,7 +21,7 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType
   const navigate = useNavigate();
   let images : BusinessPhoto[] = bossAddress?.images;
 
-  if(images && images.length == 0 )
+  if(images && images?.length == 0 )
   {
     images = [
       { id: 0, business_photo: bossAddress?.business_logo, boss_address_id: '' },
@@ -42,13 +43,49 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType
              <MdClose/>
             </button>
           </div>
-        <div className="flex my-auto flex-col justify-center items-center gap-7">
-            <div className="">
+        <div className="flex my-auto flex-col justify-center  gap-10">
+
+          <div className="flex flex-col gap-9 mb-10 ">
+          <p className='text-[#DCA715] text-lg'>{t('Follow On Social Media')}</p>
+
+          <div className="flex justify-between  items-center ">
+             {
+              socialLinks?.length > 0 &&
+              (
+                <>
+                <div className="flex flex-col gap-5 items-center text-[.8em]" >
+                <a href={socialLinks[0]?.href} className="bg-blue-700  flex  rounded-lg w-[55px] h-[55px] text-[1.2em] justify-center items-center gap-4">
+                  <SiFacebook className="" />
+                  </a>
+                  <p>Facebook</p>
+                </div>
+                <div className="flex flex-col gap-5 items-center text-[.8em]" >
+                <a href={socialLinks[1]?.href} className="bg-red-700  flex rounded-lg w-[55px] h-[55px] text-[1.2em] justify-center items-center">
+                 <SiYoutube className="" />
+              </a>
+              <p>Youtube</p>
+
+                </div>
+                <div className="flex flex-col gap-5 items-center text-[.8em]">
+                <a href={socialLinks[3]?.href} className="bg-zinc-900 flex  rounded-lg w-[55px] h-[55px] text-[1.2em] justify-center items-center text-white">
+                <SiTiktok className="" />
+              </a>
+              <p>Tiktok</p>
+
+                </div>
+              
+              </>
+              )
+             }
+          </div>
+          </div>
+          <p className='text-[#DCA715]'>{t('Photos')}</p>
+            <div className="flex justify-center w-full">
               {
-                images.length >0 && (
+                images?.length >0 && (
                  <>
                   <label htmlFor="my_modal_7">
-                    <img src={images[currentImage].business_photo} alt="" className="min-w-[250px] md:min-w-[250px] md:max-w-[300px] h-[20vh] object-cover rounded-lg !cursor-pointer"/>
+                    <img src={images[currentImage].business_photo} alt="" className="min-w-[250px] md:min-w-[350px] md:max-w-[420px] h-[20vh] object-cover rounded-lg !cursor-pointer"/>
                   </label>
                   <input type="checkbox" id="my_modal_7" className="modal-toggle" />
                   <div className="modal">
@@ -62,29 +99,12 @@ const BossAddressDetailSectionTwo = ({bossAddress} : { bossAddress : detailsType
             </div>
             <div className="w-full">
               {
-                images.length >0 && <BossAddressDetailSlider setState={setCurrentImage} state={currentImage}/>
+                images?.length >0 && <BossAddressDetailSlider setState={setCurrentImage} state={currentImage}/>
               }
 
             </div>
 
-            <div className="flex gap-8 text-2xl">
-             {
-              socialLinks.length > 0 &&
-              (
-                <>
-                 <a href={socialLinks[0]?.href} className="bg-blue-700  rounded-lg px-3 py-2">
-                  <SiFacebook className="" />
-
-              </a>
-              <a href={socialLinks[1]?.href} className="bg-red-700 rounded-lg px-3 py-2">
-                 <SiYoutube className="" />
-              </a>
-              <a href={socialLinks[3]?.href} className="bg-zinc-900 rounded-lg px-3 py-2 text-white">
-                <SiTiktok className="" />
-              </a></>
-              )
-             }
-      </div>
+          
         </div>
 
 

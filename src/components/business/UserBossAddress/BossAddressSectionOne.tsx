@@ -22,7 +22,7 @@ const BossAddressSectionOne = ({show,sidesData,setShow} : SideProps) => {
         )
     }
   return (
-    <div className="flex flex-col md:ps-14 md:mt-4 mt-2 gap-4 px-6 text-sm md:text-xs">
+    <div className="flex flex-col md:ps-14 md:mt-4 mt-2 gap-8 px-6 text-sm md:text-xs">
          {sides(show)}
     </div>
   )

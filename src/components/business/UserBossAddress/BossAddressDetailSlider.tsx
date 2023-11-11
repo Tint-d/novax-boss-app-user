@@ -35,7 +35,7 @@ const handleDecrease = () => {
 
   return (
     <div className='flex justify-center items-center gap-4 max-w-[80vw]'>
-        <button onClick={handleDecrease} className="flex justify-center text-[1.4em] items-center bg-[#DCA715] text-white rounded-full h-[30px] w-[30px]">
+        <button onClick={handleDecrease} className="flex justify-center text-[1.4em] items-center bg-[#DCA715] text-[#1b1b1b] rounded-full h-[30px] w-[30px]">
             <MdKeyboardArrowLeft />
         </button>
 
@@ -45,13 +45,13 @@ const handleDecrease = () => {
             <button
                 key={index}
                 onClick={() => jump(index)}
-                className={`flex items-center rounded-full h-[6px] w-[30px] ${state === index ? 'bg-[#DCA715]' : 'bg-[#F2F2F2]'}`}
+                className={`flex items-center rounded-full h-[6px] w-[30px] ${state === index ? 'bg-[#DCA715]' : 'bg-[#A8B3CF33]'}`}
             >
             </button>
         ))
     }
 
-        <button onClick={handleIncrease} className="flex justify-center text-[1.4em] items-center bg-[#DCA715] text-white rounded-full h-[30px] w-[30px]">
+    <button onClick={handleIncrease} className="flex justify-center text-[1.4em] items-center bg-[#DCA715] text-[#1b1b1b] rounded-full h-[30px] w-[30px]">
             <MdKeyboardArrowRight />
         </button>
     </div>

@@ -112,7 +112,7 @@ const BusinessSearchBox = ({withCategory = false,categoryId = null} : BusinessSe
                 onChange={(e) => setTempInput(e.target.value)}
                 type="text"
                 placeholder={t('Type Business Name')}
-                className={inputDefaultStyle + "text-sm outline-none"}
+                className={inputDefaultStyle + "text-sm outline-none placeholder:text-[.9em] w-[60vw] md:w-fit"}
               />
               <AiOutlineSearch
                     onClick={handlSearchState}
