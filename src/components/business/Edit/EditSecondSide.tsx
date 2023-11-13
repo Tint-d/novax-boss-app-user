@@ -69,8 +69,8 @@ const EditSecondSide = ({ bossAddress }: EditSecondSideProps) => {
     let fileError = false;
 
     businessPhotos.forEach((image,index) => {
-      if (image.file.size > 2000000) {
-        toast.error(t(`file ${index + 1} size  must be less than 2MB`))
+      if (image.file.size > 10000000) {
+        toast.error(t(`file ${index + 1} size  must be less than 10MB`))
         //stop the function
         fileError = true;
       }
@@ -82,8 +82,9 @@ const EditSecondSide = ({ bossAddress }: EditSecondSideProps) => {
     if (!fileError) {
       bossAddressPhotos.forEach(async (image) => {
         await removeBusinessPhoto({ body: [], id: bossAddress?.id, pid: image?.id.toString() });
+      });
 
-        const res = await addBusinessPhoto({ data: formData, id: bossAddress?.id }) as any;
+       const res = await addBusinessPhoto({ data: formData, id: bossAddress?.id }) as any;
 
         if (res.error) {
           toast.error(res.error.data.message, {
@@ -100,7 +101,6 @@ const EditSecondSide = ({ bossAddress }: EditSecondSideProps) => {
 
           // navigate('/')
         }
-      });
 
     }
 

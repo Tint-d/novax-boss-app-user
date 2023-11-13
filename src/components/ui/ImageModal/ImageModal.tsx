@@ -29,8 +29,8 @@ const ImageModal = ({url,modal}: {url: string,modal : string}) => {
         <div>
              <input type="checkbox" id={modal} className="modal-toggle" />
                 <div className="modal">
-                  <div className="modal-box flex justify-center">
-                    <img src={base64Image} alt="" className="w-3/6 object-contain rounded-lg" />
+                  <div className="modal-box flex justify-center !max-w-[900px]">
+                    <img src={base64Image} alt="" className=" w-[600px] h-[400px]  object-contain rounded-lg" />
                   </div>
                   <label className="modal-backdrop" htmlFor={modal}>Close</label>
                 </div>

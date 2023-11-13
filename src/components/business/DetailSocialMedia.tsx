@@ -11,7 +11,7 @@ interface DetailSocialMediaProps {
 
 const DetailSocialMedia = ({ social_links }: DetailSocialMediaProps) => {
   return (
-    <div>
+    <div className='flex flex-col items-center'>
       {
         social_links?.length == 0 && "No social media"
       }
