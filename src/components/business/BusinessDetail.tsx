@@ -101,22 +101,22 @@ const BusinessDetail = () => {
         content: bossAddress?.business_description
       },
       {
-        title: t("Business Vision"),
+        title: t("Vision"),
         content: bossAddress?.vision
       },
     ],
     [
      
       {
-        title: t("Business Mission"),
+        title: t("Mission"),
         content: bossAddress?.mission
       },
       {
-        title: t("Business Value"),
+        title: t("Core Value"),
         content: bossAddress?.core_value
       },
       {
-        title: t("Business Suprise"),
+        title: t("What Boss Team Suprises Us?"),
         content: bossAddress?.business_suprise
       }
     ]

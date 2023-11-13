@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import { detailsType } from '../BusinessDetail';
 import ImageModal from '@/components/ui/ImageModal/ImageModal';
+import { t } from 'i18next';
 
 
 
@@ -61,8 +62,11 @@ const MobileDetail = ({sideData,bossAddress,isLoading} : BusinesssDetailProps) =
         <div className="flex flex-col">
 
           <div className="flex justify-between items-center px-8">
+            <div className="flex items-center gap-x-2">
             <CopyToClipBoard  url={'/business_card_detail/'+bossAddress?.id} />
 
+          <p className='text-sm'>{t('Copy Link')}</p>
+          </div>
             <button onClick={()=>navigate(-1)} className='text-3xl'>
              <MdClose/>
             </button>

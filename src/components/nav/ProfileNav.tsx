@@ -165,8 +165,9 @@ const ProfileNav = ({profile} : {profile:Profile}) => {
                                 style={{
                                     backgroundColor: "green",
                                     color: "white",
-                                    padding: "10px 40px",
+                                    padding: "5px 20px",
                                 }}
+                                className='h-[50px] text-[.8em]'
                                 loading={isLoading || uploadLoading}
                                 onClick={saveProfile}
                                 variant="filled" color="green">{t('Save')}</Button>

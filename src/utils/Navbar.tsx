@@ -122,15 +122,6 @@ const Navbar = () => {
     fetchProfile();
   }, [fetchProfile]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const searchFilter = (inputText:any, searchTerm : string)=> {
-    // Create a regular expression pattern with the 'u' flag for full Unicode support
-    const pattern = new RegExp(searchTerm, 'u');
-    const eng = new RegExp(searchTerm, 'iu');
-
-    return pattern.test(inputText.city_mm_name) || eng.test(inputText.city_name);
-  }
-
   const wid = window.location.pathname;
 
   //change localization
@@ -149,6 +140,8 @@ const Navbar = () => {
   else{
     profilePhoto = pf?.profile_photo;
   }
+
+  const upDownarrow = navhide ? "rotate-180 !text-[#dca715]" : "rotate-0";
 
   return (
     <div className="bg-[#0e1217]  border-b-[1px] border-[#A8B3CF22] w-full px-5  fixed top-0  z-[999]">
@@ -177,6 +170,9 @@ const Navbar = () => {
         <div className=" md:flex hidden justify-end min-w-4/12 md:gap-x-8 items-center">
           <NavLink
             to="/"
+            onClick={()=>{
+              setNavHide(false);
+            }}
             className={`${
               wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
             } text-[15px]  whitespace-nowrap`}
@@ -186,6 +182,9 @@ const Navbar = () => {
 
           <NavLink
             to={"/business"}
+            onClick={()=>{
+              setNavHide(false);
+            }}
             className={`${
               wid === "/business" ? "text-[#dca715] text-[15px]" : "text-white"
             } text-[15px]  whitespace-nowrap`}
@@ -200,17 +199,17 @@ const Navbar = () => {
               }}
               className=" flex gap-2 cursor-pointer"
             >
-              <h2 className={`text-[15px] text-white  whitespace-nowrap`}>{t('Business Type')}</h2>
+              <h2 className={`text-[15px] text-white  whitespace-nowrap transition duration-500 ${navhide && '!text-[#dca715]'}`}>{t('Business Type')}</h2>
 
               <MdKeyboardArrowDown
-                className={`text-[24px] cursor-pointer text-white `}
+                className={`text-[24px] cursor-pointer text-white ${upDownarrow} transition duration-500`}
               />
             </div>
           </div>
         </div>
         {navhide && (
           <div className="absolute left-[-1px] top-[190px]  md:top-[80px] w-screen z-30 transition-all">
-            <div className=" bg-[#222222] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
+            <div className=" bg-[#1C1F26] px-5 md:px-[100px] flex flex-wrap justify-center items-center py-5  container mx-auto">
               <div className="md:w-4/12 pb-5 w-12/12 px-5  border-r-0 md:border-r border-[#a8b3cf7c] flex flex-col justify-around gap-y-5 items-center">
                 <div className=" ">
                   <img className="h-[150px] mx-auto" src={SearchPhoto} alt="" />
@@ -309,14 +308,14 @@ const Navbar = () => {
                         </h2>
                         <div className="">
                           <h2 className="w-[50px] text-[12px] text-center rounded-xl text-[#fff] bg-[#1c1f26]">
-                            User
+                            {pf?.boss_address == null ? "User" : "Boss" }
                           </h2>
                         </div>
                       </div>
                       <div>
                         <BsChevronDown
                           onClick={() => setHide(!hide)}
-                          className=" text-2xl text-white cursor-pointer"
+                          className=" text-lg md:text-xl text-white cursor-pointer"
                         />
                       </div>
                     </div>
@@ -450,7 +449,10 @@ const Navbar = () => {
               className={`${
                 wid === "/" ? "text-[#dca715] text-[15px]" : "text-white"
               } text-[15px]`}
-              onClick={() => setChange(false)}
+              onClick={() => {
+                setChange(false)
+                setNavHide(false);
+              }}
             >
               {t('Home')}
 
@@ -463,7 +465,10 @@ const Navbar = () => {
                   ? "text-[#dca715] text-[15px]"
                   : "text-white"
               } text-[15px] `}
-              onClick={() => setChange(false)}
+              onClick={() => {
+                setChange(false)
+                setNavHide(false);
+              }}
             >
               {t('All Businesses')}
             </NavLink>

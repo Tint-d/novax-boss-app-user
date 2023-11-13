@@ -101,15 +101,15 @@ const ActionCodeApply = ({ profile }: { profile: Profile }) => {
 
 
                     <Button
-                        style={{
+                         style={{
                             backgroundColor: "green",
                             color: "white",
-                            padding: "10px 40px",
+                            padding: "5px 20px",
                         }}
+                        className='h-[50px] text-[.8em]'
                         loading={isLoading}
                         onClick={applyCode}
                         variant="filled" color="green">{t('Continue')}</Button>
-
 
                 </div>
             </Modal>

@@ -11,10 +11,11 @@ import Nya from "../../assets/nyaLogo.png";
 import { FaFacebookF } from "react-icons/fa";
 import { ReactElement, Suspense, lazy, useEffect, useState } from "react";
 import BodyHero from "./BodyHero";
-import { MdKeyboardArrowUp } from 'react-icons/md'
+import { MdKeyboardArrowUp, MdLabelImportant } from 'react-icons/md'
 import { bodyData as body } from './bodyData.ts';
 
 import { t } from "i18next";
+import ImageModal from "../ui/ImageModal/ImageModal.tsx";
 const QA = lazy(() => import("./QA"));
 const Brand = () => {
   const [message, setMessage] = useState<boolean>(false);
@@ -81,7 +82,7 @@ const Brand = () => {
               <BodyHero title={body['vision'].title} content={body['vision'].content} mmContent={body['vision'].mmContent} image={Vision}
                 lng={lng} container="flex-col-reverse w-fulls md:w-1/2 md:items-end "
                 textClass="text-2xl "
-                imageClass="mx-auto w-7/12 md:w-[140px] md:h-[250px]" imageContainerClass=""
+                imageClass="mx-auto w-6/12 md:w-[140px] md:h-[250px]" imageContainerClass=""
               />
 
               <BodyHero title={body['mission'].title} content={body['mission'].content} mmContent={body['mission'].mmContent} image={Eyes}
@@ -103,9 +104,9 @@ const Brand = () => {
             )}
             <button
               onClick={() => setMessage(!message)}
-              className="w-[45px] h-[45px]  absolute bottom-[-55px] right-[10px] 2xl:h-[60px] 2xl:w-[60px] rounded-full  bg-[#DCA715]"
+              className="w-[55px] h-[55px] md:w-[45px] md:h-[45px] absolute bottom-[-55px] right-[10px] 2xl:h-[60px] 2xl:w-[60px] rounded-full  bg-[#DCA715]"
             >
-              <BiMessageRoundedDots className="text-2xl 2xl:text-3xl mx-auto text-black " />
+              <BiMessageRoundedDots className="text-3xl md:text-2xl 2xl:text-3xl mx-auto text-black " />
             </button>
           </div>
         </div>
@@ -120,7 +121,7 @@ const Brand = () => {
         <div className="w-full  container flex flex-col mx-auto gap-y-20 justify-end ">
 
           <div className="w-full flex flex-col md:flex-row items-end justify-between gap-y-20 ">
-            <div className="flex items-center gap-x-4 w-full justify-center md:w-fit" >
+            <label  htmlFor="my_modal_11" className="flex items-center gap-x-4 w-full justify-center md:w-fit pt-20 md:pt-0" >
               <div className="">
                 <img src={Nya} className=" w-20 object-contain" alt="" />
               </div>
@@ -128,9 +129,12 @@ const Brand = () => {
                 <p>Product by</p>
                 <p>Nyan Lin Aung ( Unlock Your Future )</p>
               </div>
-            </div>
-            <div className="flex flex-col gap-y-6 px-10 md:px-0 text-[.8em] md:text-[1em]">
-              <h4 className="text-[1em] md:text-lg  text-[#DCA715]">{t('Follow On Social Media')}</h4>
+
+              <ImageModal url={Nya} modal={"my_modal_11"} />
+
+            </label>
+            <div className="flex flex-col pt-20 md:pt-0 gap-y-6 px-10 md:px-0  text-[.8em] md:text-[1em]">
+              <h4 className="text-lg md:text-lg  text-[#DCA715]">{t('Follow On Social Media')}</h4>
 
               <SocialLinkBtn href="https://www.facebook.com/profile.php?id=100088077374499&mibextid=LQQJ4d" iconText="Facebook" icon={<FaFacebookF className="text-lg 2x:text-xl" />}
                 bgColor="bg-[#295396]" label="ဉာဏ်လင်းအောင် " />

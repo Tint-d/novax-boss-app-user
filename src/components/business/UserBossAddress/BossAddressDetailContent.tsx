@@ -6,7 +6,7 @@ const BossAddressDetailContent = ({
   return (
     <div className="content flex flex-col gap-3">
     <h3 className="text-[#A8B3CF] text-md  md:text-[1.3em]">{title}</h3>
-        <p  className='text-white text-md md:text-[1.3em] ps-4'>{content}</p>
+        <p  className='text-white text-md md:text-[1.3em] ps-4 leading-6'>{content}</p>
 </div>
   )
 }
