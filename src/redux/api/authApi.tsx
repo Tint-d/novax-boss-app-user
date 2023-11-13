@@ -26,7 +26,7 @@ export const authApi = createApi({
     userFotgetPassword: builder.query({
       query: (email: string) => {
         console.log("Email in query function:", email); // Log the email
-        return { url: `/forgot-password?email=${email}` };
+        return { url: `v1/user/auth/forgot-password?email=${email}` };
       },
       providesTags: ["Auth"],
     }),
@@ -39,9 +39,12 @@ export const authApi = createApi({
       invalidatesTags: ["Auth"],
     }),
     userResetPassword: builder.mutation({
-      query: () => ({
+      query: (data) => ({
         url: "v1/user/auth/reset-password",
+        method: "POST",
+        body: data,
       }),
+      invalidatesTags: ["Auth"],
     }),
     userFacebookLogin: builder.mutation({
       query: () => ({
@@ -73,5 +76,6 @@ export const {
   useUserLogoutMutation,
   useUserFacebookLoginMutation,
   useUserFacebookLoginCallbackQuery,
+  useUserResetPasswordMutation,
 } = authApi;
 

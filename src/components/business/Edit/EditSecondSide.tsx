@@ -101,11 +101,14 @@ const EditSecondSide = ({ bossAddress }: EditSecondSideProps) => {
 
           // navigate('/')
         }
-
     }
 
-
   }, [addBusinessPhoto, bossAddress?.id, bossAddressPhotos, businessPhotos, removeBusinessPhoto]);
+
+  const  removeImageFromServer = useCallback(async (id: number) => {
+    await removeBusinessPhoto({ body: [], id: bossAddress?.id, pid: id.toString() });
+  }
+  ,[bossAddress?.id, removeBusinessPhoto]);
 
   const handleFileClick = (ref: RefObject<HTMLInputElement>) => {
     ref.current?.click()
