@@ -10,7 +10,7 @@ const FacebookLoginAuth =  () => {
   const data = useUserFacebookLoginCallbackQuery(accessCode !);
 
   // Move this conditional logic out of the hook call
-  if (data.isSuccess) {
+  if (data.data?.access_token) {
     const token = data.data?.access_token;
     console.log("token", data);
     Cookies.set("token", token, { expires: 30 });
